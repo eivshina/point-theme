@@ -18,8 +18,8 @@ nav-links:
     url: /
     external: false
     # 🎯
-  #- name: Projects
-  #  url: /projects
+  - name: Projects
+    url: /projects
   #  external: false
   #- name: Contact
   #  url: /contact
