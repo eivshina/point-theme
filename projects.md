@@ -1,5 +1,5 @@
 ---
-title: Research Projects
+title: Papers
 ---
 
 {% for post in site.posts %}

@@ -18,7 +18,7 @@ nav-links:
     url: /
     external: false
     # 🎯
-  - name: Projects
+  - name: Papers
     url: /projects
   #  external: false
   #- name: Contact
