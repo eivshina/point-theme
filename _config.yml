@@ -19,10 +19,10 @@ nav-links:
     url: /
     external: false
     # 🎯
-  - name: Research
-    url: /projects
   - name: Thoughts
     url: /thoughts
+  #- name: Thoughts
+  #  url: /thoughts
   #  external: false
   #- name: Contact
   #  url: /contact
