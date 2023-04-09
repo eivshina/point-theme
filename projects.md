@@ -1,5 +1,5 @@
 ---
-title: Research
+title: Thoughts
 ---
 
 {% for post in site.posts %}
