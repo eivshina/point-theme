@@ -21,6 +21,8 @@ nav-links:
     # 🎯
   - name: Research
     url: /projects
+  - name: Thoughts
+    url: /thoughts
   #  external: false
   #- name: Contact
   #  url: /contact
