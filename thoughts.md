@@ -2,6 +2,6 @@
 title: Thoughts
 ---
 
-{% for post in site.posts %}
-{% include posts-list-item.html %}
+{% for post in site.thoughts %}
+{% include thoughts-list-item.html %}
 {% endfor %}
