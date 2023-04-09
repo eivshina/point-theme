@@ -1,7 +1,7 @@
 ---
 ---
 
-Hi! I'm Katya, an incoming Applied Math PhD student at Harvard and a Mathematics senior at Princeton. At Princeton, I ran "02.24.2022" student organization and [Momentum 4 Ukraine](https://momentumai.org/momentum4ukraine) tutoring program for Ukrainian refugee students co-founded in response to the war in Ukraine. I am currently interested in topological and geometric machine learning. Previosuly, I pursued interdisciplinary computational research in knot theory, machine learning, astrophysics, language, and music.  
+Hi! I'm Katya, an incoming Applied Math PhD student at Harvard and a Mathematics senior at Princeton. At Princeton, I ran "02.24.2022" student organization and [Momentum 4 Ukraine](https://momentumai.org/momentum4ukraine) tutoring program for Ukrainian refugee students co-founded in response to the war in Ukraine. I am currently interested in topological and geometric machine learning. I am active on [youtube](https://www.youtube.com/channel/UCwt427dz_HUxJ7AV4C-n8IQ), [telegram](https://t.me/katiai), and [instagram](https://www.instagram.com/katya.ivshina/). Previosuly, I pursued interdisciplinary computational research in knot theory, machine learning, astrophysics, language, and music.  
  
 ## 👋🏻 Contact
 
