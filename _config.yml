@@ -10,7 +10,7 @@ url: https://kateivshina.com
 
 # for header and meta tags
 title: Ekaterina Ivshina
-description: Student researcher at Princeton University
+description: Harvard PhD Student
 
 # set external to true if linking outside your website
 # for internal, make sure to include preceding slash
@@ -19,8 +19,8 @@ nav-links:
     url: /
     external: false
     # 🎯
-  - name: Thoughts
-    url: /thoughts
+  #- name: Thoughts
+  #  url: /thoughts
   #- name: Thoughts
   #  url: /thoughts
   #  external: false
