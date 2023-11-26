@@ -1,5 +1,5 @@
 ---
-title: Thoughts
+title: Services
 ---
-<a href="https://transactions.sendowl.com/products/79035506/C1E2AD49/view" rel="nofollow"><img src="https://transactions.sendowl.com/assets/external/v2/buy-now.png" /></a><script type="text/javascript" src="https://transactions.sendowl.com/assets/sendowl.js" ></script>
 
+I offer 1-1 admissions consultations, essay editing and resume review services for students applying to colleges and graduate programs in the US. To view details, visit my [storefront](https://store.sendowl.com/s/7f9120bb-b9d3-4614-8888-e83ece530317). 
