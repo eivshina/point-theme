@@ -19,8 +19,8 @@ nav-links:
     url: /
     external: false
     # 🎯
-  #- name: Posts
-  #  url: /thoughts
+  - name: Posts
+    url: /thoughts
   #- name: Posts
   #  url: /posts
   #- name: Thoughts
