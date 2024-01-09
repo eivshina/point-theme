@@ -9,12 +9,7 @@ Hi! I'm Katya, a first-year Applied Math PhD student at Harvard supported by the
 - [instagram](https://www.instagram.com/katya.ivshina/)
 - [telegram](https://t.me/katiai)
 
-## Notes
-{% for post in site.posts %}
-{% include posts-list-item.html %}
-{% endfor %}
 
- 
 ## 👋🏻 Contact
 
 - Feel free to say hi at ekaterina.s.ivshina@gmail.com
