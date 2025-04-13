@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research - Katya Ivshina</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/mobile-fixes.css">
+    <link rel="stylesheet" href="css/social-icons.css">
+    <style>
+        .research-section {
+            padding: 4rem 0;
+        }
+        
+        .research-intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+        }
+        
+        .research-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+        
+        .research-text {
+            flex: 3;
+            min-width: 300px;
+        }
+        
+        .research-image {
+            flex: 2;
+            min-width: 300px;
+        }
+        
+        .research-image img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .publication {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--secondary-color);
+        }
+        
+        .publication:last-child {
+            border-bottom: none;
+        }
+        
+        .publication-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .publication-authors {
+            font-style: italic;
+            margin-bottom: 0.5rem;
+        }
+        
+        .publication-venue {
+            margin-bottom: 0.5rem;
+        }
+        
+        .publication-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .publication-link {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background-color: var(--primary-color);
+            border: 1px solid var(--accent-color);
+            border-radius: 4px;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+        
+        .publication-link:hover {
+            background-color: var(--accent-color);
+        }
+        
+        .research-areas {
+            margin-top: 3rem;
+        }
+        
+        .research-area {
+            margin-bottom: 2rem;
+        }
+        
+        .research-area h3 {
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-color);
+        }
+        
+        @media (max-width: 768px) {
+            .research-content {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <a href="index.html">Katya Ivshina</a>
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="research.html">Research</a></li>
+                    <li><a href="resources.html">Resources</a></li>
+                    <li><a href="phd-guide.html">PhD Guide</a></li>
+                    <li><a href="cv.html">CV</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <button class="mobile-menu-btn">
+                    <span>&#9776;</span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Research Hero Section -->
+    <section class="hero" style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/4.JPG');">
+        <div class="hero-content">
+            <h1>Research</h1>
+            <p class="subtitle">AI for Medicine and Healthcare</p>
+        </div>
+    </section>
+
+    <!-- Research Section -->
+    <section class="section research-section">
+        <div class="container">
+            <div class="research-intro">
+                <p>My research focuses on developing artificial intelligence methods for medicine and healthcare. I'm particularly interested in using machine learning to improve disease diagnosis, treatment recommendations, and drug discovery.</p>
+            </div>
+            
+            <div class="research-content">
+                <div class="research-text">
+                    <h2>Current Research</h2>
+                    <p>As a PhD student in Applied Mathematics at Harvard, I work in the Zitnik lab on developing AI methods for medicine. My current research focuses on:</p>
+                    
+                    <div class="research-areas">
+                        <div class="research-area">
+                            <h3>Machine Learning for Drug Discovery</h3>
+                            <p>Developing novel machine learning approaches to accelerate the drug discovery process. This includes predicting drug-target interactions, identifying potential side effects, and optimizing drug properties.</p>
+                        </div>
+                        
+                        <div class="research-area">
+                            <h3>Graph Neural Networks for Biological Networks</h3>
+                            <p>Applying graph neural networks to analyze complex biological networks, including protein-protein interaction networks, gene regulatory networks, and metabolic pathways.</p>
+                        </div>
+                        
+                        <div class="research-area">
+                            <h3>AI for Precision Medicine</h3>
+                            <p>Creating AI systems that can provide personalized treatment recommendations based on a patient's genetic profile, medical history, and other relevant factors.</p>
+                        </div>
+                    </div>
+                    
+                    <h2>Publications</h2>
+                    <div class="publications">
+                        <div class="publication">
+                            <p class="publication-title">Example Publication Title: AI-Driven Approaches for Drug Discovery</p>
+                            <p class="publication-authors">Ivshina E., Smith J., Johnson A.</p>
+                            <p class="publication-venue">Journal of Artificial Intelligence in Medicine, 2024</p>
+                            <p>This paper presents novel machine learning approaches for accelerating the drug discovery process, with a focus on predicting drug-target interactions and identifying potential side effects.</p>
+                            <div class="publication-links">
+                                <a href="#" class="publication-link">PDF</a>
+                                <a href="#" class="publication-link">Code</a>
+                                <a href="#" class="publication-link">Dataset</a>
+                            </div>
+                        </div>
+                        
+                        <div class="publication">
+                            <p class="publication-title">Example Publication Title: Graph Neural Networks for Biological Network Analysis</p>
+                            <p class="publication-authors">Ivshina E., Brown R., Davis M.</p>
+                            <p class="publication-venue">Conference on Neural Information Processing Systems (NeurIPS), 2023</p>
+                            <p>This paper introduces a novel graph neural network architecture designed specifically for analyzing complex biological networks, demonstrating superior performance on protein-protein interaction prediction tasks.</p>
+                            <div class="publication-links">
+                                <a href="#" class="publication-link">PDF</a>
+                                <a href="#" class="publication-link">Code</a>
+                                <a href="#" class="publication-link">Slides</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="research-image">
+                    <img src="images/3.JPG" alt="Katya Ivshina Research">
+                    
+                    <div style="margin-top: 2rem;">
+                        <h3>Research Collaborations</h3>
+                        <p>I collaborate with researchers from various disciplines, including computer science, biology, medicine, and pharmaceuticals. If you're interested in potential collaborations, please feel free to reach out.</p>
+                        
+                        <h3>Join Our Lab</h3>
+                        <p>The Zitnik lab is always looking for talented students and researchers interested in AI for medicine. If you're passionate about using AI to improve healthcare, check out our <a href="#">open positions</a>.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-social">
+                <a href="https://www.youtube.com/@KatyaIvshina" aria-label="YouTube" class="youtube-icon">
+                    <img src="images/youtube-icon.svg" alt="YouTube" width="24" height="24">
+                </a>
+                <a href="https://www.instagram.com/katya.ivshina/" aria-label="Instagram" class="instagram-icon">
+                    <img src="images/instagram-icon.svg" alt="Instagram" width="24" height="24">
+                </a>
+                <a href="https://www.tiktok.com/@katyaivshina?_t=8ggea9xze4w&_r=1" aria-label="TikTok" class="tiktok-icon">
+                    <img src="images/tiktok-icon.svg" alt="TikTok" width="24" height="24">
+                </a>
+                <a href="https://www.youtube.com/@ekaterinaivshina" aria-label="Russian YouTube" class="youtube-icon">
+                    <img src="images/youtube-icon.svg" alt="Russian YouTube" width="24" height="24">
+                </a>
+                <a href="https://katya-ivshina.beehiiv.com/subscribe" aria-label="Newsletter" class="newsletter-icon">
+                    <img src="images/newsletter-icon.svg" alt="Newsletter" width="24" height="24">
+                </a>
+                <a href="https://scholar.google.com/citations?view_op=list_works&hl=en&authuser=1&user=06fe_usAAAAJ" aria-label="Google Scholar" class="scholar-icon">
+                    <img src="images/scholar-icon.svg" alt="Google Scholar" width="24" height="24">
+                </a>
+                <a href="https://hoo.be/katya.ivshina" aria-label="Hoo.be" class="link-icon">
+                    <img src="images/link-icon.svg" alt="Hoo.be" width="24" height="24">
+                </a>
+            </div>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="research.html">Research</a>
+                <a href="resources.html">Resources</a>
+                <a href="phd-guide.html">PhD Guide</a>
+                <a href="cv.html">CV</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <p class="copyright">&copy; 2025 Katya Ivshina. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

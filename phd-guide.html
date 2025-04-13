@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhD Guide - Katya Ivshina</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/mobile-fixes.css">
+    <link rel="stylesheet" href="css/social-icons.css">
+    <style>
+        .phd-guide-section {
+            padding: 4rem 0;
+        }
+        
+        .phd-guide-intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+        }
+        
+        .phd-guide-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+        
+        .phd-guide-text {
+            flex: 3;
+            min-width: 300px;
+        }
+        
+        .phd-guide-image {
+            flex: 2;
+            min-width: 300px;
+        }
+        
+        .phd-guide-image img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .guide-steps {
+            margin: 2rem 0;
+        }
+        
+        .guide-step {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--secondary-color);
+        }
+        
+        .guide-step:last-child {
+            border-bottom: none;
+        }
+        
+        .guide-step h4 {
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+        
+        /* Testimonial carousel styles */
+        .testimonial-section {
+            background-color: var(--primary-color);
+            padding: 3rem 0;
+            margin-top: 2rem;
+        }
+        
+        .testimonial-container {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        
+        .testimonial-title {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .testimonial-carousel {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            padding: 1.5rem 0;
+        }
+        
+        .testimonial-carousel::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .testimonial-item {
+            flex: 0 0 80%;
+            scroll-snap-align: start;
+            margin: 0 1rem;
+            background-color: var(--accent-color);
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .testimonial-content {
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+        
+        .testimonial-author {
+            font-weight: 600;
+        }
+        
+        .testimonial-university {
+            font-size: 0.9rem;
+            color: var(--light-text);
+        }
+        
+        .testimonial-nav {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+        
+        .testimonial-nav button {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            margin: 0 1rem;
+            color: var(--text-color);
+            transition: var(--transition);
+        }
+        
+        .testimonial-nav button:hover {
+            color: var(--accent-color);
+        }
+        
+        @media (max-width: 768px) {
+            .phd-guide-content {
+                flex-direction: column;
+            }
+            
+            .testimonial-item {
+                flex: 0 0 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <a href="index.html">Katya Ivshina</a>
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="research.html">Research</a></li>
+                    <li><a href="resources.html">Resources</a></li>
+                    <li><a href="phd-guide.html">PhD Guide</a></li>
+                    <li><a href="cv.html">CV</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <button class="mobile-menu-btn">
+                    <span>&#9776;</span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- PhD Guide Section -->
+    <section class="section phd-guide-section" style="margin-top: 70px;">
+        <div class="container">
+            <h1 class="section-title">STEM PhD Admissions Guide</h1>
+            
+            <div class="phd-guide-intro">
+                <p>Based on my experience navigating the PhD application process and helping others do the same, I've created this comprehensive guide to STEM PhD admissions in the United States. Whether you're just starting to consider a PhD or are in the midst of applications, this guide will provide valuable insights and practical advice.</p>
+            </div>
+            
+            <div class="phd-guide-content">
+                <div class="phd-guide-text">
+                    <h3>Understanding the PhD Application Process</h3>
+                    <p>The PhD application process can be overwhelming, but breaking it down into manageable steps makes it more approachable. Here's a comprehensive overview of what you need to know and do to prepare a competitive application.</p>
+                    
+                    <div class="guide-steps">
+                        <div class="guide-step">
+                            <h4>1. Research Programs and Faculty</h4>
+                            <p>Identify programs that align with your research interests and career goals. Look beyond rankings to find faculty whose research excites you. Reach out to potential advisors to express interest and ask thoughtful questions about their work and the program.</p>
+                        </div>
+                        
+                        <div class="guide-step">
+                            <h4>2. Prepare Your Application Materials</h4>
+                            <p>Craft a compelling statement of purpose that clearly articulates your research interests, relevant experience, and why you're a good fit for the program. Prepare a strong CV highlighting your academic achievements, research experience, publications, and relevant skills.</p>
+                        </div>
+                        
+                        <div class="guide-step">
+                            <h4>3. Secure Strong Letters of Recommendation</h4>
+                            <p>Request letters from professors or research supervisors who know you well and can speak to your potential as a researcher. Provide them with your application materials and remind them of specific projects or achievements they might mention.</p>
+                        </div>
+                        
+                        <div class="guide-step">
+                            <h4>4. Prepare for Interviews</h4>
+                            <p>If invited for interviews, be ready to discuss your research experience in depth, your future research interests, and why you're interested in that specific program. Prepare thoughtful questions about the program, faculty research, and student life.</p>
+                        </div>
+                        
+                        <div class="guide-step">
+                            <h4>5. Consider Funding Options</h4>
+                            <p>Research funding opportunities, including fellowships, research assistantships, and teaching assistantships. Apply for external fellowships like the NSF GRFP to increase your funding options and make your application more competitive.</p>
+                        </div>
+                    </div>
+                    
+                    <p>For a more detailed guide on STEM PhD admissions, including timeline, application strategies, and personal insights, download my comprehensive guide below.</p>
+                    
+                    <a href="#" class="btn btn-primary">Purchase PhD admissions guide</a>
+                </div>
+                
+                <div class="phd-guide-image">
+                    <img src="images/Screen Shot 2025-04-11 at 10.43.30 PM.png" alt="STEM PhD Admissions Guide">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Testimonials Section -->
+    <section class="testimonial-section">
+        <div class="container">
+            <h2 class="testimonial-title">What Students Say</h2>
+            
+            <div class="testimonial-container">
+                <div class="testimonial-carousel">
+                    <div class="testimonial-item">
+                        <p class="testimonial-content">"Katya's PhD guide was instrumental in my successful applications to top computer science programs. Her insights on crafting a compelling research statement helped me stand out in a competitive applicant pool."</p>
+                        <p class="testimonial-author">Alex Chen</p>
+                        <p class="testimonial-university">Admitted to MIT, Stanford, and UC Berkeley</p>
+                    </div>
+                    
+                    <div class="testimonial-item">
+                        <p class="testimonial-content">"The personalized advice I received during my consultation with Katya transformed my application strategy. She helped me identify programs that were the best fit for my research interests and career goals."</p>
+                        <p class="testimonial-author">Sophia Rodriguez</p>
+                        <p class="testimonial-university">PhD Student at Harvard University</p>
+                    </div>
+                    
+                    <div class="testimonial-item">
+                        <p class="testimonial-content">"As an international student, I found Katya's guide particularly helpful in navigating the nuances of US PhD admissions. Her tips on contacting potential advisors led to meaningful connections that ultimately resulted in multiple offers."</p>
+                        <p class="testimonial-author">Raj Patel</p>
+                        <p class="testimonial-university">PhD Student at Princeton University</p>
+                    </div>
+                    
+                    <div class="testimonial-item">
+                        <p class="testimonial-content">"Katya's advice on securing research experience and crafting a compelling personal statement was game-changing. I went from rejections in my first application cycle to multiple acceptances with funding in my second try."</p>
+                        <p class="testimonial-author">Emma Wilson</p>
+                        <p class="testimonial-university">PhD Student at Columbia University</p>
+                    </div>
+                    
+                    <div class="testimonial-item">
+                        <p class="testimonial-content">"The timeline and checklist in Katya's guide kept me organized throughout the application process. Her insights on interview preparation were especially valuable and helped me feel confident during program visits."</p>
+                        <p class="testimonial-author">David Kim</p>
+                        <p class="testimonial-university">PhD Student at University of Chicago</p>
+                    </div>
+                </div>
+                
+                <div class="testimonial-nav">
+                    <button class="prev-btn">&#8249;</button>
+                    <button class="next-btn">&#8250;</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-social">
+                <a href="https://www.youtube.com/@KatyaIvshina" aria-label="YouTube" class="youtube-icon">
+                    <img src="images/youtube-icon.svg" alt="YouTube" width="24" height="24">
+                </a>
+                <a href="https://www.instagram.com/katya.ivshina/" aria-label="Instagram" class="instagram-icon">
+                    <img src="images/instagram-icon.svg" alt="Instagram" width="24" height="24">
+                </a>
+                <a href="https://www.tiktok.com/@katyaivshina?_t=8ggea9xze4w&_r=1" aria-label="TikTok" class="tiktok-icon">
+                    <img src="images/tiktok-icon.svg" alt="TikTok" width="24" height="24">
+                </a>
+                <a href="https://www.youtube.com/@ekaterinaivshina" aria-label="Russian YouTube" class="youtube-icon">
+                    <img src="images/youtube-icon.svg" alt="Russian YouTube" width="24" height="24">
+                </a>
+                <a href="https://katya-ivshina.beehiiv.com/subscribe" aria-label="Newsletter" class="newsletter-icon">
+                    <img src="images/newsletter-icon.svg" alt="Newsletter" width="24" height="24">
+                </a>
+                <a href="https://scholar.google.com/citations?view_op=list_works&hl=en&authuser=1&user=06fe_usAAAAJ" aria-label="Google Scholar" class="scholar-icon">
+                    <img src="images/scholar-icon.svg" alt="Google Scholar" width="24" height="24">
+                </a>
+                <a href="https://hoo.be/katya.ivshina" aria-label="Hoo.be" class="link-icon">
+                    <img src="images/link-icon.svg" alt="Hoo.be" width="24" height="24">
+                </a>
+            </div>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="research.html">Research</a>
+                <a href="resources.html">Resources</a>
+                <a href="phd-guide.html">PhD Guide</a>
+                <a href="cv.html">CV</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <p class="copyright">&copy; 2025 Katya Ivshina. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+        
+        // Testimonial carousel
+        const carousel = document.querySelector('.testimonial-carousel');
+        const prevBtn = document.querySelector('.prev-btn');
+        const nextBtn = document.querySelector('.next-btn');
+        const testimonialItems = document.querySelectorAll('.testimonial-item');
+        const itemWidth = testimonialItems[0].offsetWidth + 32; // Width + margin
+        
+        let currentIndex = 0;
+        
+        nextBtn.addEventListener('click', () => {
+            if (currentIndex < testimonialItems.length - 1) {
+                currentIndex++;
+                carousel.scrollLeft = itemWidth * currentIndex;
+            }
+        });
+        
+        prevBtn.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                carousel.scrollLeft = itemWidth * currentIndex;
+            }
+        });
+        
+        // Handle touch events for mobile swiping
+        let startX;
+        let scrollLeft;
+        
+        carousel.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].pageX - carousel.offsetLeft;
+            scrollLeft = carousel.scrollLeft;
+        });
+        
+        carousel.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+            const x = e.touches[0].pageX - carousel.offsetLeft;
+            const walk = (x - startX) * 2;
+            carousel.scrollLeft = scrollLeft - walk;
+        });
+    </script>
+</body>
+</html>

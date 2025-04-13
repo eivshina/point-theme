@@ -1,0 +1,8 @@
+no i dont like what you did. let's go back to the previous version which you published at https://xvothiqa.manus.space/. 
+
+Updating this verision https://xvothiqa.manus.space/ as follows:
+
+1. on the contact page, don’t use pink color for text or buttons. do similar as what you did on other pages. just use black color for text. dont include a contact form. just have three sections: 1) for brand collaborations: email ekaterina.s.ivshina@gmail.com; 2) for 1-1 consultation, include calendly link; 3) for academic inquiries: eivshina@g.harvard.edu
+2. on the phd guide page, write “Purchase PhD admissions guide” instead of Download Complete PhD Admissions Guide on the button.
+3. make the bottom of every page exactly the same as the about me page, meaning there are links to my social media, with logos displayed properly as on about me page, and keep the rest the same (© 2025 Katya Ivshina. All rights reserved etc)
+4. dont forget to give me all the files i should put on github to deploy this website through netlify. also explain which files i should edit when i will want to add content to different pages.

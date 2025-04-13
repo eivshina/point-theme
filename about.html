@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Katya Ivshina</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/mobile-fixes.css">
+    <link rel="stylesheet" href="css/social-icons.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <a href="index.html">Katya Ivshina</a>
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="research.html">Research</a></li>
+                    <li><a href="resources.html">Resources</a></li>
+                    <li><a href="phd-guide.html">PhD Guide</a></li>
+                    <li><a href="cv.html">CV</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <button class="mobile-menu-btn">
+                    <span>&#9776;</span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- About Hero Section -->
+    <section class="hero" style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/2.JPG');">
+        <div class="hero-content">
+            <h1>About Me</h1>
+            <p class="subtitle">Academic Influencer, Speaker, and PhD Student</p>
+        </div>
+    </section>
+
+    <!-- Main About Section -->
+    <section class="section about-section">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Hi! I'm Katya</h2>
+                    <p>I'm an Applied Math PhD student working on AI for medicine in Zitnik lab. I am also a content creator (90k+ followers) and entrepreneur.</p>
+                    
+                    <h3>Academic Journey</h3>
+                    <p>At 17, I moved to the US alone to study Mathematics at Princeton University. This experience shaped my perspective on education and inspired me to help others navigate their academic paths. Currently, I'm pursuing my Applied Mathematics PhD at Harvard, focusing on AI applications in medicine.</p>
+                    
+                    <h3>Content Creator</h3>
+                    <p>As a first-generation immigrant in the US and a woman in STEM, I share all aspects of my life on social media with genuine candor. My content focuses on academic life, research insights, and personal growth, reaching over 90,000 followers across platforms.</p>
+                    
+                    <h3>Speaker & Mentor</h3>
+                    <p>I'm passionate about increasing access to education and empowering underrepresented students in STEM. I regularly speak at events and provide mentorship to students navigating their academic journeys.</p>
+                    
+                    <h3>Collaborations</h3>
+                    <p>I've worked with companies such as Jenni AI, Mindgrasp, Unriddle, and Juni Learning to create educational content and improve access to learning resources.</p>
+                    
+                    <h3>Beyond Academics</h3>
+                    <p>When I'm not researching or creating content, I enjoy unicycling, listening to music, and spending time with my puppy.</p>
+                </div>
+                <div class="about-image">
+                    <img src="images/3.JPG" alt="Katya Ivshina">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-social">
+                <a href="https://www.youtube.com/@KatyaIvshina" aria-label="YouTube" class="youtube-icon">
+                    <img src="images/youtube-icon.svg" alt="YouTube" width="24" height="24">
+                </a>
+                <a href="https://www.instagram.com/katya.ivshina/" aria-label="Instagram" class="instagram-icon">
+                    <img src="images/instagram-icon.svg" alt="Instagram" width="24" height="24">
+                </a>
+                <a href="https://www.tiktok.com/@katyaivshina?_t=8ggea9xze4w&_r=1" aria-label="TikTok" class="tiktok-icon">
+                    <img src="images/tiktok-icon.svg" alt="TikTok" width="24" height="24">
+                </a>
+                <a href="https://www.youtube.com/@ekaterinaivshina" aria-label="Russian YouTube" class="youtube-icon">
+                    <img src="images/youtube-icon.svg" alt="Russian YouTube" width="24" height="24">
+                </a>
+                <a href="https://katya-ivshina.beehiiv.com/subscribe" aria-label="Newsletter" class="newsletter-icon">
+                    <img src="images/newsletter-icon.svg" alt="Newsletter" width="24" height="24">
+                </a>
+                <a href="https://scholar.google.com/citations?view_op=list_works&hl=en&authuser=1&user=06fe_usAAAAJ" aria-label="Google Scholar" class="scholar-icon">
+                    <img src="images/scholar-icon.svg" alt="Google Scholar" width="24" height="24">
+                </a>
+                <a href="https://hoo.be/katya.ivshina" aria-label="Hoo.be" class="link-icon">
+                    <img src="images/link-icon.svg" alt="Hoo.be" width="24" height="24">
+                </a>
+            </div>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="research.html">Research</a>
+                <a href="resources.html">Resources</a>
+                <a href="phd-guide.html">PhD Guide</a>
+                <a href="cv.html">CV</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <p class="copyright">&copy; 2025 Katya Ivshina. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

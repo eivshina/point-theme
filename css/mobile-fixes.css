@@ -1,0 +1,140 @@
+/* Additional mobile responsiveness improvements */
+
+/* Ensure proper display on very small screens */
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 2rem;
+  }
+  
+  .hero .subtitle {
+    font-size: 1rem;
+  }
+  
+  .section-title {
+    font-size: 1.8rem;
+  }
+  
+  .social-icons {
+    gap: 0.5rem;
+  }
+  
+  .social-icon {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .consultation-btn {
+    width: 100%;
+    text-align: center;
+    padding: 0.8rem 1rem;
+  }
+  
+  .testimonial-item {
+    flex: 0 0 95%;
+    padding: 1.5rem;
+  }
+  
+  .resource-card {
+    margin-bottom: 1rem;
+  }
+  
+  .footer-container {
+    padding: 2rem 1rem;
+  }
+  
+  /* Ensure footer social icons display properly on small screens */
+  .footer-social {
+    gap: 0.8rem;
+  }
+  
+  .footer-social a {
+    margin: 0 8px;
+  }
+}
+
+/* Fix for navigation on medium screens */
+@media (max-width: 992px) and (min-width: 769px) {
+  .nav-menu li {
+    margin: 0 0.5rem;
+  }
+}
+
+/* Improve touch targets for mobile */
+@media (max-width: 768px) {
+  .nav-menu li a,
+  .footer-links a,
+  .resource-link,
+  .category-btn {
+    padding: 0.5rem;
+  }
+  
+  .testimonial-nav button {
+    font-size: 2.5rem;
+    padding: 0 1rem;
+  }
+  
+  .mobile-menu-btn {
+    padding: 0.5rem;
+  }
+  
+  /* Ensure social icons are properly spaced and sized on mobile */
+  .social-icons {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  /* Improve spacing in the about section on mobile */
+  .about-content {
+    gap: 1.5rem;
+  }
+  
+  /* Better spacing for resource cards on mobile */
+  .resource-grid {
+    gap: 1.5rem;
+  }
+  
+  /* Ensure footer social icons display properly on mobile */
+  .footer-social {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  .footer-social a {
+    margin: 0 10px 10px;
+  }
+  
+  .footer-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 1rem 0;
+  }
+  
+  .footer-links a {
+    margin: 0.5rem 0.8rem;
+  }
+}
+
+/* Fix for PDF viewer on mobile */
+@media (max-width: 768px) {
+  .cv-embed {
+    height: 500px;
+  }
+}
+
+/* Ensure images are responsive */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Improve hero section on mobile */
+@media (max-width: 768px) {
+  .hero {
+    min-height: 60vh;
+  }
+  
+  .hero-content {
+    padding: 2rem 1rem;
+  }
+}
