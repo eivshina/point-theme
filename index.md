@@ -1,7 +1,7 @@
 ---
 ---
 
-Hi! I'm Katya, an Applied Math PhD student working on AI for medicine in [Zitnik lab](https://zitniklab.hms.harvard.edu). I am also a content creator (90k+ followers) and entrepreneur. 
+Hi! I'm Katya, a content creator (90k+ followers) and entrepreneur. 
 
 ## Links
 - [google scholar](https://scholar.google.com/citations?view_op=list_works&hl=en&authuser=1&user=06fe_usAAAAJ)
