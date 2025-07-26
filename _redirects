@@ -1,0 +1,18 @@
+# Clean URLs - remove .html extension
+/about.html    /about    301
+/contact.html  /contact  301
+/cv.html       /cv       301
+/research.html /research 301
+/resources.html /resources 301
+/phd-guide.html /phd-guide 301
+
+# Handle clean URLs (serve .html files for clean URLs)
+/about    /about.html    200
+/contact  /contact.html  200
+/cv       /cv.html       200
+/research /research.html 200
+/resources /resources.html 200
+/phd-guide /phd-guide.html 200
+
+# Fallback for any other pages
+/*    /index.html   404

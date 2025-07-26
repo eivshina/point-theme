@@ -1,0 +1,56 @@
+[build]
+  # Since this is a static HTML site, we don't need a build command
+  # Netlify will just serve the files directly
+  publish = "."
+  
+[build.environment]
+  # Set the Node.js version (in case you add any build tools later)
+  NODE_VERSION = "18"
+
+# Configure redirects for better SEO and user experience
+[[redirects]]
+  # Redirect trailing slashes to clean URLs
+  from = "/*/"
+  to = "/:splat"
+  status = 301
+  force = false
+
+[[redirects]]
+  # Redirect .html extensions to clean URLs
+  from = "/*.html"
+  to = "/:splat"
+  status = 301
+  force = false
+
+# Configure headers for better performance and security
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # Security headers
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    
+    # Performance headers
+    Cache-Control = "public, max-age=31536000"
+
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
