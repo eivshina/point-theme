@@ -129,14 +129,22 @@ document.addEventListener('DOMContentLoaded', function() {
         metricsObserver.observe(metricsSection);
     }
 
-    // Parallax effect for hero section
+    // Parallax effect for hero and featured project sections
     window.addEventListener('scroll', () => {
         const scrolled = window.pageYOffset;
         const heroImage = document.querySelector('.hero-image');
+        const featuredBg = document.querySelector('.featured-project-bg');
         
         if (heroImage) {
             const rate = scrolled * -0.5;
             heroImage.style.transform = `translateY(${rate}px)`;
+        }
+        
+        if (featuredBg) {
+            const featuredSection = document.querySelector('.featured-project');
+            const rect = featuredSection.getBoundingClientRect();
+            const rate = (scrolled - (featuredSection.offsetTop - window.innerHeight)) * -0.3;
+            featuredBg.style.transform = `translateY(${rate}px)`;
         }
     });
 
