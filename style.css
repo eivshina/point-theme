@@ -1380,3 +1380,24 @@ body {
     height: auto;
     display: block;
 }
+
+/* Fullscreen black block */
+.fullscreen-black {
+    background-color: #000;  /* solid black background */
+    color: #fff;             /* white text */
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100vh;       /* fill at least one viewport height */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* vertically center content */
+    align-items: center;     /* horizontally center content */
+    text-align: center;      /* center text */
+}
+
+.fullscreen-black .email {
+    color: #ff6600;   /* your site’s orange */
+    font-weight: bold;
+}
+
