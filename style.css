@@ -620,6 +620,7 @@ body {
 .testimonials-content {
     max-width: 1400px;
     margin: 0 auto;
+    text-align: center; 
 }
 
 .testimonials-grid {
@@ -627,6 +628,7 @@ body {
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 40px;
     margin-top: 80px;
+    justify-items: center;
 }
 
 .testimonial {
