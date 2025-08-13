@@ -349,7 +349,7 @@ function openProjectModal(projectId) {
         'ai-education': {
             title: 'AI Education Series',
             subtitle: 'Making AI Accessible to Everyone',
-            description: 'Through my AI education series, I break down complex artificial intelligence concepts into digestible, engaging content. My approach focuses on practical applications and real-world examples that help students understand how AI impacts their daily lives.',
+            description: 'Through my educational AI videos, I break down complex artificial intelligence concepts into digestible, engaging content. My approach focuses on practical applications and real-world examples that help viewers understand how AI impacts their daily lives.',
             highlights: [
                 'Created comprehensive AI curriculum for beginners',
                 'Developed interactive learning modules',
@@ -372,14 +372,13 @@ function openProjectModal(projectId) {
             ]
         },
         'mathematics': {
-            title: 'Mathematics Content',
-            subtitle: 'From Princeton to Harvard - A Mathematical Journey',
-            description: 'My mathematics content spans from undergraduate concepts to advanced research topics. I focus on making abstract mathematical ideas tangible and showing their beautiful applications in the real world.',
+            title: 'Speaker',
+            subtitle: 'International keyonte speaker',
+            description: 'Katya is passionate about increasing access to education and empowering underrepresented students in STEM. Katya’s speaking and outreach work includes keynote addresses and talks at top STEM events in Boston, New York City, and London',
             highlights: [
-                'Published research in applied mathematics',
-                'Created visual mathematics explanations',
-                'Mentored 100+ students in mathematical thinking',
-                'Developed innovative teaching methodologies'
+                'Imperial College London',
+                'Northeastern University',
+                'City University of New York',
             ],
             instagramPosts: [
                 {
@@ -396,15 +395,16 @@ function openProjectModal(projectId) {
                 }
             ]
         },
-        'stem-advocacy': {
-            title: 'STEM Advocacy',
-            subtitle: 'Inspiring Women in STEM',
-            description: 'As a first-generation immigrant woman in STEM, I am passionate about creating inclusive spaces and inspiring the next generation of diverse scientists, mathematicians, and engineers.',
+        'mentor': {
+            title: 'Mentor',
+            subtitle: 'Inspiring Students in STEM',
+            description: 'As a first-generation immigrant woman in STEM, Katya is passionate about creating inclusive spaces and inspiring the next generation of diverse scientists, mathematicians, and engineers. Katya coaches students 1-1 to get into their dream undergraduate, master's, and PhD programs.',
             highlights: [
-                'Spoke at 20+ STEM diversity conferences',
+                'Spoke at 5+ STEM diversity conferences',
                 'Mentored underrepresented students',
-                'Created scholarship programs for women in math',
-                'Built supportive STEM communities online'
+                'Created research opportunities for women in math',
+                'Built supportive STEM communities online',
+                'Ran a volunteer tutoring program for refugee students'
             ],
             instagramPosts: [
                 {
@@ -421,8 +421,8 @@ function openProjectModal(projectId) {
                 }
             ]
         },
-        'dance-math': {
-            title: 'Dance & Mathematics',
+        'creative-generalist': {
+            title: 'Creative Generalist',
             subtitle: 'Where Art Meets Science',
             description: 'The intersection of dance and mathematics reveals beautiful patterns, symmetries, and rhythms. Through this unique combination, I explore how creative expression can enhance mathematical understanding.',
             highlights: [
