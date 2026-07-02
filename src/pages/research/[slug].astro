@@ -1,0 +1,162 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { publicationDetails } from '../../data/academic';
+
+export function getStaticPaths() {
+  return publicationDetails.map((pub) => ({
+    params: { slug: pub.slug },
+    props: { pub },
+  }));
+}
+
+const { pub } = Astro.props;
+const pageTitle = pub.title.length > 48 ? `${pub.title.slice(0, 45)}…` : pub.title;
+---
+
+<BaseLayout
+  title={`${pageTitle} — Katya Ivshina`}
+  description={pub.description.slice(0, 155)}
+>
+  <main class="research-page">
+
+    <header class="page-hero">
+      <p class="text-caption hero-label">
+        <a href="/learning#pubs-heading" class="back-link">← Academic / research</a>
+      </p>
+      <h1 class="hero-title">{pub.title}</h1>
+      <p class="pub-authors">{pub.authors}</p>
+      {pub.status && <p class="pub-status">{pub.status}</p>}
+    </header>
+
+    <section class="section">
+      <div class="section-inner">
+        <p class="section-body">{pub.description}</p>
+
+        {pub.venues && pub.venues.length > 0 && (
+          <>
+            <h3 class="venues-heading">Presented at</h3>
+            <ul class="venues-list" role="list">
+              {pub.venues.map((venue) => (
+                <li>{venue}</li>
+              ))}
+            </ul>
+          </>
+        )}
+
+        <div class="link-row">
+          {pub.paperUrl && (
+            <a href={pub.paperUrl} target="_blank" rel="noopener noreferrer" class="external-link">
+              Read the paper →
+            </a>
+          )}
+          {pub.projectUrl && (
+            <a href={pub.projectUrl} target="_blank" rel="noopener noreferrer" class="external-link">
+              Project site →
+            </a>
+          )}
+        </div>
+      </div>
+    </section>
+
+  </main>
+</BaseLayout>
+
+<style>
+  .research-page { padding-top: 5.5rem; }
+
+  .page-hero {
+    padding: clamp(2.5rem, 5vw, 4rem) var(--edge) clamp(2rem, 4vw, 3rem);
+    border-bottom: 1px solid rgba(26, 25, 22, 0.08);
+    max-width: 44rem;
+  }
+
+  .back-link {
+    color: var(--ink-2);
+    transition: color 0.2s;
+  }
+  .back-link:hover { color: #B5302A; }
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+    font-optical-sizing: auto;
+  }
+
+  .pub-authors {
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+  }
+
+  .pub-status {
+    font-size: 0.8125rem;
+    color: var(--ink-3);
+    margin-top: 0.5rem;
+  }
+
+  .section { padding: var(--section) var(--edge); }
+  .section-inner { max-width: 44rem; }
+
+  .section-body {
+    font-size: 1rem;
+    line-height: 1.65;
+    color: var(--ink-2);
+  }
+
+  .venues-heading {
+    font-size: 0.6875rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin: 2rem 0 0.75rem;
+    font-weight: 500;
+  }
+
+  .venues-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  .venues-list li {
+    position: relative;
+    padding-left: 1rem;
+    font-size: 0.9375rem;
+    color: var(--ink-2);
+    line-height: 1.5;
+  }
+
+  .venues-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #B5302A;
+  }
+
+  .link-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    margin-top: 2rem;
+  }
+
+  .external-link {
+    font-size: 0.8125rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink);
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .external-link:hover { color: #B5302A; border-color: #B5302A; }
+</style>

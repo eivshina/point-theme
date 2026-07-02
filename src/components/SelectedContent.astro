@@ -1,0 +1,94 @@
+---
+import { contentPillars } from '../data/creator-content';
+import ReelRow from './ReelRow.astro';
+---
+
+<section class="selected-content" aria-labelledby="videos-heading">
+  <header class="sc-header" data-reveal>
+    <h2 class="sc-title" id="videos-heading">Content pillars</h2>
+  </header>
+
+  {contentPillars.map((cat) => (
+    <div class="reel-block" data-reveal aria-labelledby={`cat-${cat.id}`}>
+      <div class="reel-block-head">
+        <h3 class="oval-tag" id={`cat-${cat.id}`}>{cat.label}</h3>
+        {cat.subtitle && <p class="reel-sub">{cat.subtitle}</p>}
+      </div>
+
+      <ReelRow reels={cat.reels} categoryLabel={cat.label} />
+    </div>
+  ))}
+</section>
+
+<style>
+  .selected-content {
+    position: relative;
+    z-index: 1;
+    padding: clamp(2.5rem, 6vw, 5rem) var(--edge);
+    background: var(--cream);
+    border-top: 1px solid rgba(26, 25, 22, 0.08);
+  }
+
+  .sc-header {
+    max-width: 72rem;
+    margin: 0 auto clamp(2rem, 4vw, 3.5rem);
+  }
+
+  .sc-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 4vw, 3.25rem);
+    font-weight: 300;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    font-optical-sizing: auto;
+  }
+
+  /* ── Category block ──────────────────────────────────── */
+  .reel-block {
+    max-width: 72rem;
+    margin-inline: auto;
+    padding: clamp(2rem, 4vw, 3rem) 0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(1.75rem, 3.5vw, 2.75rem);
+  }
+
+  .reel-block + .reel-block {
+    border-top: 1px dashed rgba(26, 25, 22, 0.16);
+  }
+
+  .reel-block-head {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.85rem;
+    width: 100%;
+  }
+
+  .oval-tag {
+    display: inline-block;
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3.2vw, 2.5rem);
+    font-weight: 300;
+    line-height: 1;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    padding: 0.6em 1.4em;
+    background: var(--cream);
+    border: 1px solid rgba(26, 25, 22, 0.22);
+    border-radius: 50%;
+    font-optical-sizing: auto;
+  }
+
+  .reel-sub {
+    font-size: 1rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    margin: 0;
+    max-width: 36ch;
+  }
+</style>

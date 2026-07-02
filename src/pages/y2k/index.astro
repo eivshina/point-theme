@@ -1,0 +1,806 @@
+---
+import Y2KLayout from '../../layouts/Y2KLayout.astro';
+import { Image } from 'astro:assets';
+
+import portrait    from '../../../img/DSCF0626.jpg';
+import photo2      from '../../../img/DSCF0628.JPG';
+import photo3      from '../../../img/DSCF0637.JPG';
+import photo4      from '../../../img/DSCF1019.JPG';
+import photo5      from '../../../img/DSCF1143.JPG';
+import photo6      from '../../../img/DSCF8625.JPG';
+import photo7      from '../../../img/DSCF8955.JPG';
+import photo8      from '../../../img/DSCF9002.JPG';
+---
+
+<Y2KLayout
+  title="Katya Ivshina ✦ Come Into My World"
+  description="Come into my world. Mathematician · Writer · Mentor · Dancer · Photographer. Princeton BA · Harvard Applied Mathematics."
+>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 1 — HERO
+═══════════════════════════════════════════════════════════ -->
+<section class="hero-y2k" aria-label="Hero">
+
+  <!-- Spinning corner decorators -->
+  <span class="spin-star corner-star corner-star--tl" style="font-size:1.5rem;" aria-hidden="true">✦</span>
+  <span class="spin-star corner-star corner-star--tr spin-star--slow spin-star--gold" style="font-size:2rem;" aria-hidden="true">✦</span>
+  <span class="spin-star corner-star corner-star--br spin-star--sage" style="font-size:1.25rem;" aria-hidden="true">✦</span>
+
+  <!-- Ghost outline word behind everything -->
+  <div class="hero-ghost-text" aria-hidden="true">MATHEMATICIAN</div>
+
+  <!-- Left: large flowing text -->
+  <div class="hero-text-col">
+    <p class="hero-eyebrow y2k-section-label">Welcome to my world</p>
+
+    <h1 class="hero-display y2k-display">
+      <span class="hero-line-1">come</span>
+      <span class="hero-line-2"><em>into</em></span>
+      <span class="hero-line-3">my</span>
+      <span class="hero-line-4"><em>world.</em></span>
+    </h1>
+
+    <!-- Sticker cluster -->
+    <div class="hero-stickers">
+      <span class="sticker sticker--rose" style="transform:rotate(-2.5deg)">princeton '21 ✓</span>
+      <span class="sticker sticker--sage" style="transform:rotate(1.5deg)">nyc ✓</span>
+      <span class="sticker sticker--blue" style="transform:rotate(-1deg)">harvard →</span>
+    </div>
+
+    <a href="#universe" class="pill-btn hero-cta" aria-label="Explore more">
+      explore ↓
+    </a>
+  </div>
+
+  <!-- Right: scattered polaroid photos -->
+  <div class="hero-photos-col">
+    <div class="hero-photo-stack">
+
+      <div class="hero-polaroid hero-polaroid--back">
+        <div class="polaroid" style="transform:rotate(4deg);">
+          <Image
+            src={photo6}
+            alt="Katya Ivshina"
+            width={320}
+            height={240}
+            style="width:100%;height:220px;object-fit:cover;"
+            loading="eager"
+          />
+          <p class="polaroid-caption">somewhere beautiful</p>
+        </div>
+      </div>
+
+      <div class="hero-polaroid hero-polaroid--mid">
+        <div class="polaroid" style="transform:rotate(-3deg);">
+          <Image
+            src={photo2}
+            alt="Katya Ivshina"
+            width={320}
+            height={240}
+            style="width:100%;height:220px;object-fit:cover;"
+            loading="eager"
+          />
+          <p class="polaroid-caption">katya, ny 2024</p>
+        </div>
+      </div>
+
+      <div class="hero-polaroid hero-polaroid--front">
+        <div class="polaroid" style="transform:rotate(1.5deg);">
+          <Image
+            src={portrait}
+            alt="Katya Ivshina — portrait"
+            width={240}
+            height={320}
+            style="width:100%;height:300px;object-fit:cover;object-position:center 10%;"
+            loading="eager"
+          />
+          <p class="polaroid-caption">katya ivshina</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Decorative scattered text labels -->
+  <div class="hero-float-label hero-float-label--1" aria-hidden="true">WRITER</div>
+  <div class="hero-float-label hero-float-label--2" aria-hidden="true">MENTOR</div>
+
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 2 — MARQUEE STRIP
+═══════════════════════════════════════════════════════════ -->
+<div class="marquee-outer" aria-label="Credentials marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>PRINCETON ✦ HARVARD ✦ APPLIED MATHEMATICS ✦ AI EDUCATION ✦ DANCE ✦ PHOTOGRAPHY ✦ 100K+ FOLLOWERS ✦ 30M+ VIEWS ✦ NEW YORK ✦ &nbsp;</span>
+    <span>PRINCETON ✦ HARVARD ✦ APPLIED MATHEMATICS ✦ AI EDUCATION ✦ DANCE ✦ PHOTOGRAPHY ✦ 100K+ FOLLOWERS ✦ 30M+ VIEWS ✦ NEW YORK ✦ &nbsp;</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 3 — MY UNIVERSE (orbit/knolling)
+═══════════════════════════════════════════════════════════ -->
+<section class="universe-section" id="universe" aria-label="My universe">
+
+  <div class="universe-header">
+    <span class="spin-star spin-star--sage" style="font-size:1rem;" aria-hidden="true">✦</span>
+    <h2 class="y2k-heading universe-title" style="transform:rotate(-2deg);">MY UNIVERSE</h2>
+    <span class="spin-star spin-star--gold spin-star--slow" style="font-size:1rem;" aria-hidden="true">✦</span>
+  </div>
+
+  <div class="orbit-container">
+
+    <!-- Orbiting pills -->
+    <span class="orbit-pill" style="top:-2.5rem;left:50%;transform:translateX(-50%);">AI Educator</span>
+    <span class="orbit-pill" style="top:8%;right:-1rem;">Photographer</span>
+    <span class="orbit-pill" style="bottom:8%;right:-1rem;">Dancer</span>
+    <span class="orbit-pill" style="bottom:-2.5rem;left:50%;transform:translateX(-50%);">Mathematician</span>
+    <span class="orbit-pill" style="bottom:8%;left:-1rem;">Storyteller</span>
+    <span class="orbit-pill" style="top:8%;left:-1rem;">Mentor</span>
+
+    <!-- Center photo -->
+    <div class="orbit-center-photo">
+      <Image
+        src={portrait}
+        alt="Katya Ivshina"
+        width={300}
+        height={400}
+        style="width:100%;height:100%;object-fit:cover;object-position:center 10%;"
+        loading="lazy"
+      />
+    </div>
+
+  </div>
+
+  <blockquote class="universe-pullquote">
+    <p class="y2k-display" style="font-size:clamp(1.5rem,3.5vw,2.5rem);">
+      "I moved to the US alone at 17."
+    </p>
+  </blockquote>
+
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 4 — FOLDER TABS "EXPLORE MY WORLDS"
+═══════════════════════════════════════════════════════════ -->
+<section class="folders-section" id="worlds" aria-label="Explore my worlds">
+
+  <div class="folders-section-header">
+    <h2 class="y2k-heading folders-title">
+      EXPLORE MY WORLDS
+      <span class="spin-star" style="font-size:0.875rem;margin-left:0.5rem;" aria-hidden="true">✦</span>
+    </h2>
+  </div>
+
+  <div class="folders-wrapper" role="tablist" aria-label="My worlds">
+
+    <!-- Tab row -->
+    <div class="folder-tabs-row">
+      <button
+        class="folder-tab"
+        id="tab-mathematics"
+        role="tab"
+        aria-selected="true"
+        aria-controls="panel-mathematics"
+        style="background:var(--rose-pale);"
+        data-folder="mathematics"
+      >Mathematics</button>
+
+      <button
+        class="folder-tab"
+        id="tab-writing"
+        role="tab"
+        aria-selected="false"
+        aria-controls="panel-writing"
+        style="background:var(--sage-pale);"
+        data-folder="writing"
+      >Writing</button>
+
+      <button
+        class="folder-tab"
+        id="tab-photography"
+        role="tab"
+        aria-selected="false"
+        aria-controls="panel-photography"
+        style="background:var(--blue-pale);"
+        data-folder="photography"
+      >Photography</button>
+
+      <button
+        class="folder-tab"
+        id="tab-teaching"
+        role="tab"
+        aria-selected="false"
+        aria-controls="panel-teaching"
+        style="background:var(--gold-pale);"
+        data-folder="teaching"
+      >Teaching</button>
+
+      <button
+        class="folder-tab"
+        id="tab-dance"
+        role="tab"
+        aria-selected="false"
+        aria-controls="panel-dance"
+        style="background:var(--paper-2);"
+        data-folder="dance"
+      >Dance</button>
+    </div>
+
+    <!-- Folder panels -->
+    <div
+      class="folder-panel"
+      id="panel-mathematics"
+      role="tabpanel"
+      aria-labelledby="tab-mathematics"
+      aria-hidden="false"
+      style="background:var(--rose-pale);"
+    >
+      <div class="folder-panel-text">
+        <h3 id="mathematics">The Math World</h3>
+        <p>
+          Princeton BA · Harvard Applied Mathematics PhD candidate.
+          Researcher at the intersection of AI and pure math. Obsessed with
+          the beauty of abstraction and the power of rigorous thinking.
+        </p>
+        <a href="/about" class="pill-btn pill-btn--outline">go deeper →</a>
+      </div>
+      <div class="folder-panel-img">
+        <Image
+          src={photo8}
+          alt="Mathematics world"
+          width={480}
+          height={260}
+          style="width:100%;height:260px;object-fit:cover;"
+          loading="lazy"
+        />
+      </div>
+    </div>
+
+    <div
+      class="folder-panel"
+      id="panel-writing"
+      role="tabpanel"
+      aria-labelledby="tab-writing"
+      aria-hidden="true"
+      style="background:var(--sage-pale);"
+    >
+      <div class="folder-panel-text">
+        <h3 id="writing">The Writing World</h3>
+        <p>
+          Public intellectual writing on AI, education, and modern life.
+          Featured in major publications. 30M+ views. Writing as a way
+          of thinking out loud — and building a conversation.
+        </p>
+        <a href="/writing" class="pill-btn pill-btn--outline">go deeper →</a>
+      </div>
+      <div class="folder-panel-img">
+        <Image
+          src={photo6}
+          alt="Writing world"
+          width={480}
+          height={260}
+          style="width:100%;height:260px;object-fit:cover;"
+          loading="lazy"
+        />
+      </div>
+    </div>
+
+    <div
+      class="folder-panel"
+      id="panel-photography"
+      role="tabpanel"
+      aria-labelledby="tab-photography"
+      aria-hidden="true"
+      style="background:var(--blue-pale);"
+    >
+      <div class="folder-panel-text">
+        <h3 id="photography">The Photography World</h3>
+        <p>
+          Fujifilm documentary work. Shooting people, places, the
+          in-between moments. Photography as a practice of presence —
+          slowing down to see what's actually there.
+        </p>
+        <a href="/" class="pill-btn pill-btn--outline">go deeper →</a>
+      </div>
+      <div class="folder-panel-img">
+        <Image
+          src={photo5}
+          alt="Photography world"
+          width={480}
+          height={260}
+          style="width:100%;height:260px;object-fit:cover;"
+          loading="lazy"
+        />
+      </div>
+    </div>
+
+    <div
+      class="folder-panel"
+      id="panel-teaching"
+      role="tabpanel"
+      aria-labelledby="tab-teaching"
+      aria-hidden="true"
+      style="background:var(--gold-pale);"
+    >
+      <div class="folder-panel-text">
+        <h3 id="teaching">The Teaching World</h3>
+        <p>
+          Mentoring students through college admissions, STEM education,
+          and finding their voice. 100K+ followers who found clarity
+          through the work we do together.
+        </p>
+        <a href="/teaching" class="pill-btn pill-btn--outline">go deeper →</a>
+      </div>
+      <div class="folder-panel-img">
+        <Image
+          src={photo7}
+          alt="Teaching world"
+          width={480}
+          height={260}
+          style="width:100%;height:260px;object-fit:cover;"
+          loading="lazy"
+        />
+      </div>
+    </div>
+
+    <div
+      class="folder-panel"
+      id="panel-dance"
+      role="tabpanel"
+      aria-labelledby="tab-dance"
+      aria-hidden="true"
+      style="background:var(--paper-2);"
+    >
+      <div class="folder-panel-text">
+        <h3 id="dance">The Dance World</h3>
+        <p>
+          Movement as thinking. Trained in contemporary and classical
+          forms. Dance is where the math brain goes quiet and something
+          else takes over — instinct, rhythm, presence.
+        </p>
+        <a href="/" class="pill-btn pill-btn--outline">go deeper →</a>
+      </div>
+      <div class="folder-panel-img">
+        <Image
+          src={photo3}
+          alt="Dance world"
+          width={480}
+          height={260}
+          style="width:100%;height:260px;object-fit:cover;"
+          loading="lazy"
+        />
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 5 — POLAROID GALLERY
+═══════════════════════════════════════════════════════════ -->
+<section class="gallery-section" id="archive" aria-label="Photo archive">
+
+  <div class="gallery-header">
+    <span class="y2k-section-label">From The Archive</span>
+    <h2 class="y2k-heading gallery-title">
+      FIELD NOTES
+    </h2>
+  </div>
+
+  <div class="polaroid-grid">
+
+    <div class="polaroid-wrapper pw-1">
+      <div class="polaroid">
+        <Image
+          src={photo2}
+          alt="Katya — New York 2024"
+          width={320}
+          height={260}
+          style="width:100%;height:220px;object-fit:cover;"
+          loading="lazy"
+        />
+        <p class="polaroid-caption">katya, ny 2024</p>
+      </div>
+    </div>
+
+    <div class="polaroid-wrapper pw-2">
+      <div class="polaroid">
+        <Image
+          src={photo4}
+          alt="On campus"
+          width={320}
+          height={260}
+          style="width:100%;height:220px;object-fit:cover;"
+          loading="lazy"
+        />
+        <p class="polaroid-caption">princeton campus</p>
+      </div>
+    </div>
+
+    <div class="polaroid-wrapper pw-3">
+      <div class="polaroid">
+        <Image
+          src={photo5}
+          alt="In between moments"
+          width={320}
+          height={260}
+          style="width:100%;height:220px;object-fit:cover;"
+          loading="lazy"
+        />
+        <p class="polaroid-caption">somewhere beautiful</p>
+      </div>
+    </div>
+
+    <div class="polaroid-wrapper pw-4">
+      <div class="polaroid">
+        <Image
+          src={photo3}
+          alt="Movement"
+          width={320}
+          height={260}
+          style="width:100%;height:220px;object-fit:cover;"
+          loading="lazy"
+        />
+        <p class="polaroid-caption">in motion</p>
+      </div>
+    </div>
+
+    <div class="polaroid-wrapper pw-5">
+      <div class="polaroid">
+        <Image
+          src={photo7}
+          alt="Teaching moments"
+          width={320}
+          height={260}
+          style="width:100%;height:220px;object-fit:cover;"
+          loading="lazy"
+        />
+        <p class="polaroid-caption">office hours, 2023</p>
+      </div>
+    </div>
+
+    <div class="polaroid-wrapper pw-6">
+      <div class="polaroid">
+        <Image
+          src={photo8}
+          alt="Landscapes"
+          width={320}
+          height={260}
+          style="width:100%;height:220px;object-fit:cover;"
+          loading="lazy"
+        />
+        <p class="polaroid-caption">anywhere but here</p>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     Folder tab JS
+═══════════════════════════════════════════════════════════ -->
+<script>
+  (() => {
+    const tabs   = document.querySelectorAll<HTMLButtonElement>('[role="tab"]');
+    const panels = document.querySelectorAll<HTMLElement>('[role="tabpanel"]');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const target = tab.getAttribute('aria-controls');
+        if (!target) return;
+
+        tabs.forEach(t => t.setAttribute('aria-selected', 'false'));
+        panels.forEach(p => p.setAttribute('aria-hidden', 'true'));
+
+        tab.setAttribute('aria-selected', 'true');
+        const panel = document.getElementById(target);
+        if (panel) panel.setAttribute('aria-hidden', 'false');
+      });
+    });
+  })();
+</script>
+
+</Y2KLayout>
+
+<style>
+/* ═══════════════════════════════════════════════════════════
+   PAGE-LEVEL STYLES (scoped to y2k/index.astro)
+═══════════════════════════════════════════════════════════ */
+
+/* ── HERO ──────────────────────────────────────────────────── */
+.hero-y2k {
+  position: relative;
+  min-height: 100svh;
+  padding: 7rem var(--edge) 4rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: center;
+  overflow: hidden;
+}
+
+.corner-star {
+  position: absolute;
+  pointer-events: none;
+}
+
+.corner-star--tl { top: 6rem;  left: var(--edge); }
+.corner-star--tr { top: 5.5rem; right: var(--edge); }
+.corner-star--br { bottom: 2rem; right: var(--edge); }
+
+.hero-ghost-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-8deg);
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 12vw, 12rem);
+  font-weight: 800;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(26, 25, 22, 0.07);
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+  letter-spacing: -0.03em;
+}
+
+.hero-text-col {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.hero-eyebrow {
+  margin-bottom: -0.5rem;
+}
+
+.hero-display {
+  font-size: clamp(3.5rem, 8vw, 7.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.1em;
+}
+
+.hero-line-1 { transform: rotate(-1.5deg); display: inline-block; color: var(--ink); }
+.hero-line-2 { transform: rotate(0.8deg) translateX(1.5rem); display: inline-block; color: var(--rose); }
+.hero-line-3 { transform: rotate(-0.5deg) translateX(0.5rem); display: inline-block; }
+.hero-line-4 { transform: rotate(1deg) translateX(2rem); display: inline-block; }
+
+.hero-stickers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.hero-cta {
+  align-self: flex-start;
+  margin-top: 0.5rem;
+}
+
+/* Scattered polaroids */
+.hero-photos-col {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-photo-stack {
+  position: relative;
+  width: 280px;
+  height: 380px;
+}
+
+.hero-polaroid {
+  position: absolute;
+}
+
+.hero-polaroid--back  { top: 30px; left: -60px; z-index: 1; }
+.hero-polaroid--mid   { top: 60px; right: -60px; z-index: 2; }
+.hero-polaroid--front { top: 0;    left: 20px;   z-index: 3; }
+
+/* Float labels */
+.hero-float-label {
+  position: absolute;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-style: italic;
+  font-size: clamp(1rem, 2.5vw, 1.75rem);
+  color: rgba(26, 25, 22, 0.18);
+  pointer-events: none;
+  user-select: none;
+  letter-spacing: -0.01em;
+  font-optical-sizing: auto;
+}
+
+.hero-float-label--1 { bottom: 12%; left: 8%;  transform: rotate(-6deg); }
+.hero-float-label--2 { top: 35%;    right: 5%; transform: rotate(4deg);  }
+
+/* ── UNIVERSE SECTION ──────────────────────────────────────── */
+.universe-section {
+  padding: var(--section) var(--edge);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+  text-align: center;
+}
+
+.universe-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.universe-title {
+  font-size: clamp(2rem, 5vw, 4rem);
+}
+
+.orbit-container {
+  position: relative;
+  width: min(320px, 80vw);
+  height: min(420px, 90vw);
+  flex-shrink: 0;
+}
+
+.orbit-center-photo {
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 4px 8px 32px rgba(26, 25, 22, 0.18);
+  z-index: 1;
+}
+
+.orbit-pill {
+  z-index: 2;
+}
+
+.universe-pullquote {
+  max-width: 36rem;
+  padding: 0 var(--edge);
+  border-left: 3px solid var(--rose);
+  text-align: left;
+  align-self: flex-start;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.universe-pullquote p {
+  color: var(--ink);
+  font-style: italic;
+}
+
+/* ── FOLDERS SECTION ───────────────────────────────────────── */
+.folders-section {
+  padding: var(--section) var(--edge);
+}
+
+.folders-section-header {
+  margin-bottom: 2.5rem;
+}
+
+.folders-title {
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  display: inline-flex;
+  align-items: center;
+}
+
+/* ── GALLERY SECTION ───────────────────────────────────────── */
+.gallery-section {
+  padding: var(--section) var(--edge);
+  background: var(--paper-2);
+}
+
+.gallery-header {
+  margin-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.gallery-title {
+  font-size: clamp(1.75rem, 4.5vw, 3.5rem);
+}
+
+.polaroid-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem;
+  align-items: start;
+}
+
+/* Polaroid rotation per nth-child */
+.pw-1 .polaroid { transform: rotate(-3.5deg); }
+.pw-2 .polaroid { transform: rotate(2deg);    }
+.pw-3 .polaroid { transform: rotate(-1deg);   }
+.pw-4 .polaroid { transform: rotate(4deg);    }
+.pw-5 .polaroid { transform: rotate(-2.5deg); }
+.pw-6 .polaroid { transform: rotate(1.5deg);  }
+
+/* Stagger vertical position for scrapbook feel */
+.pw-2 { margin-top: 2rem;  }
+.pw-4 { margin-top: 1.5rem; }
+.pw-6 { margin-top: -1rem; }
+
+/* ── RESPONSIVE ────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .hero-y2k {
+    grid-template-columns: 1fr;
+    min-height: unset;
+    padding-top: 6rem;
+    gap: 3rem;
+  }
+
+  .hero-ghost-text { font-size: clamp(3rem, 15vw, 7rem); }
+
+  .hero-photos-col {
+    justify-content: center;
+  }
+
+  .hero-float-label { display: none; }
+}
+
+@media (max-width: 768px) {
+  .orbit-container {
+    width: min(260px, 70vw);
+    height: min(350px, 75vw);
+  }
+
+  /* Orbit pills become flex wrap */
+  .orbit-pill {
+    position: static !important;
+    transform: none !important;
+    margin: 0.25rem;
+  }
+
+  .orbit-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    height: auto;
+    background: transparent;
+  }
+
+  .orbit-center-photo {
+    display: none;
+  }
+
+  .universe-section {
+    gap: 2rem;
+  }
+
+  .polaroid-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .pw-2, .pw-4, .pw-6 { margin-top: 0; }
+}
+
+@media (max-width: 480px) {
+  .polaroid-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .hero-photo-stack {
+    width: 220px;
+    height: 300px;
+  }
+
+  .hero-polaroid--back  { left: -40px; }
+  .hero-polaroid--mid   { right: -40px; }
+}
+</style>

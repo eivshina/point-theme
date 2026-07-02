@@ -1,0 +1,13 @@
+Here are the courses that I took at Princeton along with the textbooks used:
+
+1. PHY205: classical mechanics: a course on the Lagrangian formulation of mechanics. Textbook used: Landau & Lifschitz, Mechanics.
+2. PHY208: Principles of quantum mechanics. Textbook used: Griffiths and Schroeter, Introduction to Quantum Mechanics, 3rd edition
+3. PHY106: Advanced Physics (Electromagnetism). Textbook used: Edward Purcell, Electricity and Magnetism, 3rd Edition
+4. PHY301: Thermal physics: a course on thermodynamics and statistical mechanics. Textbook used: Daniel Schroeder, An Introduction to Thermal Physics.
+5. (graduate class) PHY563: Cosmology. Textbook used: Peebles, Principles of Physical Cosmology; Mukhanov, Physical Foundations of Cosmology.
+6. AST303: Research methods in astrophysics.
+7. AST204: Topics in modern astronomy: an introductory course on astronomy. I didn’t use the textbook because it was, like, $200.
+8. (graduate class) PHY509: Quantum field theory. Textbook used: Peskin, Schroeder, Quantum Field Theory.
+9. (graduate class) PHY539: Topics in high energy physics: gravity and quantum mechanics. Taught by Edward Witten and lecture recordings are available online: https://phy.princeton.edu/academics/graduate-program/graduate-course-recordings
+
+You can learn more about Princeton’s physics major degree requirements on the official website: https://ua.princeton.edu/fields-study/departmental-majors-degree-bachelor-arts/physics

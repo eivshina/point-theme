@@ -1,0 +1,318 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import {
+  speakingEngagements,
+  fellowshipsAndHonors,
+  education,
+} from '../data/academic';
+
+const speakerEducation = education.filter((e) =>
+  /Princeton|Harvard/.test(e.school),
+);
+
+const audienceFeedback = [
+  "I really liked how you talked about your failures and the ways in which you overcame them. It was really encouraging because normally when I think of a Princeton grad I think of someone who has everything right and is insanely smart. However, although you are definitely very intelligent and insanely talented it was super interesting to learn about what you did when things didn't work out the way you hoped.",
+  "My main takeaway from the talk was that there will be setbacks and, especially in academia, seniors can be extremely rude and condescending, the most important thing is to keep pushing and learning because at the end of the day it's the research and knowledge that matters.",
+  'My main takeaway was to become a person who does not give up; aspirations and goals will always be there, however long it takes you to achieve them.',
+  'I also learned to be accepting of the fact that your career path can change and be difficult at times.',
+  'I liked that you shared personal stories that everyone could relate to.',
+  'I love how you talked a lot about your experience as a college student; it really helps with thinking about how college might go for myself.',
+  'Even if things get hard, you have to keep going to your goal.',
+  "My main takeaway was that it's important to keep going with your chosen path even if other things try to stop you.",
+  "Failure doesn't mean it's the end. There's still many opportunities to find success.",
+];
+---
+
+<BaseLayout
+  title="Speaker — Katya Ivshina"
+  description="Katya Ivshina speaks on women in STEM, education access, AI, and building a life across disciplines. Keynotes and invited talks at schools and conferences."
+>
+  <main class="speaker-page">
+
+    <header class="page-hero">
+      <p class="text-caption hero-label">Speaker</p>
+      <h1 class="hero-title">For audiences<br /><em>building futures.</em></h1>
+      <p class="hero-sub text-subhead">
+        I speak to audiences building futures on their own terms.
+      </p>
+    </header>
+
+    <section class="section" aria-labelledby="talks-heading">
+      <div class="section-intro">
+        <h2 class="section-title" id="talks-heading">Where I have spoken</h2>
+        <p class="section-body text-subhead">
+          Invited talks and keynotes for girls-in-STEM programs, university workshops,
+          and high school symposia.
+        </p>
+      </div>
+
+      <ul class="talk-list" role="list">
+        {speakingEngagements.map((t) => (
+          <li class="talk-item">
+            <div class="talk-meta">
+              <span class="talk-role">{t.role}</span>
+              <span class="talk-date">{t.date}</span>
+            </div>
+            <h3 class="talk-event">{t.event}</h3>
+            <p class="talk-venue">{t.venue}</p>
+            {t.note && <p class="talk-note">{t.note}</p>}
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="section section--linen" aria-labelledby="topics-heading">
+      <div class="section-inner">
+        <h2 class="section-title" id="topics-heading">What I talk about</h2>
+        <ul class="topic-list" role="list">
+          <li>
+            AI, education, and making technical fields accessible; PhD/undergraduate admissions
+            and navigating elite universities as an immigrant.
+          </li>
+          <li>
+            Succeeding as a minority in STEM; Alternative pathways in mathematics and research
+          </li>
+          <li>Building a public platform without losing your voice</li>
+          <li>
+            Mental health, ambition, and the courage to pursue creative work alongside science
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="audience-heading">
+      <div class="section-intro">
+        <h2 class="section-title" id="audience-heading">What audiences take away</h2>
+        <p class="section-body text-subhead">
+          Selected responses from students after my talks on resilience, academia, and building
+          a path that is yours.
+        </p>
+      </div>
+
+      <div class="feedback-grid">
+        {audienceFeedback.map((quote, i) => (
+          <figure class={`postcard postcard--sm postcard--${(i % 3) + 1}`}>
+            <blockquote class="postcard-quote">
+              <p>"{quote}"</p>
+            </blockquote>
+          </figure>
+        ))}
+      </div>
+    </section>
+
+    <section class="section section--linen" aria-labelledby="cred-heading">
+      <div class="section-intro">
+        <h2 class="section-title" id="cred-heading">Why invite me</h2>
+      </div>
+
+      <div class="cred-grid">
+        <div class="cred-block">
+          <h3 class="cred-heading">Education</h3>
+          <ul role="list">
+            {speakerEducation.map((e) => (
+              <li>{e.degree}, {e.school}</li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="cred-block">
+          <h3 class="cred-heading">Selected honors</h3>
+          <ul role="list">
+            {fellowshipsAndHonors.slice(0, 5).map((h) => (
+              <li>{h.label}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <p class="cred-more text-subhead">
+        Full academic record, every course, and all publications on the
+        <a href="/learning" class="inline-link">Academic / research experience →</a>
+      </p>
+    </section>
+
+    <section class="section cta-section" aria-labelledby="speaker-cta">
+      <p class="text-caption section-label">Book a talk</p>
+      <h2 class="cta-title" id="speaker-cta">Let's bring this<br /><em>to your audience.</em></h2>
+      <a href="mailto:ekaterina.s.ivshina@gmail.com" class="cta-link">Get in touch →</a>
+    </section>
+
+  </main>
+</BaseLayout>
+
+<style>
+  .speaker-page { padding-top: 5.5rem; }
+
+  .page-hero {
+    padding: clamp(2.5rem, 5vw, 4rem) var(--edge) clamp(2.5rem, 4vw, 3.5rem);
+    border-bottom: 1px solid rgba(26, 25, 22, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.75rem, 6.5vw, 6rem);
+    font-weight: 200;
+    line-height: 0.92;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    font-optical-sizing: auto;
+  }
+
+  .hero-title em { font-style: italic; }
+  .hero-sub { max-width: 52ch; }
+
+  .section { padding: var(--section) var(--edge); border-bottom: 1px solid rgba(26, 25, 22, 0.08); }
+  .section--linen { background: var(--cream-2); }
+  .section-inner, .section-intro { max-width: 42rem; margin-bottom: 0; }
+  .section-intro { margin-bottom: 2rem; }
+  .section-label { margin-bottom: 0.75rem; }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    margin-bottom: 0.75rem;
+    font-optical-sizing: auto;
+  }
+  .section-body { max-width: 52ch; }
+
+  .talk-list { list-style: none; max-width: 44rem; display: flex; flex-direction: column; gap: 0; }
+  .talk-item {
+    padding: 1.25rem 0;
+    border-bottom: 1px solid rgba(26, 25, 22, 0.08);
+  }
+  .talk-meta { display: flex; justify-content: space-between; gap: 1rem; margin-bottom: 0.35rem; }
+  .talk-role { font-size: 0.6875rem; letter-spacing: 0.12em; text-transform: uppercase; color: #B5302A; }
+  .talk-date { font-size: 0.6875rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); white-space: nowrap; }
+  .talk-event { font-family: var(--font-display); font-size: 1.25rem; font-weight: 400; line-height: 1.2; font-optical-sizing: auto; }
+  .talk-venue { font-size: 0.875rem; color: var(--ink-2); margin-top: 0.25rem; }
+  .talk-note { font-size: 0.8125rem; color: var(--ink-3); margin-top: 0.35rem; }
+
+  .topic-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    margin-top: 1rem;
+  }
+  .topic-list li {
+    position: relative;
+    padding-left: 1rem;
+    font-size: 0.9375rem;
+    color: var(--ink-2);
+    line-height: 1.5;
+  }
+  .topic-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #B5302A;
+  }
+
+  .cred-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: 2rem;
+    max-width: 56rem;
+    margin-bottom: 2rem;
+  }
+  .cred-heading {
+    font-size: 0.6875rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 0.75rem;
+    font-weight: 500;
+  }
+  .cred-block ul { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
+  .cred-block li { font-size: 0.875rem; line-height: 1.5; color: var(--ink-2); }
+  .cred-block strong { font-weight: 500; color: var(--ink); }
+
+  .inline-link {
+    color: #B5302A;
+    border-bottom: 1px solid rgba(181, 48, 42, 0.3);
+    transition: border-color 0.2s;
+  }
+  .inline-link:hover { border-color: #B5302A; }
+
+  .feedback-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
+    gap: 1.5rem;
+    max-width: 72rem;
+  }
+
+  .postcard {
+    position: relative;
+    margin: 0;
+    padding: 1.5rem 1.35rem 1.25rem;
+    background: #FAF8F3;
+    border: 1px solid rgba(26, 25, 22, 0.1);
+    border-radius: 10px;
+    box-shadow:
+      0 1px 2px rgba(26, 25, 22, 0.04),
+      0 8px 24px rgba(26, 25, 22, 0.06);
+    transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                box-shadow 0.35s;
+  }
+
+  .postcard:hover {
+    transform: translateY(-3px) rotate(0deg) !important;
+    box-shadow:
+      0 2px 4px rgba(26, 25, 22, 0.06),
+      0 14px 32px rgba(26, 25, 22, 0.08);
+  }
+
+  .postcard--1 { transform: rotate(-0.6deg); }
+  .postcard--2 { transform: rotate(0.4deg); }
+  .postcard--3 { transform: rotate(-0.3deg); }
+
+  .postcard--sm {
+    padding-bottom: 1.35rem;
+  }
+
+  .postcard-quote {
+    margin: 0;
+  }
+
+  .postcard-quote p {
+    font-family: var(--font-display);
+    font-size: 0.875rem;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.65;
+    color: var(--ink);
+    font-optical-sizing: auto;
+  }
+
+  .cta-section { border-bottom: none; padding-bottom: clamp(4rem, 8vw, 7rem); }
+  .cta-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.25rem, 5vw, 4.5rem);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 2rem;
+    font-optical-sizing: auto;
+  }
+  .cta-title em { font-style: italic; color: var(--accent); }
+  .cta-link {
+    display: inline-block;
+    font-size: 0.8125rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink);
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .cta-link:hover { color: #B5302A; border-color: #B5302A; }
+</style>

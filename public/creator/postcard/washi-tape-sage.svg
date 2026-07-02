@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 28" fill="none" aria-hidden="true">
+  <defs>
+    <pattern id="sage-stripes" x="0" y="0" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(12)">
+      <line x1="0" y1="0" x2="0" y2="8" stroke="#7A9478" stroke-width="1.5" opacity="0.2"/>
+    </pattern>
+  </defs>
+  <path d="M2 3 Q0 14 2 25 L4 26 Q3 14 4 2 Z" fill="#C8D4BC" opacity="0.65"/>
+  <path d="M70 2 Q72 14 70 25 L68 26 Q69 14 68 3 Z" fill="#C8D4BC" opacity="0.65"/>
+  <rect x="4" y="2" width="64" height="24" rx="1" fill="#D8E4CC" opacity="0.78"/>
+  <rect x="4" y="2" width="64" height="24" rx="1" fill="url(#sage-stripes)" opacity="0.6"/>
+  <line x1="4" y1="14" x2="68" y2="14" stroke="#9BA888" stroke-width="0.5" opacity="0.22"/>
+  <rect x="4" y="2" width="64" height="24" rx="1" stroke="#9BA888" stroke-width="0.6" opacity="0.28"/>
+</svg>

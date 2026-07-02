@@ -1,0 +1,342 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+
+import p1 from '../../photo_portfolio/DSCF2271.JPG';
+import p2 from '../../photo_portfolio/DSCF2328.JPG';
+import p3 from '../../photo_portfolio/DSCF2376.jpg';
+import p4 from '../../photo_portfolio/DSCF2401.jpg';
+import p5 from '../../photo_portfolio/DSCF2447.JPG';
+import p6 from '../../photo_portfolio/DSCF2449.JPG';
+import p7 from '../../photo_portfolio/DSCF2491.jpg';
+import p8 from '../../photo_portfolio/DSCF2509.JPG';
+import p9 from '../../photo_portfolio/DSCF2510.JPG';
+import p10 from '../../photo_portfolio/DSCF2561.jpg';
+
+const photos = [p1, p2, p3, p4, p5, p6, p7, p8, p9, p10];
+---
+
+<BaseLayout
+  title="Photography — Katya Ivshina"
+  description="Photography portfolio by Katya Ivshina. Portraits and stills shot in New York, Princeton, and Los Angeles."
+>
+  <main class="photo-page">
+
+    <!-- Page intro -->
+    <header class="photo-intro">
+      <h2 class="intro-title" id="work-heading">Selected work</h2>
+    </header>
+
+    <!-- Photo grid -->
+    <section class="photo-grid" aria-labelledby="work-heading">
+      {photos.map((photo, i) => (
+        <button
+          class="photo-cell"
+          data-index={i}
+          aria-label={`View photo ${i + 1}`}
+          type="button"
+        >
+          <Image
+            src={photo}
+            alt={`Photograph ${i + 1} by Katya Ivshina`}
+            widths={[600, 900, 1200]}
+            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 33vw"
+            loading={i < 6 ? 'eager' : 'lazy'}
+            decoding="async"
+            class="photo-img"
+          />
+        </button>
+      ))}
+    </section>
+
+  </main>
+
+  <!-- Lightbox overlay -->
+  <div
+    class="lightbox"
+    id="lightbox"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Photo viewer"
+    hidden
+  >
+    <button class="lb-close" id="lb-close" aria-label="Close photo viewer" type="button">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+        <line x1="2" y1="2" x2="18" y2="18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="18" y1="2" x2="2" y2="18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </button>
+
+    <button class="lb-prev" id="lb-prev" aria-label="Previous photo" type="button">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M15 4l-8 8 8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+
+    <div class="lb-stage" id="lb-stage">
+      <img class="lb-img" id="lb-img" src="" alt="" />
+    </div>
+
+    <button class="lb-next" id="lb-next" aria-label="Next photo" type="button">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M9 4l8 8-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+
+    <p class="lb-counter" id="lb-counter" aria-live="polite"></p>
+  </div>
+</BaseLayout>
+
+<style>
+/* ── Page layout ─────────────────────────────────────── */
+.photo-page {
+  padding-top: 5.5rem; /* clear fixed header */
+}
+
+/* ── Intro ───────────────────────────────────────────── */
+.photo-intro {
+  padding: clamp(2rem, 4vw, 3.5rem) var(--edge) clamp(1.5rem, 3vw, 2.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.intro-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3.5vw, 3rem);
+  font-weight: 300;
+  line-height: 1.0;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  font-optical-sizing: auto;
+}
+
+/* ── Photo grid ──────────────────────────────────────── */
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  padding: 0 var(--edge) var(--section);
+}
+
+@media (max-width: 640px) {
+  .photo-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3px;
+    padding: 0 0 4rem;
+  }
+}
+
+/* ── Photo cell ──────────────────────────────────────── */
+.photo-cell {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background: var(--cream-2);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  position: relative;
+}
+
+/* Hover: subtle brightness lift + scale */
+.photo-cell::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(26, 25, 22, 0);
+  transition: background 0.4s ease;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.photo-cell:hover::after {
+  background: rgba(26, 25, 22, 0.08);
+}
+
+.photo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: scale(1);
+  transition: transform 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
+}
+
+.photo-cell:hover .photo-img {
+  transform: scale(1.04);
+}
+
+/* ── Lightbox ────────────────────────────────────────── */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(26, 25, 22, 0.96);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: lb-in 0.25s ease both;
+}
+
+.lightbox[hidden] {
+  display: none;
+}
+
+@keyframes lb-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Stage: holds image, fills middle area */
+.lb-stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 4rem 5rem;
+}
+
+.lb-img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  transition: opacity 0.2s ease;
+}
+
+.lb-img.is-loading {
+  opacity: 0;
+}
+
+/* Controls */
+.lb-close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.75rem;
+  color: rgba(245, 242, 236, 0.7);
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: color 0.2s;
+  z-index: 2;
+}
+
+.lb-close:hover { color: #F5F2EC; }
+
+.lb-prev,
+.lb-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(245, 242, 236, 0.5);
+  background: none;
+  border: none;
+  padding: 1rem;
+  cursor: pointer;
+  transition: color 0.2s;
+  z-index: 2;
+}
+
+.lb-prev { left: 1rem; }
+.lb-next { right: 1rem; }
+.lb-prev:hover,
+.lb-next:hover { color: #F5F2EC; }
+
+/* Hide prev/next arrows on very small screens */
+@media (max-width: 480px) {
+  .lb-stage { padding: 4rem 1rem; }
+  .lb-prev, .lb-next { display: none; }
+}
+
+.lb-counter {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(245, 242, 236, 0.4);
+}
+</style>
+
+<script>
+  (() => {
+    const cells   = Array.from(document.querySelectorAll<HTMLButtonElement>('.photo-cell'));
+    const lb      = document.getElementById('lightbox') as HTMLElement;
+    const lbImg   = document.getElementById('lb-img') as HTMLImageElement;
+    const lbClose = document.getElementById('lb-close') as HTMLButtonElement;
+    const lbPrev  = document.getElementById('lb-prev') as HTMLButtonElement;
+    const lbNext  = document.getElementById('lb-next') as HTMLButtonElement;
+    const lbCount = document.getElementById('lb-counter') as HTMLElement;
+
+    // Build ordered list of full-size image sources from each cell's <img>
+    const srcs = cells.map(c => {
+      const img = c.querySelector('img');
+      // Use srcset largest entry for best quality; fall back to src
+      const srcset = img?.getAttribute('srcset') ?? '';
+      const largest = srcset
+        .split(',')
+        .map(s => s.trim().split(' '))
+        .sort((a, b) => parseInt(b[1]) - parseInt(a[1]))[0]?.[0];
+      return largest ?? img?.src ?? '';
+    });
+
+    let current = 0;
+    let previousFocus: HTMLElement | null = null;
+
+    function open(index: number) {
+      previousFocus = document.activeElement as HTMLElement;
+      current = index;
+      lb.hidden = false;
+      document.body.style.overflow = 'hidden';
+      show(current);
+      lbClose.focus();
+    }
+
+    function close() {
+      lb.hidden = true;
+      document.body.style.overflow = '';
+      previousFocus?.focus();
+    }
+
+    function show(index: number) {
+      current = (index + srcs.length) % srcs.length;
+      lbImg.classList.add('is-loading');
+      lbImg.onload = () => lbImg.classList.remove('is-loading');
+      lbImg.src = srcs[current];
+      lbImg.alt = `Photo ${current + 1} of ${srcs.length} by Katya Ivshina`;
+      lbCount.textContent = `${current + 1} / ${srcs.length}`;
+      lbPrev.style.visibility = srcs.length > 1 ? 'visible' : 'hidden';
+      lbNext.style.visibility = srcs.length > 1 ? 'visible' : 'hidden';
+    }
+
+    // Open on cell click
+    cells.forEach((cell, i) => {
+      cell.addEventListener('click', () => open(i));
+    });
+
+    lbClose.addEventListener('click', close);
+    lbPrev.addEventListener('click', () => show(current - 1));
+    lbNext.addEventListener('click', () => show(current + 1));
+
+    // Click backdrop to close
+    lb.addEventListener('click', (e: MouseEvent) => {
+      if (e.target === lb) close();
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e: KeyboardEvent) => {
+      if (lb.hidden) return;
+      if (e.key === 'Escape')      close();
+      if (e.key === 'ArrowLeft')   show(current - 1);
+      if (e.key === 'ArrowRight')  show(current + 1);
+    });
+  })();
+</script>

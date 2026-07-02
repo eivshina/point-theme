@@ -1,0 +1,628 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { travelCities } from '../data/travel';
+
+// Serialised for the client script (Astro only runs frontmatter at build time).
+const citiesJson = JSON.stringify(travelCities);
+---
+
+<BaseLayout
+  title="Personal — Katya Ivshina"
+  description="A personal travel map. An interactive 3D globe plotting the cities Katya has lived in, studied in, and wandered through — from Almaty to Paris to San Francisco."
+>
+  <main class="personal">
+    <header class="pn-hero pn-rise">
+      <h1 class="pn-title">Around the <em>globe.</em></h1>
+      <p class="pn-sub">
+        A map of the cities I've lived in, studied in, and wandered through
+      </p>
+    </header>
+
+    <section class="pn-globe-section" aria-labelledby="globe-heading">
+      <h2 id="globe-heading" class="visually-hidden">Interactive travel globe</h2>
+
+      <div class="pn-globe-frame pn-rise pn-rise--delay">
+        <div
+          id="travel-globe"
+          class="pn-globe"
+          data-cities={citiesJson}
+          role="img"
+          aria-label="An interactive 3D globe plotting cities and animated travel routes between them. A text list of the same cities follows below."
+        >
+          <p class="pn-globe-status" data-globe-status>Loading the globe…</p>
+        </div>
+        <p class="pn-globe-hint" aria-hidden="true">Drag to spin · scroll to zoom</p>
+      </div>
+
+      <!-- Accessible itinerary: doubles as a no-JS fallback (plain readable
+           list) and, once the globe is ready, as a control surface — each
+           button flies the camera to that city. -->
+      <div class="pn-itinerary">
+        <p class="pn-itinerary-label" id="route-label">The route</p>
+        <ol class="pn-city-list" aria-labelledby="route-label">
+          {travelCities.map((city, i) => (
+            <li class="pn-city">
+              <button
+                type="button"
+                class="pn-city-btn"
+                data-focus-city
+                data-city-index={i}
+                aria-label={`Focus the globe on ${city.name}, ${city.region}`}
+              >
+                <span class="pn-city-name">{city.name}</span>
+                <span class="pn-city-region">{city.region}</span>
+              </button>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .personal {
+    position: relative;
+    padding-top: 5.5rem;
+    overflow-x: clip;
+  }
+
+  /* ── Entrance ────────────────────────────────────────────
+     Self-contained, CSS-only reveal. This page intentionally does
+     NOT use the global [data-reveal] primitive: that primitive sets
+     opacity:0 and depends on a per-page IntersectionObserver script to
+     add `.is-in`. There is no such script here, so [data-reveal] would
+     leave the hero and globe permanently invisible. A pure-CSS entrance
+     guarantees the globe is always visible — no JS, observer, or scroll
+     required — and degrades to a static, fully-visible layout under
+     prefers-reduced-motion. */
+  @keyframes pn-rise {
+    from { opacity: 0; transform: translateY(2.5rem); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .pn-rise {
+    animation: pn-rise 0.9s cubic-bezier(0.16, 0.84, 0.34, 1) both;
+  }
+
+  .pn-rise--delay {
+    animation-delay: 0.08s;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pn-rise { animation: none; }
+  }
+
+  /* ── Hero ────────────────────────────────────────────── */
+  .pn-hero {
+    max-width: 60rem;
+    margin-inline: auto;
+    padding: clamp(3rem, 7vw, 5.5rem) var(--edge) clamp(1.5rem, 4vw, 2.5rem);
+    text-align: center;
+  }
+
+  .pn-title {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 9vw, 7rem);
+    font-weight: 200;
+    line-height: 0.92;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+    font-optical-sizing: auto;
+  }
+
+  .pn-title em {
+    font-style: italic;
+    color: #b5302a;
+  }
+
+  .pn-sub {
+    max-width: 46ch;
+    margin: 1.25rem auto 0;
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    color: var(--ink-2);
+  }
+
+  /* ── Globe section ───────────────────────────────────── */
+  .pn-globe-section {
+    padding: clamp(1.5rem, 4vw, 3rem) var(--edge) clamp(3rem, 7vw, 5.5rem);
+  }
+
+  .pn-globe-frame {
+    position: relative;
+    max-width: 64rem;
+    margin-inline: auto;
+  }
+
+  .pn-globe {
+    position: relative;
+    width: 100%;
+    height: clamp(22rem, 62vh, 40rem);
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    border-radius: 1rem;
+    /* Deep-space backdrop so the globe and warm arcs stay legible. */
+    background:
+      radial-gradient(circle at 50% 38%, #25242e 0%, #14131a 48%, #0c0b11 100%);
+    border: 1px solid rgba(26, 25, 22, 0.12);
+    box-shadow: 0 22px 60px rgba(26, 25, 22, 0.22);
+    cursor: grab;
+  }
+
+  .pn-globe:active {
+    cursor: grabbing;
+  }
+
+  /* Hide the grab cursor / drag hint until the canvas actually mounts. */
+  .pn-globe:not(.is-ready) {
+    cursor: default;
+  }
+
+  .pn-globe :global(canvas) {
+    display: block;
+    border-radius: inherit;
+  }
+
+  /* Hover label injected by globe.gl — white text only, no pill background.
+     Shadow + stroke keep names legible over bright ocean/cloud areas. */
+  .pn-globe :global(.pn-globe-label) {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: #fff;
+    background: none;
+    border: none;
+    white-space: nowrap;
+    pointer-events: none;
+    -webkit-text-stroke: 0.35px rgba(12, 11, 17, 0.55);
+    paint-order: stroke fill;
+    text-shadow:
+      0 0 10px rgba(12, 11, 17, 0.85),
+      0 1px 3px rgba(12, 11, 17, 0.9),
+      0 2px 8px rgba(12, 11, 17, 0.65);
+  }
+
+  .pn-globe-status {
+    font-size: 0.8125rem;
+    letter-spacing: 0.08em;
+    color: rgba(245, 242, 236, 0.7);
+    text-align: center;
+    padding: 1rem;
+  }
+
+  .pn-globe.is-ready .pn-globe-status {
+    display: none;
+  }
+
+  .pn-globe.has-error .pn-globe-status {
+    color: rgba(245, 242, 236, 0.85);
+  }
+
+  .pn-globe-hint {
+    margin-top: 0.85rem;
+    text-align: center;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .pn-globe-frame:has(.pn-globe.is-ready) .pn-globe-hint {
+    opacity: 1;
+  }
+
+  /* ── Itinerary (accessible fallback) ─────────────────── */
+  .pn-itinerary {
+    max-width: 64rem;
+    margin: clamp(2rem, 5vw, 3rem) auto 0;
+  }
+
+  .pn-itinerary-label {
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .pn-city-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.6rem 0.75rem;
+    counter-reset: city;
+  }
+
+  .pn-city {
+    counter-increment: city;
+    display: inline-flex;
+  }
+
+  /* The button carries the pill styling so it stays the keyboard- and
+     pointer-target. Resets strip the UA button look; the counter is read
+     from the parent <li>. */
+  .pn-city-btn {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    padding: 0.55rem 1rem;
+    margin: 0;
+    font: inherit;
+    text-align: left;
+    background: var(--cream-2);
+    border: 1px solid rgba(26, 25, 22, 0.08);
+    border-radius: 50px;
+    cursor: pointer;
+    transition:
+      background-color 0.25s ease,
+      border-color 0.25s ease,
+      transform 0.25s ease,
+      box-shadow 0.25s ease;
+  }
+
+  .pn-city-btn::before {
+    content: counter(city);
+    font-size: 0.625rem;
+    font-weight: 600;
+    color: #b5302a;
+  }
+
+  .pn-city-btn:hover {
+    background: var(--cream, #f5f2ec);
+    border-color: rgba(181, 48, 42, 0.35);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(26, 25, 22, 0.12);
+  }
+
+  .pn-city-btn:focus-visible {
+    outline: 2px solid #b5302a;
+    outline-offset: 2px;
+  }
+
+  /* Selected destination: the globe is currently focused on this city. */
+  .pn-city-btn[aria-current='true'] {
+    background: #b5302a;
+    border-color: #b5302a;
+    box-shadow: 0 8px 20px rgba(181, 48, 42, 0.3);
+  }
+
+  .pn-city-btn[aria-current='true'] .pn-city-name,
+  .pn-city-btn[aria-current='true'] .pn-city-region {
+    color: var(--cream, #f5f2ec);
+  }
+
+  .pn-city-btn[aria-current='true']::before {
+    color: rgba(245, 242, 236, 0.85);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pn-city-btn {
+      transition: none;
+    }
+    .pn-city-btn:hover {
+      transform: none;
+    }
+  }
+
+  .pn-city-name {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--ink);
+  }
+
+  .pn-city-region {
+    font-size: 0.6875rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  @media (max-width: 560px) {
+    .pn-globe { height: clamp(18rem, 56vh, 26rem); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pn-globe-hint { transition: none; }
+  }
+</style>
+
+<script>
+  type GlobeConstructor = typeof import('globe.gl').default;
+
+  type City = {
+    name: string;
+    region: string;
+    lat: number;
+    lng: number;
+  };
+
+  type Arc = {
+    startLat: number;
+    startLng: number;
+    endLat: number;
+    endLng: number;
+    color: string[];
+    /** Staggers each arc's dash animation so routes light up in sequence. */
+    gap: number;
+  };
+
+  type Ring = {
+    lat: number;
+    lng: number;
+  };
+
+  // Brand palette — warm, vintage, legible against the deep-space backdrop.
+  const PALETTE = {
+    cherry: '#B5302A',
+    mustard: '#D8A53C',
+    green: '#6E8B5B',
+    cream: '#F5F2EC',
+  } as const;
+
+  const ARC_COLORS = [PALETTE.cherry, PALETTE.mustard, PALETTE.green];
+
+  // Camera framing when a city is selected from the route list.
+  const FOCUS_ALTITUDE = 1.8;
+  const FOCUS_DURATION_MS = 1000;
+  /** Small grace period after the fly-to before auto-rotation resumes. */
+  const RESUME_AUTOROTATE_DELAY_MS = 700;
+
+  function parseCities(el: HTMLElement): City[] {
+    const raw = el.dataset.cities;
+    if (!raw) return [];
+    try {
+      const parsed = JSON.parse(raw) as unknown;
+      if (!Array.isArray(parsed)) return [];
+      return parsed.filter(
+        (c): c is City =>
+          typeof c === 'object' &&
+          c !== null &&
+          typeof (c as City).lat === 'number' &&
+          typeof (c as City).lng === 'number',
+      );
+    } catch {
+      return [];
+    }
+  }
+
+  /** Connect consecutive cities and loop the last one back to the first. */
+  function buildArcs(cities: City[]): Arc[] {
+    if (cities.length < 2) return [];
+    return cities.map((city, i) => {
+      const next = cities[(i + 1) % cities.length];
+      const color = ARC_COLORS[i % ARC_COLORS.length];
+      return {
+        startLat: city.lat,
+        startLng: city.lng,
+        endLat: next.lat,
+        endLng: next.lng,
+        color: [color, ARC_COLORS[(i + 1) % ARC_COLORS.length]],
+        gap: i,
+      };
+    });
+  }
+
+  function setStatus(el: HTMLElement, message: string, isError = false): void {
+    const status = el.querySelector<HTMLElement>('[data-globe-status]');
+    if (status) status.textContent = message;
+    el.classList.toggle('has-error', isError);
+  }
+
+  async function loadGlobeFactory(): Promise<GlobeConstructor> {
+    const mod = await import('globe.gl');
+    const factory = mod.default;
+    if (typeof factory !== 'function') {
+      throw new Error('globe.gl default export is missing');
+    }
+    return factory;
+  }
+
+  async function initGlobe(el: HTMLElement): Promise<void> {
+    if (el.dataset.globeBound === 'true') return;
+
+    const cities = parseCities(el);
+    if (cities.length === 0) {
+      setStatus(el, 'Map unavailable — see the route below.', true);
+      return;
+    }
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    let GlobeFactory: GlobeConstructor;
+    try {
+      GlobeFactory = await loadGlobeFactory();
+    } catch (err) {
+      // Vite dev can briefly serve "504 Outdated Optimize Dep" while
+      // re-bundling globe.gl; one reload usually resolves it.
+      const isDev = import.meta.env.DEV;
+      const reloadKey = 'pn-globe-reload';
+      if (isDev && !sessionStorage.getItem(reloadKey)) {
+        sessionStorage.setItem(reloadKey, '1');
+        window.location.reload();
+        return;
+      }
+      sessionStorage.removeItem(reloadKey);
+      console.error('Travel globe failed to load:', err);
+      setStatus(el, 'The globe could not load — see the route below.', true);
+      return;
+    }
+
+    sessionStorage.removeItem('pn-globe-reload');
+    el.dataset.globeBound = 'true';
+
+    // De-clutter: the Europe cluster (Paris/London/Milan/Venice/Florence/Rome/
+    // Barcelona/Nice/Cannes…) would collapse into an unreadable blob if every
+    // name were drawn at once. Instead every city keeps an always-visible dot
+    // and its name surfaces as a styled tooltip only for the hovered point —
+    // no overlapping static text, readable at the default zoom.
+    const pointLabel = (d: object): string =>
+      `<span class="pn-globe-label">${(d as City).name}</span>`;
+
+    // The selected city (clicked in the route list) is emphasised — larger and
+    // recoloured to the brand cherry — while the camera flies to it.
+    let focusedCity: City | null = null;
+    let resumeAutoRotateTimer = 0;
+    const pointColor = (d: object): string =>
+      (d as City) === focusedCity ? PALETTE.cherry : PALETTE.mustard;
+    const pointRadius = (d: object): number =>
+      (d as City) === focusedCity ? 0.62 : 0.34;
+
+    const world = new GlobeFactory(el)
+      .backgroundColor('rgba(0,0,0,0)')
+      .width(el.clientWidth)
+      .height(el.clientHeight)
+      // Textures are vendored into public/personal/ (copied from the
+      // three-globe package) so the globe never depends on an external CDN
+      // at runtime. A texture failure still leaves the sphere, points and
+      // arcs intact — only the surface imagery would be missing.
+      // Bright blue-marble surface + a starfield backdrop, matching the
+      // reference site: a lit, legible planet against a night sky.
+      .globeImageUrl('/personal/earth-blue-marble.jpg')
+      .bumpImageUrl('/personal/earth-topology.png')
+      .backgroundImageUrl('/personal/night-sky.png')
+      .showAtmosphere(true)
+      .atmosphereColor(PALETTE.cherry)
+      .atmosphereAltitude(0.18)
+      // City points — glowing warm dots, always visible. The name reveals as
+      // a tooltip on hover (pointLabel), so dense clusters never overlap.
+      .pointsData(cities as object[])
+      .pointLat((d) => (d as City).lat)
+      .pointLng((d) => (d as City).lng)
+      .pointColor(pointColor)
+      .pointAltitude(0.012)
+      .pointRadius(pointRadius)
+      .pointResolution(16)
+      .pointLabel(pointLabel)
+      .onPointHover((pt: object | null) => {
+        el.style.cursor = pt ? 'pointer' : '';
+      })
+      // Travel arcs between consecutive cities.
+      .arcsData(buildArcs(cities) as object[])
+      .arcStartLat((d) => (d as Arc).startLat)
+      .arcStartLng((d) => (d as Arc).startLng)
+      .arcEndLat((d) => (d as Arc).endLat)
+      .arcEndLng((d) => (d as Arc).endLng)
+      .arcColor((d) => (d as Arc).color)
+      .arcAltitudeAutoScale(0.4)
+      .arcStroke(0.55);
+
+    // Pulsing rings under each city — animated only when motion is allowed.
+    const rings: Ring[] = cities.map((c) => ({ lat: c.lat, lng: c.lng }));
+    world
+      .ringsData(rings as object[])
+      .ringLat((d) => (d as Ring).lat)
+      .ringLng((d) => (d as Ring).lng)
+      .ringColor(() => (t: number) => `rgba(181, 48, 42, ${Math.sqrt(1 - t)})`)
+      .ringMaxRadius(2.4)
+      .ringPropagationSpeed(reduced ? 0 : 1.6)
+      .ringRepeatPeriod(reduced ? 0 : 1400);
+
+    if (reduced) {
+      // Static globe: no orbit, no dashing arcs.
+      world.arcDashLength(1).arcDashGap(0).arcDashAnimateTime(0);
+    } else {
+      world
+        .arcDashLength(0.45)
+        .arcDashGap(0.25)
+        .arcDashInitialGap((d) => (d as Arc).gap)
+        .arcDashAnimateTime(2200);
+
+      const controls = world.controls();
+      controls.autoRotate = true;
+      controls.autoRotateSpeed = 0.6;
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.08;
+    }
+
+    // Frame Europe first — most of the route clusters there.
+    world.pointOfView({ lat: 46, lng: 8, altitude: 2.4 }, 0);
+
+    // Keep the renderer sized to its container.
+    const resize = (): void => {
+      world.width(el.clientWidth).height(el.clientHeight);
+    };
+    const observer = new ResizeObserver(resize);
+    observer.observe(el);
+    window.addEventListener('beforeunload', () => observer.disconnect(), { once: true });
+
+    // ── Click a route entry → fly the camera to that city ──────────────
+    const focusOnCity = (
+      city: City,
+      button: HTMLButtonElement,
+      buttons: readonly HTMLButtonElement[],
+    ): void => {
+      for (const b of buttons) {
+        if (b === button) b.setAttribute('aria-current', 'true');
+        else b.removeAttribute('aria-current');
+      }
+
+      // Emphasise the selected point.
+      focusedCity = city;
+      world.pointColor(pointColor).pointRadius(pointRadius);
+
+      // Under reduced motion: recenter instantly, leave rotation untouched.
+      // Otherwise: pause auto-rotate so the fly-to reads, then resume.
+      const controls = world.controls();
+      const duration = reduced ? 0 : FOCUS_DURATION_MS;
+      if (!reduced) controls.autoRotate = false;
+      world.pointOfView(
+        { lat: city.lat, lng: city.lng, altitude: FOCUS_ALTITUDE },
+        duration,
+      );
+
+      if (!reduced) {
+        window.clearTimeout(resumeAutoRotateTimer);
+        resumeAutoRotateTimer = window.setTimeout(() => {
+          world.controls().autoRotate = true;
+        }, duration + RESUME_AUTOROTATE_DELAY_MS);
+      }
+    };
+
+    const focusButtons = Array.from(
+      document.querySelectorAll<HTMLButtonElement>('[data-focus-city]'),
+    );
+    for (const button of focusButtons) {
+      if (button.dataset.focusBound === 'true') continue;
+      button.dataset.focusBound = 'true';
+      button.addEventListener('click', () => {
+        const index = Number(button.dataset.cityIndex);
+        const city = cities[index];
+        if (city) focusOnCity(city, button, focusButtons);
+      });
+    }
+
+    el.classList.add('is-ready');
+    setStatus(el, '');
+  }
+
+  function boot(): void {
+    const el = document.getElementById('travel-globe');
+    if (el) void initGlobe(el);
+  }
+
+  boot();
+  document.addEventListener('astro:page-load', boot);
+</script>

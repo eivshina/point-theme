@@ -1,0 +1,492 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const phdTestimonials = [
+  "Katya's PhD admissions mentorship program was an excellent experience that provided insider information I couldn't find anywhere else. Thanks to her guidance, I now feel I'm at a next level of preparedness for PhD applications, with a clear advantage in understanding what top programs are really looking for.",
+  'Every single thing Katya helped me with was extremely helpful! As a first generation person of color, this is the type of advice that I would otherwise spend months trying to dig for. She made me really believe in myself and my abilities!!',
+  "This has probably been the best investment that I've ever made towards my future, every dollar was worth it.",
+  'I loved how interactive this session was, you spent all your time going in depth and answering questions during your presentation and not leaving it all at the end! I enjoyed sharing our own experiences and hearing feedback',
+  'I loved how realistic it was, and how you pulled from actual experience. You mentioning speaking to members in departments and admissions, as well as others you know was very insightful. Additionally your own experience and advice in applying was very engaging!',
+  'It was a very well prepared presentation, and I liked that you spoke with honesty and shared your personal insights.',
+];
+
+const studentFeedback = [
+  'Learning about your background before teaching this course made us respect and awe you even more. Keep teaching and inspiring students like us around the world.',
+  "The explanations are always really clear and I really appreciate the fact that you addressed everyone's confusions as you explain. I really just enjoyed learning the basic concepts of topology in general.",
+  'Being empathetic while correcting us, asking if we were following along, making it interactive. Material was challenging, a nice change of pace from being treated like middle schoolers in other seminars, but something I looked forward to attend. The people in that group, the questions, and your support made it a memorable and inspiring experience.',
+  'Some of the analogies were extremely useful, and I think the knowledge checks really helped to catch misunderstandings I had. I also really liked the beginning clarification of processes and purposes as it helped make understanding a lot smoother.',
+  'I found the graphs and depictions along with a walkthrough of what each part of the graph meant most helpful. My favorite activity was when we went around the table sharing our answers to the number of holes in a shape.',
+  'I thought the gifs on the slideshow made the concepts discussed much clearer. I also thought that drawing the torus on the board was helpful for my understanding.',
+  'What worked well was the explanations you gave when referring to TDA. I enjoyed when we discussed possible uses of TDA as a group.',
+  'I liked the discussion styles and being able to solve a fake situation as it allowed for us to understand many different aspects.',
+  'Enjoyed the group discussions and different ethical cases we did. I liked the discussions and the case studies because they made me think about what I was learning.',
+  "Those ice-breakers were amazing and overall the atmosphere during the seminar was super friendly and 'learning'.",
+  'The small group discussion and seminar as a whole group exposed me to different ideas that I benefited from a lot. The explanations and slides are also very clear.',
+  "There was a lot of hands-on mathematics in today's seminar, like solving the trivial knots and computing Kauffman brackets. I enjoyed the hands-on stuff since I find it easiest to learn something when I do the math behind it.",
+  'I enjoyed doing things on the board because the seminar feels interactive this way. I enjoyed solving for the Kauffman bracket and I liked the visual aids.',
+  "I liked that there was a lot of content and we weren't just talking about the same concept. It was really helpful, especially in math I think, to do problems together with you on the board. I also loved that you introduced the topic before talking about your research and the research process.",
+  'I particularly enjoyed deriving the methods ourselves as it made the seminar more engaging and enabled first-hand experience in the field.',
+  'I liked how there were a lot of graphical representations to complement the theoretical maths. It is really interactive and we get to do some graph drawing and try things ourselves.',
+  'You always thought about the practicality of the topic and not just kept it to the theoretical part. This made me understand the seminar much more because I did not have much experience in the field. You asking questions and making us reflect on the topic was also great.',
+  'I liked how technical it was while being relatively easy to understand. It was all explained very well. I liked the final activity where we could apply what we just learned to "real life" scenarios we had heard about.',
+  'I enjoyed the breaks to ask questions. It kept me engaged and thinking critically. I also appreciate how you created a safe space by encouraging all questions.',
+  'The questions instead of giving us straight answers helped me better understand the topics at hand.',
+  'You checked in a lot and took the time to explain things. You did not assume students had certain knowledge.',
+  'I liked that you seemed extremely knowledgeable about your topic. I enjoyed when you let us all solve the one knot problem on our own.',
+  'I enjoyed working at problems even though I struggled to understand. I have never worked with pure math like this so it was interesting.',
+  'Thank you so much for introducing this complex topic and making it so accessible and easy to understand.',
+];
+
+const yygsSeminars = [
+  {
+    title: 'Knot theory',
+    href: 'https://katyaivshina.com/knots',
+  },
+  {
+    title: 'Topological data analysis',
+    href: 'https://katyaivshina.com/tda',
+  },
+  {
+    title: 'Ethics & machine learning',
+    href: 'https://katyaivshina.com/ethics-in-ml',
+  },
+];
+
+const princetonCourses = [
+  'Honors real analysis',
+  'Honors Linear Algebra',
+  'Thermodynamics',
+];
+
+const sectionNav = [
+  { id: 'phd-heading', label: 'PhD coaching' },
+  { id: 'harvard-heading', label: 'Harvard' },
+  { id: 'yygs-heading', label: 'Yale' },
+  { id: 'princeton-heading', label: 'Princeton' },
+  { id: 'feedback-heading', label: 'Student feedback' },
+];
+---
+
+<BaseLayout
+  title="Teaching — Katya Ivshina"
+  description="PhD admissions workshops, Harvard mathematical modeling, Yale Young Global Scholars seminars, and research fundamentals with Katya Ivshina."
+>
+  <main class="teaching-page">
+
+    <header class="teaching-hero">
+      <h1 class="hero-title">Mentorship,<br /><em>in the room.</em></h1>
+      <p class="hero-sub text-subhead">
+        Katya's workshops, seminars, and courses across AI/ML, PhD & undergraduate admissions, mathematics, and research fundamentals. Full academic record is available on the
+        <a href="/learning" class="inline-hero-link">Academic / research experience</a> page.
+      </p>
+      <nav class="section-nav" aria-label="On this page">
+        <ul class="section-nav-list" role="list">
+          {sectionNav.map(({ id, label }) => (
+            <li>
+              <a href={`#${id}`} class="section-nav-link">{label}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </header>
+
+    <!-- PhD admissions workshop -->
+    <section class="section section--linen" aria-labelledby="phd-heading">
+      <div class="section-intro">
+        <h2 class="section-title" id="phd-heading">Signature PhD admissions coaching program</h2>
+        <p class="section-body text-subhead">
+          I run my signature PhD admissions coaching program, a mentorship program built on insider
+          guidance I wish I had when applying: what committees look for, how to research programs,
+          funding, statements of purpose, letters, and timelines. Free templates and my application
+          materials are on the
+          <a href="/phd-admissions" class="inline-hero-link">PhD Admissions page</a>.
+          Here is what my students say.
+        </p>
+      </div>
+
+      <h3 class="postcards-heading">What Katya's mentees say</h3>
+      <div class="postcard-grid postcard-grid--phd">
+        {phdTestimonials.map((quote, i) => (
+          <figure class={`postcard postcard--${(i % 3) + 1}`}>
+            <blockquote class="postcard-quote">
+              <p>"{quote}"</p>
+            </blockquote>
+          </figure>
+        ))}
+      </div>
+    </section>
+
+    <!-- Harvard -->
+    <section class="section" aria-labelledby="harvard-heading">
+      <div class="section-inner">
+        <h2 class="section-title" id="harvard-heading">Mathematical modeling at Harvard</h2>
+        <div class="prose">
+          <p class="section-body text-subhead">
+            I taught and supported <strong>AM 210: Mathematical Modeling</strong> at Harvard.
+            I was a teaching assistant for two semesters, leading review sessions, hosting office
+            hours, and grading problem sets and research projects.
+          </p>
+          <p class="section-body text-subhead">
+            For one summer I served as a <strong>curriculum development fellow</strong>, helping
+            design the full course curriculum: homework, assignments, review sessions, and a new
+            structure for final projects that encouraged collaboration between graduate and
+            undergraduate students, mirroring the peer code review process in tech.
+          </p>
+          <p class="section-body text-subhead">
+            I also organized and ran my signature <strong>Research Fundamentals workshop</strong>,
+            a series of lectures on best practices in doing and writing research. It covers how to
+            read papers, formulate questions, structure arguments, and communicate results clearly.
+            I am very proud of this work.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Yale Young Global Scholars -->
+    <section class="section section--linen" aria-labelledby="yygs-heading">
+      <div class="section-intro">
+        <p class="text-caption section-label">Yale Young Global Scholars</p>
+        <h2 class="section-title" id="yygs-heading">Seminar instructor</h2>
+        <p class="section-body text-subhead">
+          I was a seminar instructor at the Yale Young Global Scholars program (Summer 2023).
+          I designed and taught four seminars to high school students from around the world:
+          knot theory, topological data analysis, ethics &amp; machine learning, and astrophysics.
+          I led group discussions, mentored capstone projects, and facilitated bonding activities
+          among students.
+        </p>
+      </div>
+
+      <ul class="seminar-list" role="list">
+        {yygsSeminars.map((s) => (
+          <li class="seminar-item">
+            {s.href ? (
+              <a
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="seminar-link"
+              >
+                <span class="seminar-title">{s.title}</span>
+                <span class="seminar-cta">View slides →</span>
+              </a>
+            ) : (
+              <span class="seminar-link seminar-link--static">
+                <span class="seminar-title">{s.title}</span>
+              </span>
+            )}
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- Princeton undergrad -->
+    <section class="section" aria-labelledby="princeton-heading">
+      <div class="section-inner">
+        <h2 class="section-title" id="princeton-heading">Undergraduate course assistant</h2>
+        <p class="section-body text-subhead">
+          During my undergraduate years at Princeton, I was a course assistant for multiple
+          courses, including:
+        </p>
+        <ul class="course-list" role="list">
+          {princetonCourses.map((course) => (
+            <li class="course-item">{course}</li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- Student feedback -->
+    <section class="section" aria-labelledby="feedback-heading">
+      <div class="section-intro">
+        <h2 class="section-title" id="feedback-heading">What students say about my teaching</h2>
+      </div>
+
+      <div class="feedback-grid">
+        {studentFeedback.map((quote, i) => (
+          <figure class={`postcard postcard--sm postcard--${(i % 3) + 1}`}>
+            <blockquote class="postcard-quote">
+              <p>"{quote}"</p>
+            </blockquote>
+          </figure>
+        ))}
+      </div>
+    </section>
+
+  </main>
+</BaseLayout>
+
+<style>
+  .teaching-page {
+    padding-top: 5.5rem;
+  }
+
+  /* ── Hero ─────────────────────────────────────────── */
+  .teaching-hero {
+    padding: clamp(2.5rem, 5vw, 4rem) var(--edge) clamp(2.5rem, 4vw, 3.5rem);
+    border-bottom: 1px solid rgba(26, 25, 22, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.75rem, 6.5vw, 6rem);
+    font-weight: 200;
+    line-height: 0.92;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    font-optical-sizing: auto;
+  }
+
+  .hero-title em {
+    font-style: italic;
+  }
+
+  .hero-sub {
+    max-width: 52ch;
+  }
+
+  .section-nav {
+    margin-top: 1.25rem;
+  }
+
+  .section-nav-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+    max-width: 52rem;
+  }
+
+  .section-nav-link {
+    font-size: 0.8125rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+    border-bottom: 1px solid rgba(26, 25, 22, 0.15);
+    padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .section-nav-link:hover {
+    color: #B5302A;
+    border-color: #B5302A;
+  }
+
+  /* ── Sections ─────────────────────────────────────── */
+  .section {
+    padding: var(--section) var(--edge);
+  }
+
+  .section--linen {
+    background: var(--cream-2);
+    border-top: 1px solid rgba(26, 25, 22, 0.06);
+    border-bottom: 1px solid rgba(26, 25, 22, 0.06);
+  }
+
+  .section-inner,
+  .section-intro {
+    max-width: 42rem;
+  }
+
+  .section-intro {
+    margin-bottom: 2.5rem;
+  }
+
+  .section-label {
+    margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+    margin-bottom: 1rem;
+    font-optical-sizing: auto;
+    scroll-margin-top: 6rem;
+  }
+
+  .section-body {
+    max-width: 52ch;
+  }
+
+  .section-body + .section-body {
+    margin-top: 1rem;
+  }
+
+  .prose strong {
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  /* ── Postcards ────────────────────────────────────── */
+  .postcards-heading {
+    font-family: var(--font-display);
+    font-size: clamp(1.25rem, 2vw, 1.5rem);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--ink);
+    margin-bottom: 1.75rem;
+    text-align: center;
+  }
+
+  .postcard-grid,
+  .feedback-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
+    gap: 1.5rem;
+    max-width: 72rem;
+  }
+
+  .postcard {
+    position: relative;
+    margin: 0;
+    padding: 1.5rem 1.35rem 1.25rem;
+    background: #FAF8F3;
+    border: 1px solid rgba(26, 25, 22, 0.1);
+    border-radius: 10px;
+    box-shadow:
+      0 1px 2px rgba(26, 25, 22, 0.04),
+      0 8px 24px rgba(26, 25, 22, 0.06);
+    transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                box-shadow 0.35s;
+  }
+
+  .postcard:hover {
+    transform: translateY(-3px) rotate(0deg) !important;
+    box-shadow:
+      0 2px 4px rgba(26, 25, 22, 0.06),
+      0 14px 32px rgba(26, 25, 22, 0.08);
+  }
+
+  .postcard--1 { transform: rotate(-0.6deg); }
+  .postcard--2 { transform: rotate(0.4deg); }
+  .postcard--3 { transform: rotate(-0.3deg); }
+
+  .postcard-grid--phd {
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
+  }
+
+  .postcard-grid--phd .postcard {
+    padding-bottom: 1.35rem;
+  }
+
+  .postcard-grid--phd .postcard-quote {
+    margin-bottom: 0;
+  }
+
+  .postcard--sm .postcard-quote {
+    margin-bottom: 0;
+  }
+
+  .postcard--sm {
+    padding-bottom: 1.35rem;
+  }
+
+  .postcard-quote {
+    margin: 0 0 1.25rem;
+  }
+
+  .postcard-quote p {
+    font-family: var(--font-display);
+    font-size: 0.9375rem;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.65;
+    color: var(--ink);
+    font-optical-sizing: auto;
+  }
+
+  .postcard--sm .postcard-quote p {
+    font-size: 0.875rem;
+  }
+
+  /* ── YYGS seminars ────────────────────────────────── */
+  .seminar-list {
+    list-style: none;
+    display: grid;
+    gap: 0.75rem;
+    max-width: 36rem;
+  }
+
+  .seminar-item {
+    border-bottom: 1px solid rgba(26, 25, 22, 0.08);
+  }
+
+  .seminar-link {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.85rem 0;
+    color: var(--ink);
+    transition: color 0.2s;
+  }
+
+  .seminar-link:hover {
+    color: #B5302A;
+  }
+
+  .seminar-link--static {
+    cursor: default;
+  }
+
+  .seminar-title {
+    font-family: var(--font-display);
+    font-size: 1.0625rem;
+    font-weight: 400;
+    font-optical-sizing: auto;
+  }
+
+  .seminar-cta {
+    font-size: 0.6875rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    white-space: nowrap;
+    transition: color 0.2s;
+  }
+
+  .seminar-link:hover .seminar-cta {
+    color: #B5302A;
+  }
+
+  /* ── Princeton courses ────────────────────────────── */
+  .course-list {
+    list-style: none;
+    margin-top: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .course-item {
+    position: relative;
+    padding-left: 1.1rem;
+    font-size: 0.9375rem;
+    color: var(--ink-2);
+  }
+
+  .course-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #B5302A;
+  }
+
+  @media (max-width: 640px) {
+    .seminar-link {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.35rem;
+    }
+  }
+</style>

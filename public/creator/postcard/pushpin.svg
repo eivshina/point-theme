@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 40" fill="none" aria-hidden="true">
+  <defs>
+    <radialGradient id="pin-head" cx="0.38" cy="0.32" r="0.65">
+      <stop offset="0%" stop-color="#E8C4A8"/>
+      <stop offset="45%" stop-color="#C4846A"/>
+      <stop offset="100%" stop-color="#8B5344"/>
+    </radialGradient>
+    <filter id="pin-shadow" x="-20%" y="-10%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="1.5" flood-color="#1A1916" flood-opacity="0.28"/>
+    </filter>
+  </defs>
+  <!-- needle -->
+  <path d="M16 22 L16 36" stroke="#6B5A48" stroke-width="1.5" stroke-linecap="round"/>
+  <ellipse cx="16" cy="36.5" rx="3" ry="1.2" fill="#1A1916" opacity="0.12"/>
+  <!-- pin head -->
+  <circle cx="16" cy="14" r="11" fill="url(#pin-head)" filter="url(#pin-shadow)"/>
+  <ellipse cx="12.5" cy="10.5" rx="3.5" ry="2.2" fill="#FFF" opacity="0.35" transform="rotate(-25 12.5 10.5)"/>
+  <circle cx="16" cy="14" r="11" stroke="#7A4A3A" stroke-width="0.6" opacity="0.35"/>
+</svg>

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 280" fill="none" preserveAspectRatio="none" aria-hidden="true">
+  <path d="M18 12
+    Q60 8 120 10 T220 12 T320 10 T382 14
+    Q392 40 388 80 T390 140 T386 200 T382 256
+    Q340 268 280 264 T180 268 T80 264 T22 258
+    Q8 220 12 180 T10 100 T18 12Z"
+    stroke="#8B7355" stroke-width="1.4" fill="none" opacity="0.22"
+    stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M24 20
+    Q80 16 160 18 T320 20
+    Q328 60 326 140 T322 248
+    Q260 254 140 252 T28 246
+    Q20 180 22 100 T24 20Z"
+    stroke="#C4A882" stroke-width="0.8" fill="none" opacity="0.14"
+    stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

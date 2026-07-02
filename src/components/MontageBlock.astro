@@ -1,0 +1,65 @@
+---
+type MontagePhoto = {
+  src: string;
+  w: number;
+  h: number;
+  alt: string;
+  cut?: boolean;
+  sticker?: boolean;
+};
+
+type MasonryItem = MontagePhoto & { r: number };
+
+export type MontageVariant = {
+  id: 'b';
+  label: string;
+  layout: 'masonry';
+  masonryItems: MasonryItem[];
+};
+
+interface Props {
+  variant: MontageVariant;
+}
+
+const { variant } = Astro.props;
+
+function montageSrc(item: MontagePhoto): string {
+  return `${item.sticker ? '/home/stickers' : '/home/gallery'}/${item.src}`;
+}
+---
+
+<div class="montage-block">
+  <div
+    class:list={[
+      'montage-stage',
+      `montage-stage--${variant.id}`,
+      `montage-stage--${variant.layout}`,
+    ]}
+    role="group"
+    aria-label="Photo collage from Katya's life"
+    data-rise
+  >
+    <div class="montage-masonry">
+      {variant.masonryItems.map((p) => (
+        <figure
+          class:list={[
+            'm-item',
+            p.cut ? 'm-cut' : 'm-photo',
+            p.sticker && 'm-sticker',
+          ]}
+          style={`--r:${p.r}deg;`}
+          data-pop
+        >
+          <img
+            src={montageSrc(p)}
+            alt={p.alt}
+            width={p.w}
+            height={p.h}
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
+      ))}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,428 @@
+---
+import { featuredFollowerQuote } from '../data/follower-quotes';
+
+interface Props {
+  variant?: 'hero' | 'banner';
+}
+
+const { variant = 'banner' } = Astro.props;
+const isPostcard = variant === 'hero';
+---
+
+<figure class={`featured-quote featured-quote--${variant}`}>
+  {isPostcard ? (
+    <div class="postcard-wall">
+      <div class="postcard-hanger" aria-hidden="true">
+        <img
+          class="postcard-pin-img"
+          src="/creator/postcard/pushpin.svg"
+          alt=""
+          width="32"
+          height="40"
+          loading="lazy"
+          decoding="async"
+        />
+        <span class="postcard-string"></span>
+      </div>
+
+      <img
+        class="postcard-tape postcard-tape--tl"
+        src="/creator/postcard/washi-tape-floral.svg"
+        alt=""
+        width="72"
+        height="28"
+        loading="lazy"
+        decoding="async"
+        aria-hidden="true"
+      />
+      <img
+        class="postcard-tape postcard-tape--br"
+        src="/creator/postcard/washi-tape-sage.svg"
+        alt=""
+        width="72"
+        height="28"
+        loading="lazy"
+        decoding="async"
+        aria-hidden="true"
+      />
+
+      <article class="postcard">
+        <img
+          class="postcard-border-sketch"
+          src="/creator/postcard/border-sketch.svg"
+          alt=""
+          loading="lazy"
+          decoding="async"
+          aria-hidden="true"
+        />
+
+        <img
+          class="postcard-stamp"
+          src="/creator/postcard/postage-stamp.svg"
+          alt=""
+          width="56"
+          height="68"
+          loading="lazy"
+          decoding="async"
+          aria-hidden="true"
+        />
+
+        <img
+          class="postcard-doodle postcard-doodle--heart"
+          src="/creator/postcard/doodle-heart.svg"
+          alt=""
+          width="24"
+          height="24"
+          loading="lazy"
+          decoding="async"
+          aria-hidden="true"
+        />
+        <img
+          class="postcard-doodle postcard-doodle--star"
+          src="/creator/postcard/doodle-star.svg"
+          alt=""
+          width="20"
+          height="20"
+          loading="lazy"
+          decoding="async"
+          aria-hidden="true"
+        />
+
+        <blockquote class="featured-quote-text">
+          <p>"{featuredFollowerQuote.text}"</p>
+        </blockquote>
+        <div class="postcard-divider" aria-hidden="true"></div>
+        <figcaption class="featured-quote-attribution">
+          — {featuredFollowerQuote.attribution}
+        </figcaption>
+      </article>
+    </div>
+  ) : (
+    <>
+      <blockquote class="featured-quote-text">
+        <p>"{featuredFollowerQuote.text}"</p>
+      </blockquote>
+      <figcaption class="featured-quote-attribution">
+        {featuredFollowerQuote.attribution}
+      </figcaption>
+    </>
+  )}
+</figure>
+
+<style>
+  .featured-quote {
+    margin: 0;
+    text-align: center;
+  }
+
+  .featured-quote-text {
+    margin: 0;
+  }
+
+  .featured-quote-text p {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.55;
+    color: var(--ink);
+    font-optical-sizing: auto;
+  }
+
+  .featured-quote-attribution {
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-top: 1.25rem;
+  }
+
+  /* Full-width banner (home strip) */
+  .featured-quote--banner {
+    padding: clamp(2.5rem, 6vw, 4rem) var(--edge);
+    background: var(--cream-2);
+    border-bottom: 1px solid rgba(26, 25, 22, 0.08);
+  }
+
+  .featured-quote--banner .featured-quote-text p {
+    font-size: clamp(1.25rem, 2.8vw, 1.875rem);
+    max-width: 42rem;
+    margin-inline: auto;
+  }
+
+  /* Vintage postcard on wall — creator page hero */
+  .featured-quote--hero {
+    padding: clamp(3.5rem, 8vw, 6rem) var(--edge);
+    background:
+      radial-gradient(ellipse 120% 80% at 50% 0%, rgba(139, 115, 85, 0.08) 0%, transparent 55%),
+      linear-gradient(175deg, #E8E2D6 0%, var(--cream-2) 45%, #E5DFD3 100%);
+    border-bottom: 1px solid rgba(26, 25, 22, 0.08);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .featured-quote--hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.45;
+    background-image: url('/creator/postcard/cork-texture.svg');
+    background-size: 120px 120px;
+    pointer-events: none;
+  }
+
+  .featured-quote--hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.2;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+    background-size: 180px 180px;
+    pointer-events: none;
+  }
+
+  .postcard-wall {
+    position: relative;
+    max-width: 38rem;
+    margin-inline: auto;
+    padding-top: 2.25rem;
+    z-index: 1;
+  }
+
+  .postcard-hanger {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .postcard-pin-img {
+    display: block;
+    width: clamp(1.5rem, 4vw, 2rem);
+    height: auto;
+    filter: drop-shadow(0 2px 3px rgba(26, 25, 22, 0.2));
+  }
+
+  .postcard-string {
+    display: block;
+    width: 1.5px;
+    height: 12px;
+    background: linear-gradient(to bottom, rgba(92, 74, 56, 0.35), rgba(92, 74, 56, 0.12));
+    border-radius: 1px;
+  }
+
+  .postcard-tape {
+    position: absolute;
+    width: clamp(3rem, 10vw, 4.5rem);
+    height: auto;
+    z-index: 3;
+    pointer-events: none;
+    filter: drop-shadow(0 1px 2px rgba(26, 25, 22, 0.08));
+  }
+
+  .postcard-tape--tl {
+    top: 2.6rem;
+    left: -0.5rem;
+    transform: rotate(-38deg);
+  }
+
+  .postcard-tape--br {
+    bottom: 1rem;
+    right: -0.35rem;
+    transform: rotate(-22deg);
+  }
+
+  .postcard {
+    position: relative;
+    padding: clamp(2rem, 4vw, 2.75rem) clamp(1.75rem, 4vw, 2.5rem) clamp(1.5rem, 3vw, 2rem);
+    background:
+      linear-gradient(145deg, rgba(255, 252, 245, 0.95) 0%, rgba(248, 242, 230, 0.98) 100%),
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(139, 115, 85, 0.018) 2px,
+        rgba(139, 115, 85, 0.018) 3px
+      );
+    border: 1px solid rgba(139, 115, 85, 0.18);
+    transform: rotate(-1.8deg);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.7) inset,
+      0 18px 36px rgba(26, 25, 22, 0.11),
+      0 6px 14px rgba(26, 25, 22, 0.07),
+      4px 8px 0 rgba(26, 25, 22, 0.025);
+    text-align: left;
+  }
+
+  .postcard::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 15% 20%, rgba(196, 168, 130, 0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 85% 80%, rgba(196, 132, 106, 0.05) 0%, transparent 45%);
+    pointer-events: none;
+  }
+
+  .postcard-border-sketch {
+    position: absolute;
+    inset: 0.35rem;
+    width: calc(100% - 0.7rem);
+    height: calc(100% - 0.7rem);
+    object-fit: fill;
+    pointer-events: none;
+    opacity: 0.85;
+  }
+
+  .postcard-stamp {
+    position: absolute;
+    top: clamp(1rem, 2.5vw, 1.5rem);
+    right: clamp(1rem, 2.5vw, 1.5rem);
+    width: clamp(2.75rem, 8vw, 3.5rem);
+    height: auto;
+    transform: rotate(5deg);
+    filter: drop-shadow(0 2px 4px rgba(26, 25, 22, 0.1));
+    pointer-events: none;
+  }
+
+  .postcard-doodle {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0.55;
+  }
+
+  .postcard-doodle--heart {
+    bottom: clamp(1rem, 2.5vw, 1.5rem);
+    left: clamp(1rem, 2.5vw, 1.5rem);
+    width: clamp(1.125rem, 3vw, 1.375rem);
+    height: auto;
+    transform: rotate(-8deg);
+  }
+
+  .postcard-doodle--star {
+    top: clamp(2.75rem, 6vw, 3.25rem);
+    left: clamp(1rem, 2.5vw, 1.25rem);
+    width: clamp(0.875rem, 2.5vw, 1.125rem);
+    height: auto;
+    transform: rotate(12deg);
+    opacity: 0.45;
+  }
+
+  .featured-quote--hero .featured-quote-text {
+    position: relative;
+    z-index: 1;
+  }
+
+  .featured-quote--hero .featured-quote-text p {
+    font-size: clamp(1.125rem, 2.4vw, 1.625rem);
+    line-height: 1.6;
+    max-width: none;
+    margin: 0;
+    padding-right: clamp(2.5rem, 8vw, 4rem);
+    color: #2A2824;
+  }
+
+  .postcard-divider {
+    position: relative;
+    z-index: 1;
+    height: 1px;
+    margin: 1.25rem 0 1rem;
+    background: linear-gradient(
+      to right,
+      transparent,
+      rgba(139, 115, 85, 0.28) 12%,
+      rgba(196, 132, 106, 0.18) 50%,
+      rgba(139, 115, 85, 0.28) 88%,
+      transparent
+    );
+  }
+
+  .postcard-divider::after {
+    content: '✦';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.5rem;
+    color: rgba(139, 115, 85, 0.35);
+    background: rgba(255, 252, 245, 0.95);
+    padding: 0 0.35rem;
+    line-height: 1;
+  }
+
+  .featured-quote--hero .featured-quote-attribution {
+    position: relative;
+    z-index: 1;
+    margin: 0;
+    text-transform: none;
+    letter-spacing: 0.04em;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 0.875rem;
+    color: var(--ink-2);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .postcard {
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .postcard-pin-img {
+      transition: transform 0.35s ease;
+    }
+
+    .featured-quote--hero:hover .postcard {
+      transform: rotate(-0.6deg) translateY(-3px);
+      box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.7) inset,
+        0 22px 44px rgba(26, 25, 22, 0.13),
+        0 8px 18px rgba(26, 25, 22, 0.08),
+        4px 8px 0 rgba(26, 25, 22, 0.025);
+    }
+
+    .featured-quote--hero:hover .postcard-pin-img {
+      transform: translateY(-1px);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .postcard {
+      transform: rotate(-1.2deg);
+    }
+
+    .featured-quote--hero .featured-quote-text p {
+      padding-right: 0;
+      padding-top: 0.25rem;
+    }
+
+    .postcard-stamp {
+      position: static;
+      display: block;
+      margin-left: auto;
+      margin-bottom: 0.75rem;
+      transform: rotate(4deg);
+    }
+
+    .postcard-doodle--star {
+      top: auto;
+      bottom: 3.5rem;
+      left: auto;
+      right: 1rem;
+    }
+
+    .postcard-tape--tl {
+      top: 2.2rem;
+      left: -0.25rem;
+    }
+
+    .postcard-tape--br {
+      bottom: 0.75rem;
+      right: -0.15rem;
+    }
+  }
+</style>

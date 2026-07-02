@@ -1,0 +1,483 @@
+/* ═══════════════════════════════════════════════════════════════
+   Y2K DESIGN SYSTEM  —  katya ivshina / y2k world
+   Stand-alone stylesheet; never imported into global.css
+═══════════════════════════════════════════════════════════════ */
+
+/* ── Design Tokens ─────────────────────────────────────────── */
+:root {
+  --paper:          #F0EDE5;
+  --paper-2:        #E8E3D8;
+  --ink:            #1A1916;
+  --rose:           #C4826A;
+  --rose-pale:      #F0D5CB;
+  --sage:           #8A9B7A;
+  --sage-pale:      #D4DBC9;
+  --blue:           #7A9BA8;
+  --blue-pale:      #C5D4DB;
+  --gold:           #C8A97A;
+  --gold-pale:      #EEE0C2;
+  --polaroid-white: #FAFAF7;
+
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body:    'Inter', system-ui, sans-serif;
+  --font-mono:    'Space Mono', 'Courier New', monospace;
+
+  --edge:    clamp(1.25rem, 4vw, 4rem);
+  --section: clamp(4rem, 8vw, 7rem);
+}
+
+/* ── Reset ─────────────────────────────────────────────────── */
+.y2k-root *,
+.y2k-root *::before,
+.y2k-root *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.y2k-root {
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100dvh;
+  overflow-x: hidden;
+}
+
+.y2k-root a { color: inherit; text-decoration: none; }
+.y2k-root img, .y2k-root video { display: block; max-width: 100%; height: auto; }
+
+::selection {
+  background: var(--rose);
+  color: var(--paper);
+}
+
+/* ── Grain overlay ─────────────────────────────────────────── */
+.y2k-grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9990;
+  opacity: 0.035;
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Spinning star decorators ──────────────────────────────── */
+.spin-star {
+  display: inline-block;
+  animation: spin 12s linear infinite;
+  color: var(--rose);
+  user-select: none;
+  line-height: 1;
+}
+
+.spin-star--slow { animation-duration: 18s; }
+.spin-star--sage { color: var(--sage); }
+.spin-star--gold { color: var(--gold); }
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ── Marquee ───────────────────────────────────────────────── */
+.marquee-outer {
+  overflow: hidden;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0.8rem 0;
+  white-space: nowrap;
+}
+
+.marquee-outer--light {
+  background: var(--rose-pale);
+  color: var(--ink);
+}
+
+.marquee-track {
+  display: inline-flex;
+  gap: 0;
+  white-space: nowrap;
+  animation: marquee-left 28s linear infinite;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.marquee-track--right {
+  animation: marquee-right 30s linear infinite;
+}
+
+@keyframes marquee-left {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes marquee-right {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+
+/* ── Polaroid photos ───────────────────────────────────────── */
+.polaroid {
+  background: var(--polaroid-white);
+  padding: 10px 10px 36px;
+  box-shadow: 2px 4px 18px rgba(26, 25, 22, 0.18), 0 1px 4px rgba(26,25,22,0.1);
+  display: inline-block;
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.3s;
+}
+
+.polaroid img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.polaroid-caption {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.05em;
+  color: var(--ink);
+  text-align: center;
+  margin-top: 8px;
+  opacity: 0.65;
+  text-transform: lowercase;
+}
+
+.polaroid:hover {
+  transform: rotate(0deg) scale(1.04) !important;
+  box-shadow: 4px 8px 28px rgba(26, 25, 22, 0.28);
+  z-index: 10;
+}
+
+/* ── Pill / oval buttons ───────────────────────────────────── */
+.pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.65rem 1.75rem;
+  background: var(--ink);
+  color: var(--paper);
+  border-radius: 50px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: none;
+  transition: transform 0.2s, background 0.2s;
+}
+
+.pill-btn:hover {
+  animation: wobble 0.4s ease;
+  background: var(--rose);
+}
+
+.pill-btn--outline {
+  background: transparent;
+  color: var(--ink);
+  border: 1.5px solid var(--ink);
+}
+
+.pill-btn--outline:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+/* ── Hover wobble ──────────────────────────────────────────── */
+@keyframes wobble {
+  0%,100% { transform: rotate(-1.5deg); }
+  33%     { transform: rotate(1.5deg);  }
+  66%     { transform: rotate(-0.8deg); }
+}
+
+/* ── Sticker labels ────────────────────────────────────────── */
+.sticker {
+  display: inline-block;
+  padding: 0.3rem 0.7rem;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.sticker--rose   { background: var(--rose-pale);  color: var(--rose);  border: 1px solid var(--rose); }
+.sticker--sage   { background: var(--sage-pale);  color: var(--sage);  border: 1px solid var(--sage); }
+.sticker--blue   { background: var(--blue-pale);  color: var(--blue);  border: 1px solid var(--blue); }
+.sticker--gold   { background: var(--gold-pale);  color: var(--gold);  border: 1px solid var(--gold); }
+
+/* ── Orbit pills ───────────────────────────────────────────── */
+.orbit-pill {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.4rem 1rem;
+  border-radius: 50px;
+  background: var(--paper);
+  border: 1.5px solid var(--ink);
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  font-weight: 700;
+  transition: transform 0.25s, background 0.25s;
+}
+
+.orbit-pill:hover {
+  background: var(--ink);
+  color: var(--paper);
+  transform: scale(1.06);
+}
+
+/* ── Manila folder tabs ────────────────────────────────────── */
+.folders-wrapper {
+  position: relative;
+}
+
+.folder-tabs-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.folder-tabs-row::-webkit-scrollbar { display: none; }
+
+.folder-tab {
+  position: relative;
+  padding: 0.6rem 1.4rem 0;
+  border-radius: 6px 6px 0 0;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 700;
+  min-width: 100px;
+  text-align: center;
+  border: 1.5px solid rgba(26,25,22,0.18);
+  border-bottom: none;
+  transition: transform 0.2s, z-index 0s;
+  transform: translateY(3px);
+  z-index: 1;
+  flex-shrink: 0;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.folder-tab[aria-selected="true"] {
+  transform: translateY(-2px);
+  z-index: 5;
+  border-color: rgba(26,25,22,0.35);
+}
+
+.folder-tab:hover:not([aria-selected="true"]) {
+  transform: translateY(-1px);
+  z-index: 3;
+}
+
+.folder-panel {
+  display: none;
+  border: 1.5px solid rgba(26,25,22,0.2);
+  border-radius: 0 8px 8px 8px;
+  padding: 2.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.folder-panel[aria-hidden="false"] {
+  display: grid;
+  grid-template-columns: 1fr 40%;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+.folder-panel-text h3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.15;
+  margin-bottom: 1rem;
+  font-optical-sizing: auto;
+}
+
+.folder-panel-text p {
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: rgba(26,25,22,0.75);
+  margin-bottom: 1.5rem;
+}
+
+.folder-panel-img {
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 2px 4px 14px rgba(26,25,22,0.12);
+}
+
+.folder-panel-img img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+}
+
+/* ── Y2K Header ────────────────────────────────────────────── */
+.y2k-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 500;
+  padding: 1.25rem var(--edge);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.4s, backdrop-filter 0.4s;
+}
+
+.y2k-header.is-scrolled {
+  background: rgba(240, 237, 229, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(26,25,22,0.08);
+}
+
+.y2k-wordmark {
+  font-family: var(--font-display);
+  font-size: 1.0625rem;
+  font-weight: 300;
+  font-style: italic;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-optical-sizing: auto;
+}
+
+.y2k-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.y2k-nav-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.9rem;
+  border-radius: 50px;
+  font-family: var(--font-mono);
+  font-size: 0.5625rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 700;
+  border: 1.5px solid rgba(26,25,22,0.25);
+  background: transparent;
+  color: var(--ink);
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.y2k-nav-pill:hover,
+.y2k-nav-pill[aria-current="page"] {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+
+/* ── Y2K Footer ────────────────────────────────────────────── */
+.y2k-footer {
+  padding: 2rem var(--edge) 2.5rem;
+  border-top: 1px solid rgba(26,25,22,0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  text-align: center;
+}
+
+.y2k-footer-copy {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(26,25,22,0.5);
+}
+
+.y2k-footer-links {
+  display: flex;
+  gap: 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.y2k-footer-links a {
+  opacity: 0.5;
+  transition: opacity 0.2s;
+}
+
+.y2k-footer-links a:hover { opacity: 1; }
+
+/* ── Section typography ────────────────────────────────────── */
+.y2k-section-label {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.5;
+  margin-bottom: 0.5rem;
+}
+
+.y2k-display {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 200;
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  font-optical-sizing: auto;
+}
+
+.y2k-heading {
+  font-family: var(--font-display);
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+  font-optical-sizing: auto;
+}
+
+/* ── Decorative rule ───────────────────────────────────────── */
+.y2k-rule {
+  border: none;
+  border-top: 1px solid rgba(26,25,22,0.12);
+  margin: 0;
+}
+
+/* ── Responsive helpers ────────────────────────────────────── */
+@media (max-width: 768px) {
+  .y2k-nav { display: none; }
+
+  .folder-panel[aria-hidden="false"] {
+    grid-template-columns: 1fr;
+  }
+
+  .folder-panel {
+    border-radius: 0 0 8px 8px;
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .folder-panel-img img { height: 200px; }
+}

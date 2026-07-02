@@ -1,0 +1,13 @@
+Some math textbooks I read at Princeton as a math major:
+
+1. Gunning, An Introduction to Analysis
+2. Axler, Linear algebra done right
+3. Armstrong, Groups and Symmetry
+4. Hatcher, Algebraic topology (I haven’t seen a better and more interesting textbook in my life.)
+5. Koralov, Sinai, Theory of Probability and Random Processes
+6. Stein, Complex analysis
+7. Munkres, Topology (my fav!)
+8. Stefan H. M. van Zwam, Combinatorial mathematics: http://www.matroidunion.org/stefan/pdf/notes.pdf
+9. Shafarevich, Basic algebraic geometry I
+
+In my first semester as a graduate student at Harvard, I read “Differential Geometry: Bundles, Connections, Metrics and Curvature” by Taubes and a probability textbook by a Harvard professor that hasn’t been published yet (but the class lecture notes are available online: https://www.ekzhang.com/assets/pdf/Stat_210_Notes.pdf)

@@ -1,0 +1,206 @@
+---
+import { creatorStats } from '../data/creator-content';
+---
+
+<div class="creator-stats" data-creator-stats>
+  {creatorStats.map((stat, i) => (
+    <div class="stat-item" data-stat style={`--i: ${i}`}>
+      <p class="stat-value" aria-hidden="true">
+        <span class="stat-prefix">{stat.prefix ?? ''}</span>
+        <span
+          class="stat-number"
+          data-target={stat.value}
+          data-suffix={stat.suffix}
+        >0</span>
+        {stat.suffix && <span class="stat-suffix">{stat.suffix}</span>}
+      </p>
+      <p class="stat-label text-caption">{stat.label}</p>
+      <span class="sr-only">
+        {stat.prefix ?? ''}{stat.value}{stat.suffix} {stat.label}
+      </span>
+    </div>
+  ))}
+</div>
+
+<style>
+  .creator-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(1.5rem, 4vw, 3rem);
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
+    padding-bottom: clamp(2rem, 4vw, 3rem);
+    border-bottom: 1px solid rgba(26, 25, 22, 0.08);
+  }
+
+  @media (max-width: 540px) {
+    .creator-stats {
+      grid-template-columns: 1fr;
+      gap: 1.75rem;
+    }
+  }
+
+  .stat-item {
+    opacity: 0;
+    transform: translateY(1.5rem) scale(0.98);
+    transition:
+      opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: calc(var(--i, 0) * 0.14s);
+  }
+
+  .creator-stats.is-visible .stat-item {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  .stat-value {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 200;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    font-optical-sizing: auto;
+    margin-bottom: 0.35rem;
+    position: relative;
+    display: inline-block;
+  }
+
+  .creator-stats.is-visible .stat-value::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -0.2rem;
+    height: 2px;
+    width: 0;
+    background: #B5302A;
+    animation: stat-underline 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation-delay: calc(var(--i, 0) * 0.14s + 0.45s);
+  }
+
+  @keyframes stat-underline {
+    to { width: 100%; }
+  }
+
+  .stat-suffix {
+    font-size: 0.55em;
+    letter-spacing: -0.02em;
+    opacity: 0;
+    transform: translateY(0.35em);
+    display: inline-block;
+    transition:
+      opacity 0.5s ease,
+      transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .creator-stats.is-counting .stat-suffix {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .stat-label {
+    color: var(--ink-3);
+    opacity: 0;
+    transform: translateY(0.5rem);
+    transition:
+      opacity 0.6s ease,
+      transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: calc(var(--i, 0) * 0.14s + 0.25s);
+  }
+
+  .creator-stats.is-visible .stat-label {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .stat-item,
+    .stat-label,
+    .stat-suffix {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+
+    .creator-stats.is-visible .stat-value::after {
+      width: 100%;
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  function easeOutCubic(t: number): number {
+    return 1 - Math.pow(1 - t, 3);
+  }
+
+  function animateCounter(el: HTMLElement, target: number, duration = 2000): void {
+    const start = performance.now();
+    const tick = (now: number) => {
+      const progress = Math.min((now - start) / duration, 1);
+      el.textContent = String(Math.round(target * easeOutCubic(progress)));
+      if (progress < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }
+
+  function initCreatorStats(): void {
+    const block = document.querySelector<HTMLElement>('[data-creator-stats]');
+    if (!block) return;
+
+    if (block.dataset.observerBound === 'true') return;
+    block.dataset.observerBound = 'true';
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const runAnimation = (): void => {
+      if (block.dataset.animated === 'true') return;
+      block.dataset.animated = 'true';
+      block.classList.add('is-visible');
+
+      if (reduced) {
+        block.querySelectorAll<HTMLElement>('[data-target]').forEach((el) => {
+          el.textContent = el.dataset.target ?? '0';
+        });
+        block.classList.add('is-counting');
+        return;
+      }
+
+      block.classList.add('is-counting');
+
+      block.querySelectorAll<HTMLElement>('[data-target]').forEach((el, i) => {
+        if (el.dataset.done === 'true') return;
+        el.dataset.done = 'true';
+        const target = Number(el.dataset.target);
+        const delay = i * 180;
+        window.setTimeout(() => animateCounter(el, target), delay);
+      });
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) runAnimation();
+        });
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -6% 0px' },
+    );
+
+    observer.observe(block);
+  }
+
+  initCreatorStats();
+  document.addEventListener('astro:page-load', initCreatorStats);
+</script>

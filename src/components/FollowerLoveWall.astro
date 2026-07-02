@@ -1,0 +1,201 @@
+---
+// Only images in project-root instagram_love/ (no public/, img/, or hardcoded lists).
+const imageModules = import.meta.glob(
+  '../../instagram_love/**/*.{jpg,JPG,jpeg,png,PNG}',
+  { eager: true, query: '?url', import: 'default' },
+) as Record<string, string>;
+
+const screenshotUrls = Object.values(imageModules);
+
+type WallItem = { kind: 'image'; src: string };
+
+const shuffled = [...screenshotUrls]
+  .map((src) => ({ kind: 'image' as const, src }))
+  .sort((a, b) => a.src.localeCompare(b.src));
+
+const columnCount = 4;
+const columns: WallItem[][] = Array.from({ length: columnCount }, () => []);
+
+shuffled.forEach((item, i) => {
+  columns[i % columnCount].push(item);
+});
+
+// Duplicate each column for seamless vertical loop
+const loopColumns = columns.map((col) => [...col, ...col]);
+
+const durations = ['38s', '52s', '44s', '60s'];
+---
+
+<section class="love-wall" aria-labelledby="love-wall-heading">
+  <div class="love-wall-header">
+    <h2 class="love-wall-title" id="love-wall-heading">What my audience says</h2>
+  </div>
+
+  <div class="love-wall-viewport" aria-hidden="false">
+    <div class="love-wall-fade love-wall-fade--top" aria-hidden="true"></div>
+    <div class="love-wall-fade love-wall-fade--bottom" aria-hidden="true"></div>
+
+    <div class="love-wall-columns">
+      {loopColumns.map((col, colIndex) => (
+        <div
+          class="love-wall-column"
+          style={`--scroll-duration: ${durations[colIndex]}; --scroll-delay: ${colIndex * -8}s;`}
+        >
+          <div class="love-wall-track">
+            {col.map((item) => (
+              <div class="love-wall-item love-wall-item--img">
+                <img
+                  src={item.src}
+                  alt="Screenshot of a message from a follower"
+                  loading="lazy"
+                  decoding="async"
+                  draggable="false"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <p class="love-wall-hint text-caption">Hover to pause · scroll to explore</p>
+</section>
+
+<style>
+  .love-wall {
+    padding: clamp(3rem, 6vw, 5rem) 0;
+    border-bottom: 1px solid rgba(26, 25, 22, 0.08);
+    overflow: hidden;
+  }
+
+  .love-wall-header {
+    padding: 0 var(--edge);
+    margin-bottom: 2rem;
+    max-width: 36rem;
+  }
+
+  .love-wall-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+    font-weight: 300;
+    line-height: 1.08;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+    margin-bottom: 0.75rem;
+    font-optical-sizing: auto;
+  }
+
+  /* ── Scrolling viewport ───────────────────────────── */
+  .love-wall-viewport {
+    position: relative;
+    height: clamp(22rem, 55vh, 36rem);
+    margin-inline: var(--edge);
+    border: 1px solid rgba(26, 25, 22, 0.08);
+    background: #EDE9E0;
+    overflow: hidden;
+  }
+
+  .love-wall-fade {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 4rem;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .love-wall-fade--top {
+    top: 0;
+    background: linear-gradient(to bottom, #EDE9E0 0%, transparent 100%);
+  }
+
+  .love-wall-fade--bottom {
+    bottom: 0;
+    background: linear-gradient(to top, #EDE9E0 0%, transparent 100%);
+  }
+
+  .love-wall-columns {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+    height: 100%;
+    padding: 0.75rem;
+  }
+
+  @media (max-width: 900px) {
+    .love-wall-columns {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .love-wall-column:nth-child(n + 3) {
+      display: none;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .love-wall-columns {
+      grid-template-columns: 1fr;
+    }
+
+    .love-wall-column:nth-child(n + 2) {
+      display: none;
+    }
+  }
+
+  .love-wall-column {
+    overflow: hidden;
+    height: 100%;
+  }
+
+  .love-wall-column:hover .love-wall-track {
+    animation-play-state: paused;
+  }
+
+  .love-wall-track {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    animation: love-scroll var(--scroll-duration, 45s) linear infinite;
+    animation-delay: var(--scroll-delay, 0s);
+    will-change: transform;
+  }
+
+  @keyframes love-scroll {
+    from { transform: translateY(0); }
+    to   { transform: translateY(-50%); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .love-wall-track {
+      animation: none;
+    }
+
+    .love-wall-viewport {
+      height: auto;
+      max-height: none;
+    }
+
+    .love-wall-column {
+      overflow: visible;
+      max-height: 28rem;
+      overflow-y: auto;
+    }
+  }
+
+  /* ── Items ──────────────────────────────────────── */
+  .love-wall-item--img img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(26, 25, 22, 0.08);
+    background: #fff;
+  }
+
+  .love-wall-hint {
+    text-align: center;
+    margin-top: 1rem;
+    padding: 0 var(--edge);
+  }
+</style>

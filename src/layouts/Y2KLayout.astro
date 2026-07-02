@@ -1,0 +1,120 @@
+---
+import '../styles/y2k.css';
+
+interface Props {
+  title?:       string;
+  description?: string;
+  ogImage?:     string;
+}
+
+const {
+  title       = 'Katya Ivshina ✦ Y2K World',
+  description = 'Come into my world. Princeton · Harvard · NYC. Mathematician, writer, mentor, dancer.',
+  ogImage     = '/og.jpg',
+} = Astro.props;
+
+const nav = [
+  { href: '/y2k#mathematics', label: 'Math'         },
+  { href: '/y2k#writing',     label: 'Writing'       },
+  { href: '/y2k#photography', label: 'Photography'   },
+  { href: '/y2k#teaching',    label: 'Teaching'      },
+  { href: '/y2k#dance',       label: 'Dance'         },
+  { href: '/',                label: '← Clean site'  },
+];
+---
+
+<!doctype html>
+<html lang="en" class="y2k-root">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+
+    <!-- Open Graph -->
+    <meta property="og:title"       content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image"       content={ogImage} />
+    <meta property="og:type"        content="website" />
+    <meta name="twitter:card"       content="summary_large_image" />
+
+    <!-- Fonts: Fraunces + Inter + Space Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Inter:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+  </head>
+
+  <body>
+
+    <!-- Paper grain texture overlay -->
+    <svg class="y2k-grain" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+      <filter id="grain-filter" x="0%" y="0%" width="100%" height="100%">
+        <feTurbulence
+          type="fractalNoise"
+          baseFrequency="0.65"
+          numOctaves="3"
+          stitchTiles="stitch"
+        />
+        <feColorMatrix type="saturate" values="0" />
+      </filter>
+      <rect width="100%" height="100%" filter="url(#grain-filter)" />
+    </svg>
+
+    <!-- Header -->
+    <header class="y2k-header" id="y2k-header">
+      <a href="/y2k" class="y2k-wordmark" aria-label="Katya Ivshina Y2K home">
+        <span class="spin-star" style="font-size:0.75rem;">✦</span>
+        KATYA IVSHINA
+      </a>
+
+      <nav class="y2k-nav" aria-label="Y2K navigation">
+        {nav.map(({ href, label }) => (
+          <a href={href} class="y2k-nav-pill">{label}</a>
+        ))}
+      </nav>
+    </header>
+
+    <!-- Page content -->
+    <slot />
+
+    <!-- Footer -->
+    <footer class="y2k-footer">
+      <!-- Reverse marquee -->
+      <div class="marquee-outer marquee-outer--light" style="width:100%;margin-bottom:0.5rem;">
+        <div class="marquee-track marquee-track--right">
+          <span>✦ © 2026 KATYA IVSHINA &nbsp;·&nbsp; ALL WORLDS RESERVED &nbsp;·&nbsp; PRINCETON &nbsp;·&nbsp; HARVARD &nbsp;·&nbsp; NEW YORK &nbsp;·&nbsp; </span>
+          <span>✦ © 2026 KATYA IVSHINA &nbsp;·&nbsp; ALL WORLDS RESERVED &nbsp;·&nbsp; PRINCETON &nbsp;·&nbsp; HARVARD &nbsp;·&nbsp; NEW YORK &nbsp;·&nbsp; </span>
+        </div>
+      </div>
+
+      <div class="y2k-footer-links">
+        <a href="https://www.instagram.com/katyaivshina" target="_blank" rel="noopener">instagram</a>
+        <a href="https://www.youtube.com/@katyaivshina" target="_blank" rel="noopener">youtube</a>
+        <a href="https://www.tiktok.com/@katyaivshina" target="_blank" rel="noopener">tiktok</a>
+      </div>
+
+      <p class="y2k-footer-copy">
+        ✦ made with love, math, and a fujifilm camera ✦
+      </p>
+    </footer>
+
+    <script>
+      (() => {
+        // ── Header scroll class ───────────────────────
+        const header = document.getElementById('y2k-header');
+        if (header) {
+          const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 50);
+          window.addEventListener('scroll', onScroll, { passive: true });
+          onScroll();
+        }
+
+      })();
+    </script>
+
+  </body>
+</html>

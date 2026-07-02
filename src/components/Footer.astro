@@ -1,0 +1,86 @@
+---
+import CreatorLinkIcon from './CreatorLinkIcon.astro';
+import type { CreatorLinkIcon as CreatorLinkIconType } from '../data/creator-content';
+
+const year = new Date().getFullYear();
+
+const socials: { href: string; label: string; icon: CreatorLinkIconType }[] = [
+  { href: 'https://instagram.com/katyaivshina', label: 'Instagram', icon: 'instagram' },
+  { href: 'https://youtube.com/@katyaivshina',  label: 'YouTube',   icon: 'youtube'   },
+  { href: 'https://tiktok.com/@katyaivshina',   label: 'TikTok',    icon: 'tiktok'    },
+];
+---
+
+<footer class="site-footer">
+  <div class="footer-inner">
+
+    <p class="text-caption">&copy; {year} Katya Ivshina</p>
+
+    <nav aria-label="Social links">
+      <ul role="list">
+        {socials.map(({ href, label, icon }) => (
+          <li>
+            <a
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="footer-link"
+              aria-label={label}
+            >
+              <CreatorLinkIcon icon={icon} />
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    padding: 2rem var(--edge) 2.5rem;
+    margin-top: var(--section);
+    border-top: 1px solid rgba(26, 25, 22, 0.1);
+  }
+
+  .footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .footer-inner nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+  }
+
+  .footer-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.35rem;
+    color: var(--ink-soft);
+    border-radius: 6px;
+    transition: color 0.2s, background-color 0.2s;
+  }
+
+  .footer-link :global(svg) {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .footer-link:hover {
+    color: var(--ink);
+    background-color: rgba(26, 25, 22, 0.05);
+  }
+
+  .footer-link:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+  }
+</style>

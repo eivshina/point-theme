@@ -1,0 +1,1120 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ReelRow from '../components/ReelRow.astro';
+import FollowerLoveWall from '../components/FollowerLoveWall.astro';
+import CreatorLinkIcon from '../components/CreatorLinkIcon.astro';
+import {
+  contentCategories,
+  collabBrands,
+  creatorLinks,
+  creatorBio,
+  creatorStats,
+  brandReels,
+  instagramUrl,
+  linksUrl,
+} from '../data/creator-content';
+import { featuredFollowerQuote } from '../data/follower-quotes';
+
+// Flatten reels for the cinematic film-strip motifs (backdrop + sticky zoom strip).
+const allReels = contentCategories.flatMap((c) => c.reels);
+const backdropReels = allReels.slice(0, 3);
+const stripReels = allReels.slice(0, 6);
+/** Adobe creator event — blue dress, Aperol spritz. Not the Harvard dropout reel. */
+const stampSrc = '/creator/reel_thumbnails/brands/IMG_9396.jpg';
+---
+
+<BaseLayout
+  title="Creator — Katya Ivshina"
+  description="Brand partnerships and content collaborations with Katya Ivshina. 100K+ followers, 30M+ views. STEM, education, and lifestyle."
+>
+  <main class="creator">
+
+    <!-- ── Fixed film-strip backdrop (sits behind everything) ── -->
+    <div class="film-backdrop" aria-hidden="true">
+      <div class="film-strip film-strip--v">
+        {backdropReels.map((reel) => (
+          <span class="film-frame">
+            <img src={reel.src} alt="" loading="lazy" decoding="async" draggable="false" />
+          </span>
+        ))}
+      </div>
+    </div>
+
+    <!-- ── S1 · Hero (headline left · links + bio right) ──── -->
+    <header class="cr-hero" data-reveal>
+      <div class="cr-hero-main">
+        <h1 class="cr-hero-title">
+          Science worth<br /><em>watching.</em>
+        </h1>
+        <div class="cr-hero-actions">
+          <a
+            href={instagramUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="cr-pill"
+            aria-label="Katya Ivshina on Instagram"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+              <circle cx="12" cy="12" r="4" />
+              <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+            </svg>
+            @katya.ivshina
+          </a>
+          <a href="/speaker" class="cr-text-link text-label">Speaking &amp; outreach →</a>
+        </div>
+      </div>
+
+      <aside class="cr-hero-aside" aria-label="Links and bio">
+        <nav class="cr-links" aria-label="Katya Ivshina elsewhere">
+          <p class="cr-label">Find me</p>
+          <ul class="cr-links-list">
+            {creatorLinks.map((link) => (
+              <li>
+                <a
+                  href={link.href}
+                  class:list={['cr-link', { 'cr-link--accent': link.emphasis }]}
+                  aria-label={`Katya Ivshina — ${link.label}`}
+                  {...(link.external && link.href !== '#'
+                    ? { target: '_blank', rel: 'noopener noreferrer' }
+                    : {})}
+                >
+                  <span class="cr-link-start">
+                    <span class="cr-link-icon">
+                      <CreatorLinkIcon icon={link.icon} />
+                    </span>
+                    <span class="cr-link-label">{link.label}</span>
+                  </span>
+                  <span class="cr-link-arrow" aria-hidden="true">→</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <div class="cr-bio">
+          {creatorBio.map((para) => (
+            <p>{para}</p>
+          ))}
+        </div>
+      </aside>
+    </header>
+
+    <!-- ── S2 · Sticky scroll-zoom film strip ────────────── -->
+    <section class="cr-intro-wrap" data-intro aria-label="Selected frames">
+      <div class="cr-intro">
+        <div class="cr-intro-strip" data-intro-strip>
+          {stripReels.map((reel) => (
+            <a
+              href={reel.url ?? instagramUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="film-frame film-frame--lg"
+              aria-label="Reel on Instagram"
+            >
+              <img src={reel.src} alt="" loading="lazy" decoding="async" draggable="false" />
+            </a>
+          ))}
+        </div>
+        <p class="cr-intro-statement" data-intro-statement>
+          A mathematician who turned a decade of scientific training into online education filled with fun, style, and story.
+        </p>
+      </div>
+    </section>
+
+    <!-- ── S3 · About / positioning panel ────────────────── -->
+    <section class="cr-section" aria-labelledby="partnerships-heading">
+      <article class="cr-panel cr-panel--tilt-l" data-reveal>
+        <div class="about-grid">
+          <div class="about-visual">
+            <figure class="stamp" data-parallax="0.12">
+              <img src={stampSrc} alt="Katya in a blue dress holding an Aperol spritz at an Adobe creator event" loading="lazy" decoding="async" draggable="false" />
+            </figure>
+          </div>
+          <div class="about-text">
+            <h2 class="about-title" id="partnerships-heading">Brand partnerships</h2>
+            <p class="cr-about-statement">
+              I partner with brands who want to reach ambitious people who care about ideas — scientists, builders, tech enthusiasts, and creatives. I turn technical depth into something people actually want to watch. Clarity, honesty, and accessibility are at the core of what I do.
+            </p>
+            <dl class="about-stats">
+              {creatorStats.map((stat) => (
+                <div class="about-stat">
+                  <dt class="about-stat-label text-caption">{stat.label}</dt>
+                  <dd class="about-stat-value">
+                    {stat.prefix ?? ''}{stat.value}{stat.suffix}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- ── S4 · Brands wall ──────────────────────────────── -->
+    <section class="cr-section" aria-labelledby="brands-heading">
+      <article class="cr-panel" data-reveal>
+        <h2 class="cr-panel-title cr-panel-title--center" id="brands-heading">
+          Brands I've worked with
+        </h2>
+        <ul class="brand-grid" data-stagger-grid style="--cols: 5">
+          {collabBrands.map((brand) => (
+            <li class="brand-card" data-stagger-item>
+              <a href={brand.url} target="_blank" rel="noopener noreferrer">
+                {brand.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        {brandReels.length > 0 && (
+          <div class="brand-examples">
+            <ReelRow reels={brandReels} categoryLabel="Brands" />
+          </div>
+        )}
+      </article>
+    </section>
+
+    <!-- ── S5 · my motivation (follower testimonial) ─────── -->
+    <section class="cr-section" aria-labelledby="lens-heading">
+      <article class="cr-panel cr-panel--tilt-r" data-reveal>
+        <h2 class="cr-panel-title cr-panel-title--center" id="lens-heading">my motivation</h2>
+        <figure class="lens-quote">
+          <blockquote>
+            <p>
+              <span class="lens-quote-mark lens-quote-mark--open" aria-hidden="true">&ldquo;</span>{featuredFollowerQuote.text}<span class="lens-quote-mark lens-quote-mark--close" aria-hidden="true">&rdquo;</span>
+            </p>
+          </blockquote>
+          <figcaption>— {featuredFollowerQuote.attribution}</figcaption>
+        </figure>
+      </article>
+    </section>
+
+    <!-- ── S6 · Community / reach ────────────────────────── -->
+    <section class="cr-section cr-section--tight" aria-labelledby="reach-heading">
+      <div class="reach" data-reveal>
+        <h2 class="cr-panel-title" id="reach-heading">
+          A real, engaged audience, <em>growing every week.</em>
+        </h2>
+      </div>
+    </section>
+
+    <FollowerLoveWall />
+
+    <!-- ── S8 · Closing CTA ──────────────────────────────── -->
+    <section class="cr-section cta-section" aria-labelledby="cta-heading">
+      <div class="cta-inner" data-reveal>
+        <h2 class="cta-title" id="cta-heading">
+          Let's build something<br /><em>worth watching.</em>
+        </h2>
+        <div class="cta-actions">
+          <a href={instagramUrl} target="_blank" rel="noopener noreferrer" class="cta-btn cta-btn--primary">
+            Get in touch →
+          </a>
+          <a href={linksUrl} target="_blank" rel="noopener noreferrer" class="cta-btn cta-btn--ghost">
+            All my links →
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</BaseLayout>
+
+<style>
+  /* ── Page shell ──────────────────────────────────────── */
+  .creator {
+    position: relative;
+    padding-top: 5.5rem;
+    overflow-x: clip;
+  }
+
+  /* ── Fixed film-strip backdrop accent ────────────────── */
+  .film-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    display: flex;
+    justify-content: center;
+    pointer-events: none;
+    opacity: 0.16;
+  }
+
+  .film-strip--v {
+    position: relative;
+    width: min(620px, 80vw);
+    margin-top: -6vh;
+    transform: rotate(-3.5deg) translateY(var(--backdrop-shift, 0));
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 1.75rem 3rem;
+    /* The celluloid itself is Harvard Crimson; photos inside show in full color. */
+    background: #A51C30;
+    will-change: transform;
+  }
+
+  .film-strip--v::before,
+  .film-strip--v::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 18px;
+    /* Cream sprocket-hole perforations punched through the red celluloid. */
+    background-image: linear-gradient(to bottom, var(--cream) 0 18px, transparent 18px 46px);
+    background-size: 18px 46px;
+  }
+
+  .film-strip--v::before { left: 12px; }
+  .film-strip--v::after { right: 12px; }
+
+  .film-strip--v .film-frame img {
+    width: 100%;
+    height: 38vh;
+    object-fit: cover;
+    /* Photos render in their original full color; the celluloid frame stays crimson. */
+  }
+
+  .film-frame {
+    position: relative;
+    display: block;
+    background: #e9e6df;
+    padding: 8px;
+  }
+
+  /* Keep page content above the backdrop */
+  .cr-hero,
+  .cr-intro-wrap,
+  .cr-section {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── Shared section + panel rhythm ───────────────────── */
+  .cr-section {
+    padding: clamp(2.5rem, 6vw, 5rem) var(--edge);
+  }
+
+  .cr-section--tight {
+    padding-bottom: clamp(1.5rem, 3vw, 2.5rem);
+  }
+
+  .cr-panel {
+    max-width: 72rem;
+    margin-inline: auto;
+    padding: clamp(2rem, 5vw, 4rem);
+    background: var(--cream-2);
+    border: 1px solid rgba(26, 25, 22, 0.08);
+    box-shadow: 0 18px 50px rgba(26, 25, 22, 0.07);
+  }
+
+  .cr-panel--tilt-l { transform: rotate(-0.5deg); }
+  .cr-panel--tilt-r { transform: rotate(0.5deg); }
+
+  .cr-label {
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 1rem;
+  }
+
+  .cr-panel-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 4vw, 3.25rem);
+    font-weight: 300;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    font-optical-sizing: auto;
+  }
+
+  .cr-panel-title em {
+    font-style: italic;
+    color: #B5302A;
+  }
+
+  .cr-panel-title--center {
+    text-align: center;
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+
+  .cr-body {
+    font-size: 1.0625rem;
+    font-weight: 400;
+    line-height: 1.7;
+    color: var(--ink-2);
+    max-width: 38ch;
+    margin-top: 1.25rem;
+  }
+
+  .cr-body--center {
+    text-align: center;
+    margin-inline: auto;
+    margin-top: 0;
+  }
+
+  /* ── S1 · Hero ───────────────────────────────────────── */
+  .cr-hero {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    text-align: left;
+    gap: 1.1rem;
+    padding: clamp(2rem, 5vh, 3.5rem) var(--edge) clamp(2.5rem, 6vw, 4rem);
+    border-bottom: 1px solid rgba(26, 25, 22, 0.08);
+  }
+
+  .cr-hero-main {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    gap: 1.1rem;
+    width: 100%;
+    max-width: min(52rem, 100%);
+  }
+
+  /* ── S1 · Hero aside (links + bio) ───────────────────── */
+  .cr-hero-aside {
+    position: absolute;
+    top: clamp(3rem, 7vw, 6rem);
+    right: var(--edge);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1.5rem, 3vw, 2.25rem);
+    max-width: 24rem;
+    text-align: left;
+  }
+
+  @media (min-width: 881px) {
+    .cr-hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(18rem, 24rem);
+      align-items: start;
+      gap: clamp(2rem, 4vw, 3.5rem);
+      text-align: left;
+      padding-top: clamp(2rem, 6vh, 4rem);
+    }
+
+    .cr-hero-main {
+      align-items: flex-start;
+      text-align: left;
+      max-width: min(40rem, 100%);
+      justify-self: start;
+      align-self: start;
+      padding-top: clamp(0.5rem, 3vh, 1.75rem);
+    }
+
+    .cr-hero-aside {
+      position: static;
+      align-self: start;
+      width: 100%;
+    }
+
+    .cr-hero-actions {
+      justify-content: flex-start;
+    }
+  }
+
+  .cr-links-list {
+    list-style: none;
+    margin-top: 0.85rem;
+    border-top: 1px solid rgba(26, 25, 22, 0.12);
+  }
+
+  .cr-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid rgba(26, 25, 22, 0.12);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+    transition: color 0.25s, padding-left 0.25s;
+  }
+
+  .cr-link-start {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    min-width: 0;
+  }
+
+  .cr-link-icon {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ink-3);
+    transition: color 0.25s;
+  }
+
+  .cr-link:hover .cr-link-icon,
+  .cr-link:focus-visible .cr-link-icon {
+    color: #B5302A;
+  }
+
+  .cr-link-arrow {
+    color: var(--ink-3);
+    opacity: 0;
+    transform: translateX(-0.35rem);
+    transition: opacity 0.25s, transform 0.25s, color 0.25s;
+  }
+
+  .cr-link:hover,
+  .cr-link:focus-visible {
+    color: #B5302A;
+    padding-left: 0.4rem;
+    outline: none;
+  }
+
+  .cr-link:hover .cr-link-arrow,
+  .cr-link:focus-visible .cr-link-arrow {
+    opacity: 1;
+    transform: translateX(0);
+    color: #B5302A;
+  }
+
+  .cr-link:focus-visible {
+    outline: 2px solid #B5302A;
+    outline-offset: 3px;
+  }
+
+  .cr-link--accent {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  .cr-link--accent .cr-link-label {
+    position: relative;
+  }
+
+  .cr-link--accent .cr-link-label::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -2px;
+    height: 1px;
+    background: #B5302A;
+  }
+
+  .cr-bio p {
+    font-size: 1.03125rem;
+    line-height: 1.75;
+    color: var(--ink-2);
+  }
+
+  .cr-bio p + p {
+    margin-top: 0.85rem;
+  }
+
+  .cr-hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(3.25rem, 10vw, 8.5rem);
+    font-weight: 200;
+    line-height: 0.9;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+    font-optical-sizing: auto;
+  }
+
+  .cr-hero-title em {
+    font-style: italic;
+    color: #B5302A;
+  }
+
+  .cr-hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem 1.5rem;
+    margin-top: 0.75rem;
+  }
+
+  .cr-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8125rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-2);
+    border: 1px solid rgba(26, 25, 22, 0.2);
+    padding: 0.5rem 1.1rem;
+    transition: color 0.25s, border-color 0.25s, transform 0.25s;
+  }
+
+  .cr-pill:hover {
+    color: var(--ink);
+    border-color: var(--ink);
+    transform: translateY(-2px);
+  }
+
+  .cr-text-link {
+    color: var(--ink-2);
+    transition: color 0.2s;
+  }
+
+  .cr-text-link:hover { color: #B5302A; }
+
+  /* ── S2 · Sticky scroll-zoom strip ───────────────────── */
+  .cr-intro-wrap {
+    height: 200vh;
+  }
+
+  .cr-intro {
+    position: sticky;
+    /* Sit below the fixed site header so the strip isn't clipped at the viewport top. */
+    top: 5.5rem;
+    min-height: calc(100vh - 5.5rem);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(1.5rem, 4vw, 3rem);
+    padding: clamp(2rem, 5vw, 3.5rem) var(--edge) clamp(2.5rem, 6vw, 4rem);
+    overflow: hidden;
+  }
+
+  .cr-intro-strip {
+    display: inline-flex;
+    align-items: flex-end;
+    gap: 0.85rem;
+    /* Extra top padding keeps frames below the upper sprocket row + crimson lip. */
+    padding: 2.35rem 1.25rem 1.65rem;
+    /* Harvard Crimson celluloid with cream perforations, matching the backdrop motif. */
+    background: #A51C30;
+    box-shadow: 0 24px 60px rgba(26, 25, 22, 0.28);
+    transform: scale(0.74);
+    /* Anchor zoom at the top so scroll scale-up grows downward, not into the header. */
+    transform-origin: center top;
+    will-change: transform;
+    position: relative;
+  }
+
+  .cr-intro-strip::before,
+  .cr-intro-strip::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 10px;
+    background-image: linear-gradient(to right, var(--cream) 0 12px, transparent 12px 30px);
+    background-size: 30px 10px;
+    background-position: 8px 0;
+  }
+
+  .cr-intro-strip::before { top: 10px; }
+  .cr-intro-strip::after { bottom: 10px; }
+
+  .film-frame--lg {
+    flex: 0 0 auto;
+    padding: 6px;
+    overflow: hidden;
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .film-frame--lg img {
+    width: clamp(5rem, 9vw, 8rem);
+    aspect-ratio: 9 / 16;
+    object-fit: cover;
+    display: block;
+    /* Photos render in their original full color inside the crimson celluloid. */
+  }
+
+  .film-frame--lg:hover {
+    transform: translateY(-8px);
+  }
+
+  .cr-intro-statement {
+    max-width: 24ch;
+    text-align: center;
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 4.5vw, 3.5rem);
+    font-weight: 300;
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    font-optical-sizing: auto;
+    margin-top: clamp(1.25rem, 3vw, 2.5rem);
+    opacity: 0;
+    transform: translateY(1.5rem);
+    will-change: opacity, transform;
+  }
+
+  .cr-intro-statement em {
+    font-style: italic;
+    color: #B5302A;
+  }
+
+  .cr-about-statement {
+    max-width: none;
+    text-align: left;
+    font-size: clamp(1.125rem, 1.85vw, 1.375rem);
+    font-weight: 400;
+    line-height: 1.68;
+    color: var(--ink-2);
+    margin: 0;
+  }
+
+  /* ── S3 · About panel ────────────────────────────────── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: minmax(11rem, 15rem) minmax(0, 1fr);
+    gap: clamp(2rem, 4.5vw, 3.75rem);
+    align-items: start;
+    width: 100%;
+  }
+
+  .about-title {
+    margin: 0 0 clamp(0.85rem, 2vw, 1.25rem);
+    font-family: var(--font-display);
+    font-size: clamp(1.875rem, 3.8vw, 2.75rem);
+    font-weight: 300;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    font-optical-sizing: auto;
+  }
+
+  .about-stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1.25rem, 3vw, 2rem);
+    margin: clamp(1.75rem, 3.5vw, 2.5rem) 0 0;
+    padding-top: clamp(1.5rem, 3vw, 2rem);
+    border-top: 1px solid rgba(26, 25, 22, 0.08);
+  }
+
+  .about-stat {
+    margin: 0;
+  }
+
+  .about-stat-label {
+    margin: 0 0 0.35rem;
+    color: var(--ink-3);
+  }
+
+  .about-stat-value {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(1.875rem, 3.5vw, 2.75rem);
+    font-weight: 200;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    font-optical-sizing: auto;
+  }
+
+  .about-visual {
+    display: flex;
+    justify-content: flex-start;
+    padding-top: 0.25rem;
+  }
+
+  .about-text {
+    overflow: visible;
+    min-width: 0;
+    align-self: start;
+  }
+
+  .stamp {
+    position: relative;
+    width: 100%;
+    max-width: 14rem;
+    margin: 0;
+    padding: 0.45rem;
+    background: var(--cream);
+    border: 1px solid rgba(26, 25, 22, 0.1);
+    border-radius: 6px;
+    box-shadow: 0 14px 34px rgba(26, 25, 22, 0.14);
+    transform: rotate(-2.5deg);
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
+  }
+
+  .stamp:hover { transform: rotate(-1deg) scale(1.015); }
+
+  .stamp img {
+    width: 100%;
+    aspect-ratio: 9 / 16;
+    object-fit: cover;
+    display: block;
+    border-radius: 3px;
+  }
+
+  /* ── S4 · Brand wall ─────────────────────────────────── */
+  .brand-grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(var(--cols, 5), 1fr);
+    gap: clamp(0.75rem, 1.5vw, 1.25rem);
+  }
+
+  .brand-card {
+    aspect-ratio: 3 / 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: var(--cream);
+    border: 1px solid rgba(26, 25, 22, 0.08);
+    box-shadow: 0 4px 16px rgba(26, 25, 22, 0.05);
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease;
+  }
+
+  .brand-card a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+    font-family: var(--font-display);
+    font-size: clamp(0.9rem, 1.6vw, 1.15rem);
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    color: var(--ink-2);
+    transition: color 0.25s;
+  }
+
+  .brand-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 16px 34px rgba(26, 25, 22, 0.12);
+  }
+
+  .brand-card:hover a { color: #B5302A; }
+
+  .brand-card a:focus-visible {
+    outline: 2px solid #B5302A;
+    outline-offset: 3px;
+  }
+
+  .brand-examples {
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+    padding-top: clamp(2rem, 4vw, 2.75rem);
+    border-top: 1px dashed rgba(26, 25, 22, 0.16);
+    text-align: center;
+  }
+
+  /* ── S5 · my motivation ──────────────────────────────── */
+  .lens-quote {
+    margin: 0 auto;
+    max-width: 42rem;
+    text-align: center;
+  }
+
+  .lens-quote blockquote {
+    margin: 0;
+  }
+
+  .lens-quote blockquote p {
+    font-family: var(--font-display);
+    font-size: clamp(1.25rem, 2.6vw, 1.875rem);
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--ink);
+    font-optical-sizing: auto;
+  }
+
+  .lens-quote-mark {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw, 3.75rem);
+    line-height: 0;
+    vertical-align: -0.12em;
+    color: rgba(181, 48, 42, 0.25);
+  }
+
+  .lens-quote-mark--open {
+    margin-right: 0.05em;
+  }
+
+  .lens-quote-mark--close {
+    margin-left: 0;
+    white-space: nowrap;
+  }
+
+  .lens-quote figcaption {
+    margin-top: 1.25rem;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  /* ── S7 · Community / reach ──────────────────────────── */
+  .reach {
+    max-width: 56rem;
+    margin-inline: auto;
+  }
+
+  .reach .cr-panel-title { margin-bottom: clamp(1rem, 2vw, 1.5rem); }
+
+  /* ── S8 · CTA ────────────────────────────────────────── */
+  .cta-section {
+    padding-block: clamp(4rem, 9vw, 7.5rem);
+    border-top: 1px solid rgba(26, 25, 22, 0.08);
+    text-align: center;
+  }
+
+  .cta-inner {
+    max-width: 48rem;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(1.5rem, 3vw, 2.25rem);
+  }
+
+  .cta-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.25rem, 6vw, 4.75rem);
+    font-weight: 300;
+    line-height: 1.04;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    font-optical-sizing: auto;
+  }
+
+  .cta-title em {
+    font-style: italic;
+    color: #B5302A;
+  }
+
+  .cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.85rem 1.75rem;
+    border-radius: 50px;
+    transition: transform 0.25s, box-shadow 0.25s, background 0.25s, color 0.25s;
+  }
+
+  .cta-btn--primary {
+    background: var(--ink);
+    color: var(--cream);
+  }
+
+  .cta-btn--primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 30px rgba(26, 25, 22, 0.22);
+  }
+
+  .cta-btn--ghost {
+    border: 1px solid rgba(26, 25, 22, 0.25);
+    color: var(--ink);
+  }
+
+  .cta-btn--ghost:hover {
+    border-color: #B5302A;
+    color: #B5302A;
+  }
+
+  .cta-btn:focus-visible {
+    outline: 2px solid #B5302A;
+    outline-offset: 3px;
+  }
+
+  /* ── Scroll-reveal: preserve panel tilt while revealing ─ */
+  /* Base [data-reveal]/[data-stagger-item] primitives live in global.css */
+  .cr-panel--tilt-l[data-reveal] { transform: translateY(2.5rem) rotate(-0.5deg); }
+  .cr-panel--tilt-r[data-reveal] { transform: translateY(2.5rem) rotate(0.5deg); }
+  .cr-panel--tilt-l[data-reveal].is-in { transform: translateY(0) rotate(-0.5deg); }
+  .cr-panel--tilt-r[data-reveal].is-in { transform: translateY(0) rotate(0.5deg); }
+
+  /* ── Responsive ──────────────────────────────────────── */
+  @media (max-width: 1024px) {
+    .about-grid {
+      grid-template-columns: 1fr;
+      gap: clamp(1.75rem, 4vw, 2.5rem);
+    }
+
+    .about-visual { max-width: 14rem; margin-inline: auto; }
+    .about-title,
+    .cr-about-statement { text-align: center; }
+    .about-stats { max-width: 28rem; margin-inline: auto; }
+  }
+
+  @media (max-width: 560px) {
+    .about-stats { grid-template-columns: 1fr; max-width: 12rem; }
+  }
+
+  @media (max-width: 880px) {
+    .cr-hero {
+      min-height: 0;
+      gap: clamp(2rem, 6vw, 3rem);
+    }
+
+    .cr-hero-aside {
+      position: static;
+      width: 100%;
+      max-width: 30rem;
+      margin-inline: 0;
+    }
+
+    .brand-grid { grid-template-columns: repeat(3, 1fr); }
+    .cr-intro-wrap { height: 175vh; }
+  }
+
+  @media (max-width: 560px) {
+    .cr-panel--tilt-l,
+    .cr-panel--tilt-r,
+    .cr-panel--tilt-l[data-reveal].is-in,
+    .cr-panel--tilt-r[data-reveal].is-in { transform: none; }
+
+    .brand-grid { grid-template-columns: repeat(2, 1fr); }
+    .film-backdrop { opacity: 0.1; }
+  }
+
+  /* ── Reduced motion ──────────────────────────────────── */
+  @media (prefers-reduced-motion: reduce) {
+    [data-reveal],
+    [data-stagger-item],
+    .cr-intro-statement {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+
+    .cr-panel--tilt-l[data-reveal].is-in { transform: rotate(-0.5deg) !important; }
+    .cr-panel--tilt-r[data-reveal].is-in { transform: rotate(0.5deg) !important; }
+
+    .cr-intro-wrap { height: auto; }
+    .cr-intro { position: static; min-height: 0; }
+    .cr-intro-strip { transform: none; flex-wrap: wrap; justify-content: center; }
+    .rec { animation: none; }
+  }
+</style>
+
+<script>
+  function initCreatorMotion(): void {
+    const main = document.querySelector<HTMLElement>('.creator');
+    if (!main || main.dataset.motionBound === 'true') return;
+    main.dataset.motionBound = 'true';
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // 1 · Generic scroll reveals (sections, panels, CTA).
+    const hero = document.querySelector<HTMLElement>('.cr-hero');
+    hero?.classList.add('is-in');
+
+    const revealEls = Array.from(document.querySelectorAll<HTMLElement>('[data-reveal]')).filter(
+      (el) => el !== hero,
+    );
+    if (reduced) {
+      revealEls.forEach((el) => el.classList.add('is-in'));
+    } else {
+      const revealObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('is-in');
+            revealObserver.unobserve(entry.target);
+          });
+        },
+        { threshold: 0.12, rootMargin: '0px 0px -6% 0px' },
+      );
+      revealEls.forEach((el) => revealObserver.observe(el));
+    }
+
+    // 2 · Column-staggered grid reveal (brand wall).
+    const grids = Array.from(document.querySelectorAll<HTMLElement>('[data-stagger-grid]'));
+    grids.forEach((grid) => {
+      const items = Array.from(grid.querySelectorAll<HTMLElement>('[data-stagger-item]'));
+      if (reduced) {
+        items.forEach((item) => item.classList.add('is-in'));
+        return;
+      }
+      const cols = Number(getComputedStyle(grid).getPropertyValue('--cols')) || 5;
+      const staggerObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            const el = entry.target as HTMLElement;
+            const col = items.indexOf(el) % cols;
+            el.style.setProperty('--stagger-delay', `${col * 60}ms`);
+            el.classList.add('is-in');
+            staggerObserver.unobserve(el);
+          });
+        },
+        { threshold: 0.15 },
+      );
+      items.forEach((item) => staggerObserver.observe(item));
+    });
+
+    if (reduced) return;
+
+    // 3 · Sticky scroll-zoom intro + statement reveal + backdrop parallax.
+    const introWrap = document.querySelector<HTMLElement>('[data-intro]');
+    const strip = document.querySelector<HTMLElement>('[data-intro-strip]');
+    const statement = document.querySelector<HTMLElement>('[data-intro-statement]');
+    const backdrop = document.querySelector<HTMLElement>('.film-strip--v');
+    const parallaxEls = Array.from(document.querySelectorAll<HTMLElement>('[data-parallax]'));
+
+    const clamp = (v: number, lo = 0, hi = 1): number => Math.min(hi, Math.max(lo, v));
+
+    let ticking = false;
+    const onScroll = (): void => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const vh = window.innerHeight;
+
+        if (introWrap && strip) {
+          const rect = introWrap.getBoundingClientRect();
+          const total = rect.height - vh;
+          const p = total > 0 ? clamp(-rect.top / total) : 0;
+          strip.style.transform = `scale(${0.74 + p * 0.5})`;
+
+          if (statement) {
+            const t = clamp((p - 0.35) / 0.4);
+            statement.style.opacity = String(t);
+            statement.style.transform = `translateY(${(1 - t) * 24}px)`;
+          }
+        }
+
+        if (backdrop) {
+          backdrop.style.setProperty('--backdrop-shift', `${window.scrollY * -0.04}px`);
+        }
+
+        parallaxEls.forEach((el) => {
+          const rect = el.getBoundingClientRect();
+          const progress = (rect.top + rect.height / 2) / vh - 0.5;
+          const depth = Number(el.dataset.parallax) || 0;
+          el.style.translate = `0 ${progress * depth * -120}px`;
+        });
+
+        ticking = false;
+      });
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    onScroll();
+  }
+
+  initCreatorMotion();
+  document.addEventListener('astro:page-load', initCreatorMotion);
+</script>

@@ -1,0 +1,704 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import {
+  education,
+  fellowshipsAndHonors,
+  publications,
+  researchExperience,
+  conferenceAccomplishments,
+  courses,
+  summerPrograms,
+  googleScholarUrl,
+} from '../data/academic';
+
+const princetonCourses = courses.filter((c) => c.institution === 'Princeton');
+const graduateCourses = courses.filter((c) => c.institution === 'Harvard' || c.institution === 'MIT');
+
+const sectionNav = [
+  { id: 'edu-heading', label: 'Education' },
+  { id: 'pubs-heading', label: 'Publications' },
+  { id: 'programs-heading', label: 'Programs' },
+  { id: 'courses-princeton-heading', label: 'Princeton courses' },
+  { id: 'courses-harvard-heading', label: 'Harvard & MIT' },
+  { id: 'research-heading', label: 'Research' },
+  { id: 'honors-heading', label: 'Accomplishments' },
+];
+
+/** Decorative stickers beside the first three section headings */
+const sectionStickers = [
+  { headingId: 'edu-heading', src: 'subject-7-copy.png', width: 150, height: 164, baseRotate: -9 },
+  { headingId: 'pubs-heading', src: 'subject-7.png', width: 145, height: 180, baseRotate: 7 },
+  { headingId: 'programs-heading', src: 'subject-8.png', width: 128, height: 327, baseRotate: -5 },
+];
+
+const stickerFor = (headingId: string) =>
+  sectionStickers.find((s) => s.headingId === headingId);
+---
+
+<BaseLayout
+  title="Academic / research experience — Katya Ivshina"
+  description="Katya Ivshina's full academic journey: every course taken at Princeton and Harvard, textbooks, publications, research, and honors. Built for students who want to learn."
+>
+  <main class="learning-page">
+
+    <header class="page-hero">
+      <p class="text-caption hero-label">Academic / research experience</p>
+      <h1 class="hero-title">My educational<br /><em>universe.</em></h1>
+      <p class="hero-sub text-subhead">
+        Every course I took, every textbook that shaped me, and every research project along the way.
+        I built this page for students who care about learning and want a map, not a highlight reel.
+      </p>
+      <nav class="section-nav" aria-label="On this page">
+        <ul class="section-nav-list" role="list">
+          {sectionNav.map(({ id, label }) => (
+            <li>
+              <a href={`#${id}`} class="section-nav-link">{label}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Education -->
+    <section class="section section--stickered" aria-labelledby="edu-heading">
+      {(() => {
+        const s = stickerFor('edu-heading');
+        if (!s) return null;
+        return (
+          <div
+            class="section-sticker"
+            data-sticker
+            style={`--base-rotate: ${s.baseRotate}deg`}
+          >
+            <img
+              src={`/learning/stickers/${s.src}`}
+              width={s.width}
+              height={s.height}
+              alt=""
+              aria-hidden="true"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+        );
+      })()}
+      <div class="section-intro">
+        <h2 class="section-title" id="edu-heading">Education</h2>
+      </div>
+      <ul class="edu-list" role="list">
+        {education.map((e) => (
+          <li class="edu-item">
+            <div class="edu-content">
+              <div class="edu-main">
+                <span class="edu-school">{e.school}</span>
+                <span class="edu-degree">{e.degree}</span>
+              </div>
+              {e.description && <p class="edu-desc">{e.description}</p>}
+            </div>
+            {e.dates && <span class="edu-dates">{e.dates}</span>}
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- Publications -->
+    <section class="section section--linen section--stickered" aria-labelledby="pubs-heading">
+      {(() => {
+        const s = stickerFor('pubs-heading');
+        if (!s) return null;
+        return (
+          <div
+            class="section-sticker"
+            data-sticker
+            style={`--base-rotate: ${s.baseRotate}deg`}
+          >
+            <img
+              src={`/learning/stickers/${s.src}`}
+              width={s.width}
+              height={s.height}
+              alt=""
+              aria-hidden="true"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+        );
+      })()}
+      <div class="section-intro">
+        <h2 class="section-title" id="pubs-heading">Publications</h2>
+        <p class="section-body text-subhead">
+          Full list on
+          <a href={googleScholarUrl} target="_blank" rel="noopener noreferrer" class="inline-link">
+            Google Scholar →
+          </a>
+        </p>
+      </div>
+      <ol class="pub-list" role="list">
+        {publications.map((p) => {
+          const authors = p.citation.slice(0, p.citation.indexOf(p.title)).trim();
+          const citationContent = (
+            <>
+              {authors.split(/(Ivshina ES)/g).map((part) =>
+                part === 'Ivshina ES' ? <strong class="pub-author-self">{part}</strong> : part,
+              )}{' '}
+              <em class="pub-title">{p.title}</em>.
+            </>
+          );
+
+          return (
+          <li class="pub-item">
+            {p.paperUrl ? (
+              <a
+                href={p.paperUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="pub-citation pub-citation-link"
+              >
+                {citationContent}
+              </a>
+            ) : (
+              <p class="pub-citation">{citationContent}</p>
+            )}
+            {p.status && <p class="pub-status">{p.status}</p>}
+            <div class="pub-links">
+              {p.slug && (
+                <a href={`/research/${p.slug}`} class="inline-link">About this project →</a>
+              )}
+              {p.projectUrl && (
+                <a href={p.projectUrl} target="_blank" rel="noopener noreferrer" class="inline-link">
+                  Project site →
+                </a>
+              )}
+            </div>
+          </li>
+          );
+        })}
+      </ol>
+    </section>
+
+    <!-- Summer programs -->
+    <section class="section section--stickered" aria-labelledby="programs-heading">
+      {(() => {
+        const s = stickerFor('programs-heading');
+        if (!s) return null;
+        return (
+          <div
+            class="section-sticker"
+            data-sticker
+            style={`--base-rotate: ${s.baseRotate}deg`}
+          >
+            <img
+              src={`/learning/stickers/${s.src}`}
+              width={s.width}
+              height={s.height}
+              alt=""
+              aria-hidden="true"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+        );
+      })()}
+      <div class="section-intro">
+        <h2 class="section-title" id="programs-heading">Programs I attended</h2>
+        <p class="section-body text-subhead">
+          Intensive summer schools and fellowships that shaped my path. Links go to each
+          program's official site.
+        </p>
+      </div>
+      <ul class="program-list" role="list">
+        {summerPrograms.map((p) => (
+          <li class="program-item">
+            <a href={p.href} target="_blank" rel="noopener noreferrer" class="program-link">
+              {p.title}
+              {p.highSchool && <span class="program-tag">High school</span>}
+            </a>
+            {p.note && <p class="program-note">{p.note}</p>}
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- Courses: Princeton -->
+    <section class="section section--linen" aria-labelledby="courses-princeton-heading">
+      <div class="section-intro">
+        <p class="text-caption section-label">Courses I took</p>
+        <h2 class="section-title" id="courses-princeton-heading">Princeton ({princetonCourses.length} courses)</h2>
+        <p class="section-body text-subhead">
+          Mathematics, physics, astrophysics, economics, and more. Textbooks and resources included
+          wherever I have them.
+        </p>
+      </div>
+      <div class="course-grid">
+        {princetonCourses.map((c) => (
+          <article class="course-card">
+            <div class="course-head">
+              <span class="course-code">{c.code}</span>
+            </div>
+            <h3 class="course-title">{c.title}</h3>
+            {c.note && <p class="course-note">{c.note}</p>}
+            {(c.textbooks?.length || c.resources?.length) && (
+              <div class="course-resources">
+                {c.textbooks?.map((t) => (
+                  t.href ? (
+                    <a href={t.href} target="_blank" rel="noopener noreferrer" class="resource-link">{t.label}</a>
+                  ) : (
+                    <span class="resource-text">{t.label}</span>
+                  )
+                ))}
+                {c.resources?.map((r) => (
+                  <a href={r.href} target="_blank" rel="noopener noreferrer" class="resource-link">{r.label}</a>
+                ))}
+              </div>
+            )}
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <!-- Courses: Harvard & MIT -->
+    <section class="section" aria-labelledby="courses-harvard-heading">
+      <div class="section-intro">
+        <p class="text-caption section-label">Graduate coursework</p>
+        <h2 class="section-title" id="courses-harvard-heading">Harvard & MIT ({graduateCourses.length} courses)</h2>
+      </div>
+      <div class="course-grid">
+        {graduateCourses.map((c) => (
+          <article class="course-card">
+            <div class="course-head">
+              <span class="course-code">{c.code}</span>
+              <span class="course-inst">{c.institution}</span>
+            </div>
+            <h3 class="course-title">{c.title}</h3>
+            {c.note && <p class="course-note">{c.note}</p>}
+            {(c.textbooks?.length || c.resources?.length) && (
+              <div class="course-resources">
+                {c.textbooks?.map((t) => (
+                  t.href ? (
+                    <a href={t.href} target="_blank" rel="noopener noreferrer" class="resource-link">{t.label}</a>
+                  ) : (
+                    <span class="resource-text">{t.label}</span>
+                  )
+                ))}
+                {c.resources?.map((r) => (
+                  <a href={r.href} target="_blank" rel="noopener noreferrer" class="resource-link">{r.label}</a>
+                ))}
+              </div>
+            )}
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <!-- Research -->
+    <section class="section section--linen" aria-labelledby="research-heading">
+      <div class="section-intro">
+        <p class="text-caption section-label">Research</p>
+        <h2 class="section-title" id="research-heading">Where I have worked</h2>
+      </div>
+      <ul class="role-list" role="list">
+        {researchExperience.map((r) => (
+          <li class="role-item">
+            <div class="role-head">
+              <span class="role-title">{r.title}</span>
+              <span class="role-org">{r.org}</span>
+            </div>
+            <span class="role-dates">{r.dates}</span>
+            <p class="role-desc">{r.description}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- Honors -->
+    <section class="section" aria-labelledby="honors-heading">
+      <div class="section-intro">
+        <p class="text-caption section-label">Honors & conferences</p>
+        <h2 class="section-title" id="honors-heading">Accomplishments</h2>
+      </div>
+      <ul class="honor-list" role="list">
+        {fellowshipsAndHonors.map((h) => (
+          <li class="honor-item">
+            <span class="honor-label">{h.label}</span>
+            {h.note && <p class="honor-note">{h.note}</p>}
+          </li>
+        ))}
+      </ul>
+      <ul class="honor-list honor-list--spaced" role="list">
+        {conferenceAccomplishments.map((a) => (
+          <li class="honor-item">
+            {a.prefix}
+            {a.link && (
+              <a href={a.link.href} target="_blank" rel="noopener noreferrer" class="honor-link">
+                {a.link.label}
+              </a>
+            )}
+            {a.suffix}
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- Creative & other worlds -->
+    <section class="section" aria-labelledby="worlds-heading">
+      <div class="section-intro">
+        <p class="text-caption section-label">The rest of the universe</p>
+        <h2 class="section-title" id="worlds-heading">Creative & public work</h2>
+        <p class="section-body text-subhead">
+          Research is one lane. Explore the others.
+        </p>
+      </div>
+      <nav class="world-links" aria-label="Related pages">
+        <a href="/teaching" class="world-link">Teaching & mentorship →</a>
+        <a href="/speaker" class="world-link">Speaking →</a>
+        <a href="/creator" class="world-link">Creator & content →</a>
+        <a href="/work" class="world-link">Photography →</a>
+        <a href="/modeling" class="world-link">Modeling →</a>
+      </nav>
+    </section>
+
+  </main>
+</BaseLayout>
+
+<style>
+  .learning-page { padding-top: 5.5rem; }
+
+  .page-hero {
+    padding: clamp(2.5rem, 5vw, 4rem) var(--edge) clamp(2.5rem, 4vw, 3.5rem);
+    border-bottom: 1px solid rgba(26, 25, 22, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.75rem, 6.5vw, 6rem);
+    font-weight: 200;
+    line-height: 0.92;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    font-optical-sizing: auto;
+  }
+
+  .hero-title em { font-style: italic; }
+  .hero-sub { max-width: 52ch; }
+
+  .section-nav { margin-top: 1.25rem; }
+  .section-nav-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+    max-width: 52rem;
+  }
+  .section-nav-link {
+    font-size: 0.8125rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+    border-bottom: 1px solid rgba(26, 25, 22, 0.15);
+    padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .section-nav-link:hover { color: #B5302A; border-color: #B5302A; }
+
+  .section-title { scroll-margin-top: 6rem; }
+
+  .section { padding: var(--section) var(--edge); }
+  .section--linen {
+    background: var(--cream-2);
+    border-top: 1px solid rgba(26, 25, 22, 0.06);
+    border-bottom: 1px solid rgba(26, 25, 22, 0.06);
+  }
+
+  .section-intro { max-width: 42rem; margin-bottom: 2rem; }
+  .section-label { margin-bottom: 0.75rem; }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    margin-bottom: 0.75rem;
+    font-optical-sizing: auto;
+  }
+  .section-body { max-width: 52ch; }
+
+  .inline-link {
+    display: inline-block;
+    margin-top: 0.5rem;
+    font-size: 0.8125rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #B5302A;
+    transition: opacity 0.2s;
+  }
+  .inline-link:hover { opacity: 0.75; }
+
+  /* Education */
+  .edu-list { list-style: none; max-width: 40rem; }
+  .edu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(26, 25, 22, 0.08);
+  }
+  .edu-content { flex: 1; min-width: 0; }
+  .edu-desc {
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    color: var(--ink-2);
+    margin-top: 0.35rem;
+    max-width: 40rem;
+  }
+  .edu-school {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    font-weight: 400;
+    font-optical-sizing: auto;
+  }
+  .edu-degree { font-size: 0.875rem; color: var(--ink-2); }
+  .edu-dates { font-size: 0.6875rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); white-space: nowrap; }
+
+  /* Summer programs */
+  .program-list { list-style: none; max-width: 44rem; display: flex; flex-direction: column; gap: 0; }
+  .program-item {
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(26, 25, 22, 0.08);
+  }
+  .program-link {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-display);
+    font-size: 1.0625rem;
+    font-weight: 400;
+    line-height: 1.3;
+    font-optical-sizing: auto;
+    color: var(--ink);
+    transition: color 0.2s;
+  }
+  .program-link:hover { color: #B5302A; }
+  .program-tag {
+    font-family: var(--font-body, ui-sans-serif, system-ui, sans-serif);
+    font-size: 0.5625rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #B5302A;
+    border: 1px solid rgba(181, 48, 42, 0.35);
+    border-radius: 3px;
+    padding: 0.15rem 0.4rem;
+  }
+  .program-note {
+    font-size: 0.8125rem;
+    color: var(--ink-3);
+    margin-top: 0.35rem;
+    line-height: 1.45;
+    max-width: 40rem;
+  }
+
+  /* Roles / research */
+  .role-list { list-style: none; max-width: 44rem; display: flex; flex-direction: column; gap: 1.75rem; }
+  .role-head { display: flex; flex-wrap: wrap; gap: 0.35rem 0.75rem; align-items: baseline; margin-bottom: 0.25rem; }
+  .role-title { font-weight: 500; font-size: 0.9375rem; color: var(--ink); }
+  .role-org { font-size: 0.8125rem; color: var(--ink-2); }
+  .role-dates { font-size: 0.6875rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); }
+  .role-desc { font-size: 0.9375rem; line-height: 1.65; color: var(--ink-2); margin-top: 0.35rem; }
+
+  /* Courses */
+  .course-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
+    gap: 1rem;
+    max-width: 72rem;
+  }
+  .course-card {
+    padding: 1rem 1.1rem;
+    background: #FAF8F3;
+    border: 1px solid rgba(26, 25, 22, 0.08);
+    border-radius: 8px;
+  }
+  .section--linen .course-card { background: var(--cream); }
+  .course-head { display: flex; flex-wrap: wrap; gap: 0.35rem 0.5rem; align-items: center; margin-bottom: 0.4rem; }
+  .course-code { font-size: 0.6875rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); }
+  .course-inst { font-size: 0.625rem; letter-spacing: 0.1em; text-transform: uppercase; color: #B5302A; }
+  .course-title { font-family: var(--font-display); font-size: 1rem; font-weight: 400; line-height: 1.25; font-optical-sizing: auto; }
+  .course-note { font-size: 0.8125rem; color: var(--ink-3); margin-top: 0.35rem; line-height: 1.45; }
+  .course-resources { margin-top: 0.65rem; display: flex; flex-direction: column; gap: 0.25rem; }
+  .resource-link { font-size: 0.75rem; color: #45617E; line-height: 1.4; transition: color 0.2s; }
+  .resource-link:hover { color: #B5302A; }
+  .resource-text { font-size: 0.75rem; color: var(--ink-2); line-height: 1.4; }
+
+  /* Publications */
+  .pub-list { list-style: none; counter-reset: pub; max-width: 48rem; display: flex; flex-direction: column; gap: 1.25rem; }
+  .pub-item { counter-increment: pub; padding-left: 2rem; position: relative; }
+  .pub-item::before {
+    content: counter(pub);
+    position: absolute;
+    left: 0;
+    top: 0.1em;
+    font-family: var(--font-display);
+    font-size: 0.875rem;
+    color: #B5302A;
+    font-optical-sizing: auto;
+  }
+  .pub-citation { font-size: 0.9375rem; line-height: 1.55; color: var(--ink); }
+  .pub-author-self { font-weight: 600; }
+  .pub-title { font-style: italic; }
+  .pub-citation-link {
+    display: block;
+    color: inherit;
+    transition: color 0.2s;
+  }
+  .pub-citation-link:hover { color: #B5302A; }
+  .pub-status { font-size: 0.8125rem; color: var(--ink-3); margin-top: 0.2rem; }
+  .pub-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.25rem;
+    margin-top: 0.5rem;
+  }
+
+  /* Honors */
+  .honor-list { list-style: none; max-width: 44rem; display: flex; flex-direction: column; gap: 0; }
+  .honor-list--spaced { margin-top: 0; padding-top: 0; }
+  .honor-item {
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(26, 25, 22, 0.08);
+    font-size: 0.9375rem;
+    color: var(--ink-2);
+    line-height: 1.5;
+  }
+  .honor-label { display: block; color: var(--ink-2); }
+  .honor-note {
+    font-size: 0.8125rem;
+    color: var(--ink-3);
+    margin-top: 0.35rem;
+    line-height: 1.45;
+    max-width: 40rem;
+  }
+  .honor-link {
+    color: inherit;
+    border-bottom: 1px solid rgba(26, 25, 22, 0.15);
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .honor-link:hover { color: #B5302A; border-color: #B5302A; }
+  .world-links { display: flex; flex-wrap: wrap; gap: 0.75rem 1.5rem; max-width: 44rem; }
+  .world-link {
+    font-size: 0.8125rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink);
+    border-bottom: 1px solid rgba(26, 25, 22, 0.2);
+    padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .world-link:hover { color: #B5302A; border-color: #B5302A; }
+
+  /* Section stickers (decorative, beside section headings) */
+  .section--stickered {
+    position: relative;
+    overflow: visible;
+  }
+
+  .section-sticker {
+    position: absolute;
+    top: var(--section);
+    left: calc(var(--edge) + min(42rem, 100% - 2 * var(--edge) - 11rem) + clamp(0.5rem, 1.5vw, 1.25rem));
+    width: clamp(6.5rem, 12vw, 10rem);
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0;
+    transform: translateX(5rem) rotate(var(--base-rotate, 0deg));
+    transform-origin: center center;
+    transition:
+      transform 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+    filter: drop-shadow(0 3px 10px rgba(26, 25, 22, 0.14))
+            drop-shadow(0 1px 3px rgba(26, 25, 22, 0.08));
+  }
+
+  .section-sticker.is-visible {
+    opacity: 1;
+    transform: translateX(0) rotate(var(--base-rotate, 0deg));
+  }
+
+  .section-sticker img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  @media (max-width: 960px) {
+    .section-sticker { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .section-sticker {
+      opacity: 1;
+      transform: rotate(var(--base-rotate, 0deg));
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  let stickerCleanup: (() => void) | null = null;
+
+  function initStickerFlyIn() {
+    stickerCleanup?.();
+
+    const sections = document.querySelectorAll<HTMLElement>('.section--stickered');
+    if (!sections.length) return;
+
+    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const observers: IntersectionObserver[] = [];
+
+    sections.forEach((section) => {
+      const sticker = section.querySelector<HTMLElement>('[data-sticker]');
+      if (!sticker) return;
+
+      if (motionQuery.matches) {
+        sticker.classList.add('is-visible');
+        return;
+      }
+
+      const trigger = section.querySelector('.section-intro') ?? section;
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              sticker.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.2, rootMargin: '0px 0px -8% 0px' },
+      );
+
+      observer.observe(trigger);
+      observers.push(observer);
+    });
+
+    function onMotionChange() {
+      initStickerFlyIn();
+    }
+
+    motionQuery.addEventListener('change', onMotionChange);
+
+    stickerCleanup = () => {
+      observers.forEach((observer) => observer.disconnect());
+      motionQuery.removeEventListener('change', onMotionChange);
+    };
+  }
+
+  initStickerFlyIn();
+  document.addEventListener('astro:page-load', initStickerFlyIn);
+  document.addEventListener('astro:before-swap', () => stickerCleanup?.());
+</script>

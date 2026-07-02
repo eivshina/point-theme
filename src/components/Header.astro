@@ -1,0 +1,446 @@
+---
+// Set showNotes to true to restore the top-level Notes link in desktop and mobile nav.
+const showNotes = false;
+
+const navGroups = [
+  {
+    label: 'Academic',
+    links: [
+      { href: '/learning',        label: 'Academic / research experience' },
+      { href: '/phd-admissions',  label: 'PhD Admissions'  },
+      { href: '/teaching',        label: 'Teaching'        },
+      { href: '/speaker',         label: 'Speaker'         },
+    ],
+  },
+  {
+    label: 'Creative',
+    links: [
+      { href: '/creator',  label: 'Creator'     },
+      { href: '/modeling', label: 'Modeling'    },
+      { href: '/work',     label: 'Photography' },
+    ],
+  },
+];
+
+// Top-level links shown after dropdown groups (Academic, Creative, …).
+const navSoloLinks = [
+  { href: '/personal', label: 'Personal' },
+];
+
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+
+function soloIsActive(href: string) {
+  return currentPath === href || currentPath.startsWith(`${href}/`);
+}
+
+function groupIsActive(links: { href: string }[]) {
+  return links.some((l) => currentPath === l.href);
+}
+---
+
+<header class="site-header" id="site-header">
+  <div class="header-inner">
+
+    <a href="/" class="wordmark" aria-label="Katya Ivshina — home">
+      Katya Ivshina
+    </a>
+
+    <!-- Desktop nav -->
+    <nav class="desktop-nav" aria-label="Primary navigation">
+      <ul class="nav-root" role="list">
+        {navGroups.map((group) => (
+          <li
+            class:list={['nav-group', { 'is-active': groupIsActive(group.links) }]}
+          >
+            <button
+              type="button"
+              class="nav-trigger text-label"
+              aria-expanded="false"
+              aria-haspopup="true"
+            >
+              {group.label}
+              <svg class="nav-chevron" width="10" height="10" viewBox="0 0 10 10" aria-hidden="true">
+                <path d="M2 3.5L5 6.5L8 3.5" fill="none" stroke="currentColor" stroke-width="1.2"/>
+              </svg>
+            </button>
+            <ul class="nav-dropdown" role="list">
+              {group.links.map(({ href, label }) => (
+                <li>
+                  <a
+                    href={href}
+                    class="nav-dropdown-link"
+                    aria-current={currentPath === href ? 'page' : undefined}
+                  >{label}</a>
+                </li>
+              ))}
+            </ul>
+          </li>
+        ))}
+        {navSoloLinks.map(({ href, label }) => (
+          <li class="nav-group nav-group--solo">
+            <a
+              href={href}
+              class:list={['nav-trigger', 'nav-direct', { 'is-active': soloIsActive(href) }]}
+              aria-current={currentPath === href ? 'page' : undefined}
+            >{label}</a>
+          </li>
+        ))}
+        {/* Notes hidden for now — set showNotes = true above to re-enable */}
+        {showNotes && (
+          <li class="nav-group nav-group--solo">
+            <a
+              href="/notes"
+              class:list={['nav-trigger', 'nav-direct', { 'is-active': soloIsActive('/notes') }]}
+              aria-current={currentPath === '/notes' ? 'page' : undefined}
+            >Notes</a>
+          </li>
+        )}
+      </ul>
+    </nav>
+
+    <!-- Mobile toggle -->
+    <button
+      class="nav-toggle"
+      id="nav-toggle"
+      aria-label="Open navigation"
+      aria-expanded="false"
+      aria-controls="mobile-nav"
+    >
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+
+  </div>
+</header>
+
+<!-- Mobile nav overlay -->
+<nav
+  class="mobile-nav"
+  id="mobile-nav"
+  aria-label="Mobile navigation"
+  hidden
+>
+  {navGroups.map((group) => (
+    <div class="mobile-group">
+      <p class="mobile-group-label text-caption">{group.label}</p>
+      <ul role="list">
+        {group.links.map(({ href, label }) => (
+          <li>
+            <a
+              href={href}
+              class="mobile-link"
+              aria-current={currentPath === href ? 'page' : undefined}
+            >{label}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  ))}
+  <div class="mobile-group">
+    <ul role="list">
+      {navSoloLinks.map(({ href, label }) => (
+        <li>
+          <a
+            href={href}
+            class="mobile-link"
+            aria-current={currentPath === href ? 'page' : undefined}
+          >{label}</a>
+        </li>
+      ))}
+      {/* Notes hidden for now — set showNotes = true above to re-enable */}
+      {showNotes && (
+        <li>
+          <a
+            href="/notes"
+            class="mobile-link"
+            aria-current={currentPath === '/notes' ? 'page' : undefined}
+          >Notes</a>
+        </li>
+      )}
+    </ul>
+  </div>
+</nav>
+
+<style>
+  .site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 1.75rem var(--edge);
+    transition: background 0.5s, backdrop-filter 0.5s, border-color 0.5s;
+  }
+
+  .site-header.is-scrolled {
+    background: rgba(245, 242, 236, 0.85);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(26, 25, 22, 0.08);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .wordmark {
+    font-family: var(--font-display);
+    font-size: 1.0625rem;
+    font-weight: 300;
+    letter-spacing: 0.035em;
+    color: var(--ink);
+    line-height: 1;
+    font-optical-sizing: auto;
+  }
+
+  /* ── Desktop dropdown nav ──────────────────────── */
+  .nav-root {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    align-items: center;
+  }
+
+  .nav-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Invisible bridge below dropdown groups — keeps li height equal to solo items
+     while still allowing pointer travel from trigger to panel. */
+  .nav-group:not(.nav-group--solo)::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    height: 0.65rem;
+  }
+
+  .nav-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: none;
+    border: none;
+    padding: 0.25rem 0;
+    margin: 0;
+    color: var(--ink-2);
+    cursor: pointer;
+    text-decoration: none;
+    transition: color 0.2s;
+    font-family: var(--font-display);
+    font-size: 1.0625rem;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    text-transform: none;
+    line-height: 1;
+    font-optical-sizing: auto;
+  }
+
+  .nav-chevron {
+    transition: transform 0.25s;
+    opacity: 0.6;
+  }
+
+  .nav-group:hover .nav-trigger,
+  .nav-group:focus-within .nav-trigger,
+  .nav-group.is-active .nav-trigger {
+    color: var(--ink);
+  }
+
+  .nav-group:hover .nav-chevron,
+  .nav-group:focus-within .nav-chevron {
+    transform: rotate(180deg);
+  }
+
+  .nav-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(4px);
+    min-width: 11rem;
+    list-style: none;
+    padding: 0.4rem 0;
+    background: var(--cream);
+    border: 1px solid rgba(26, 25, 22, 0.1);
+    box-shadow: 0 8px 24px rgba(26, 25, 22, 0.08);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
+  }
+
+  .nav-group:hover .nav-dropdown,
+  .nav-group:focus-within .nav-dropdown {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .nav-dropdown-link {
+    display: block;
+    padding: 0.5rem 1rem;
+    font-family: var(--font-display);
+    font-size: 1.0625rem;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    font-optical-sizing: auto;
+    color: var(--ink-2);
+    transition: color 0.15s, background 0.15s;
+  }
+
+  .nav-dropdown-link:hover {
+    color: var(--ink);
+    background: var(--cream-2);
+  }
+
+  .nav-dropdown-link[aria-current="page"] {
+    color: #B5302A;
+  }
+
+  /* Solo top-level link (no dropdown) */
+  .nav-direct.is-active { color: var(--ink); }
+  .nav-direct[aria-current="page"] { color: #B5302A; }
+
+  /* ── Mobile toggle ─────────────────────────────── */
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    background: none;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+  }
+
+  .bar {
+    display: block;
+    width: 24px;
+    height: 1px;
+    background: var(--ink);
+    transition: transform 0.35s, opacity 0.35s;
+    transform-origin: center;
+  }
+
+  .nav-toggle[aria-expanded="true"] .bar:first-child {
+    transform: translateY(3.5px) rotate(45deg);
+  }
+
+  .nav-toggle[aria-expanded="true"] .bar:last-child {
+    transform: translateY(-3.5px) rotate(-45deg);
+  }
+
+  @media (max-width: 768px) {
+    .desktop-nav { display: none; }
+    .nav-toggle   { display: flex; }
+  }
+
+  /* ── Mobile nav overlay ────────────────────────── */
+  .mobile-nav {
+    position: fixed;
+    inset: 0;
+    z-index: 99;
+    background: var(--cream);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+    padding: var(--edge);
+    overflow-y: auto;
+  }
+
+  .mobile-nav[hidden] { display: none; }
+
+  .mobile-group { text-align: center; }
+
+  .mobile-group-label {
+    margin-bottom: 1rem;
+    color: var(--ink-3);
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    text-transform: none;
+    font-optical-sizing: auto;
+  }
+
+  .mobile-group ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .mobile-link {
+    display: block;
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 8vw, 3.5rem);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    font-optical-sizing: auto;
+    color: var(--ink);
+    line-height: 1.1;
+    transition: color 0.2s;
+  }
+
+  .mobile-link:hover,
+  .mobile-link[aria-current="page"] {
+    color: var(--accent);
+  }
+</style>
+
+<script>
+  const header    = document.getElementById('site-header')!;
+  const toggle    = document.getElementById('nav-toggle') as HTMLButtonElement;
+  const mobileNav = document.getElementById('mobile-nav') as HTMLElement;
+
+  const onScroll = () => {
+    header.classList.toggle('is-scrolled', window.scrollY > 60);
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  toggle.addEventListener('click', () => {
+    const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+    const next   = !isOpen;
+    toggle.setAttribute('aria-expanded', String(next));
+    toggle.setAttribute('aria-label', next ? 'Close navigation' : 'Open navigation');
+    mobileNav.hidden = !next;
+    document.body.style.overflow = next ? 'hidden' : '';
+  });
+
+  mobileNav.querySelectorAll('a').forEach((a) => {
+    a.addEventListener('click', () => {
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.setAttribute('aria-label', 'Open navigation');
+      mobileNav.hidden = true;
+      document.body.style.overflow = '';
+    });
+  });
+
+  // Sync aria-expanded on desktop dropdown triggers (keyboard)
+  document.querySelectorAll<HTMLButtonElement>('.nav-trigger').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      document.querySelectorAll('.nav-trigger').forEach((b) => {
+        b.setAttribute('aria-expanded', 'false');
+      });
+      if (!expanded) btn.setAttribute('aria-expanded', 'true');
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!(e.target as Element).closest('.nav-group')) {
+      document.querySelectorAll('.nav-trigger').forEach((b) => {
+        b.setAttribute('aria-expanded', 'false');
+      });
+    }
+  });
+</script>

@@ -1,0 +1,189 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─────────────────────────────────────────────────────────
+   DESIGN TOKENS
+───────────────────────────────────────────────────────── */
+:root {
+  /* Palette — near-monochrome, warm */
+  --cream:    #F5F2EC;
+  --cream-2:  #EDE9E0;
+  --ink:      #1A1916;
+  --ink-2:    #4A4844;
+  --ink-3:    #9A9693;
+  --accent:   #8B7355;
+
+  /* Typography */
+  --font-display:   'Fraunces', Georgia, serif;
+  --font-body:      'Inter', system-ui, sans-serif;
+  /* Vintage retro pairing — used for big display headings / sub-headers only */
+  --font-groovy:    'Bagel Fat One', 'Pacifico', cursive;
+  --font-condensed: 'Anton', 'Arial Narrow', system-ui, sans-serif;
+  /* Brushy handwritten — navigation / dropdown / mobile menu only */
+  --font-hand-brush: 'Caveat Brush', 'Permanent Marker', 'Caveat', cursive;
+
+  /* Spacing — fluid */
+  --edge:    clamp(1.5rem, 5vw, 5rem);
+  --section: clamp(5rem, 10vw, 9rem);
+}
+
+/* ─────────────────────────────────────────────────────────
+   BASE
+───────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background-color: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100dvh;
+  overflow-x: hidden;
+}
+
+img,
+video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ─────────────────────────────────────────────────────────
+   SELECTION
+───────────────────────────────────────────────────────── */
+::selection {
+  background-color: var(--ink);
+  color: var(--cream);
+}
+
+/* ─────────────────────────────────────────────────────────
+   SCROLLBAR
+───────────────────────────────────────────────────────── */
+::-webkit-scrollbar          { width: 3px; }
+::-webkit-scrollbar-track    { background: var(--cream); }
+::-webkit-scrollbar-thumb    { background: var(--ink-3); border-radius: 2px; }
+
+/* ─────────────────────────────────────────────────────────
+   TYPE UTILITIES
+───────────────────────────────────────────────────────── */
+
+/* Display — Fraunces, extralight, large optical size */
+.text-display {
+  font-family: var(--font-display);
+  font-size: clamp(4.25rem, 8.5vw, 9.5rem);
+  font-weight: 200;
+  line-height: 0.87;
+  letter-spacing: -0.025em;
+  font-optical-sizing: auto;
+}
+
+/* Section heading */
+.text-heading {
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 4.5vw, 4rem);
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+  font-optical-sizing: auto;
+}
+
+/* Secondary text */
+.text-subhead {
+  font-size: 1.0625rem;
+  font-weight: 400;
+  line-height: 1.65;
+  color: var(--ink-2);
+}
+
+/* Labels / captions: small caps style */
+.text-caption {
+  font-size: 0.6875rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+/* Nav / UI labels */
+.text-label {
+  font-size: 0.8125rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ─────────────────────────────────────────────────────────
+   SCROLL-REVEAL UTILITIES
+   Shared across creator-page sections + child components.
+   Astro scopes component <style> blocks, so these primitives
+   must live globally to hide elements rendered by children.
+───────────────────────────────────────────────────────── */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(2.5rem);
+  transition:
+    opacity 0.9s ease,
+    transform 0.9s cubic-bezier(0.16, 0.84, 0.34, 1);
+}
+
+[data-reveal].is-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+[data-stagger-item] {
+  opacity: 0;
+  transform: translateY(2rem);
+  transition:
+    opacity 0.6s ease var(--stagger-delay, 0s),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) var(--stagger-delay, 0s);
+}
+
+[data-stagger-item].is-in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal],
+  [data-stagger-item] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────
+   PAGE ENTRANCE
+───────────────────────────────────────────────────────── */
+@keyframes ki-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+main {
+  animation: ki-fade-up 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}

@@ -1,0 +1,113 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ModelingGallery from '../components/ModelingGallery.astro';
+import { modelingLocations } from '../data/modeling-portfolio';
+---
+
+<BaseLayout
+  title="Modeling — Katya Ivshina"
+  description="Modeling portfolio by Katya Ivshina. Editorial and portrait work across Milan, Boston, New York, London, and Los Angeles."
+>
+  <main class="modeling-page">
+    <header class="modeling-hero">
+      <h1 class="hero-title">Modeling</h1>
+      <nav class="hero-subhead" aria-label="Jump to shoot location">
+        {modelingLocations.map((loc) => (
+          <a class="hero-city" href={`#location-${loc.id}`}>{loc.label}</a>
+        ))}
+      </nav>
+    </header>
+
+    <ModelingGallery />
+  </main>
+</BaseLayout>
+
+<style>
+  /* ─────────────────────────────────────────────
+     MODELING — "Which?" 1966 cover skin.
+     Solid Harvard crimson ground, bold black Helvetica
+     display type, white as the secondary colour, and
+     photos shown through white rounded "TV-screen"
+     windows. Helvetica via system stack (no font load).
+  ───────────────────────────────────────────── */
+  .modeling-page {
+    --cherry:      #A51C30;
+    --cherry-deep: #7C0C28;
+    --ink:         #111111;
+    --paper:       #FFFFFF;
+
+    /* Local Swiss/Helvetica stack — no external fonts */
+    --font-swiss: "Helvetica Neue", Helvetica, Arial, "Liberation Sans", sans-serif;
+
+    position: relative;
+    padding-top: 4.25rem;
+    background: var(--cherry);
+    color: var(--ink);
+    overflow-x: clip;
+  }
+
+  /* ── HERO ─────────────────────────────────────── */
+  .modeling-hero {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    gap: clamp(0.5rem, 1.5vw, 1rem);
+    padding: clamp(2.5rem, 6vw, 4.5rem) var(--edge) clamp(2.5rem, 5vw, 4rem);
+  }
+
+  .hero-title {
+    font-family: var(--font-swiss);
+    font-weight: 800;
+    font-size: clamp(3.5rem, 14vw, 9.5rem);
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  .hero-subhead {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    column-gap: clamp(0.75rem, 2.5vw, 1.75rem);
+    row-gap: clamp(0.1rem, 1vw, 0.4rem);
+    margin: 0;
+  }
+
+  .hero-city {
+    font-family: var(--font-swiss);
+    font-weight: 700;
+    font-size: clamp(1.4rem, 4.5vw, 2.75rem);
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color 0.2s ease;
+  }
+
+  .hero-city:hover {
+    color: var(--cherry-deep);
+    text-decoration: underline;
+    text-underline-offset: 0.12em;
+    text-decoration-thickness: 0.06em;
+  }
+
+  .hero-city:focus-visible {
+    outline: 3px solid var(--ink);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /* Smooth in-page jumps for the hero city links (scoped to this page). */
+  :global(html) {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :global(html) {
+      scroll-behavior: auto;
+    }
+  }
+</style>
