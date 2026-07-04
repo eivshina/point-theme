@@ -1,0 +1,767 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import MontageBlock, { type MontageVariant } from '../components/MontageBlock.astro';
+import { Image } from 'astro:assets';
+
+// Original home-page hero portrait (5152 × 7728). Imported so Astro
+// optimizes the large source into a light, responsive asset.
+import heroImg from '../../img/DSCF0626.jpg';
+
+/**
+ * Photo montage — masonry collage.
+ * Photos from /public/home/gallery; stickers from /public/home/stickers.
+ */
+const montage: MontageVariant = {
+  id: 'b',
+  label: 'Photo collage',
+  layout: 'masonry',
+  masonryItems: [
+    { src: 'img-9335-2.jpg', w: 1600, h: 1066, r: -3, alt: "A photograph from Katya's life" },
+    { src: 'img-6110.jpg',   w: 1600, h: 1200, r: 1,  alt: 'Katya lying on the hood of a blue car' },
+    { src: 'img-1795.jpg',   w: 1600, h: 1200, r: 2,  alt: "A snapshot from Katya's life" },
+    { src: 'img-5517.jpg',   w: 1600, h: 1200, r: -2, alt: "A moment from Katya's life" },
+    { src: 'img-6065.jpg',   w: 1066, h: 1600, r: 4,  alt: "A snapshot from Katya's life" },
+    { src: 'img-9884-2.jpg', w: 1600, h: 1066, r: -1, alt: "A moment from Katya's life" },
+    { src: 'extra-01.jpg',   w: 1290, h: 958,  r: 3,  alt: "Friends gathered around a table, laughing together" },
+    { src: 'img-5649.jpg',   w: 1600, h: 1200, r: -2, alt: "A photograph from Katya's life" },
+    { src: 'img-9860-2.jpg', w: 1600, h: 1066, r: 2,  alt: "A moment from Katya's life" },
+    { src: 'img-6072.jpg',   w: 1066, h: 1600, r: -4, alt: "A snapshot from Katya's life" },
+    { src: 'extra-02.jpg',   w: 1280, h: 853,  r: 1,  alt: "A candid snapshot from everyday life" },
+    { src: 'img-5789.jpg',   w: 1600, h: 1200, r: -3, alt: "A photograph from Katya's life" },
+    { src: 'extra-03.jpg',   w: 720,  h: 960,  r: 2,  alt: "Katya in front of a chalkboard portrait" },
+    { src: 'img-7295.jpg',   w: 1600, h: 1200, r: -1, alt: "A photograph from Katya's life" },
+    { src: 'plombir-ice-cream.png', w: 481, h: 823, r: -5, cut: true, sticker: true, alt: 'Sticker of Russian plombir ice cream in a wafer cup' },
+    { src: 'buterbrod-servelat.png', w: 463, h: 542, r: 6, cut: true, sticker: true, alt: 'Sticker of a salami buterbrod on white bread' },
+  ],
+};
+---
+
+<BaseLayout
+  title="my home — Katya Ivshina"
+  description="A cozy corner of the internet from Katya Ivshina: mathematician and ML researcher, raised on tea, mashed potatoes with sausages, and long walks. Welcome in."
+>
+  <main class="home">
+
+    <!-- Soviet carpet backdrop (fixed, sits behind all content) -->
+    <div class="carpet" aria-hidden="true"></div>
+
+    <!-- ─────────────────────────────────────────
+         HERO · WELCOME HOME
+    ───────────────────────────────────────────── -->
+    <section class="hero" aria-label="Welcome">
+      <article class="card card--hero" data-rise>
+        <span class="tape tape--tl" aria-hidden="true"></span>
+        <span class="tape tape--br" aria-hidden="true"></span>
+
+        <div class="hero-grid">
+          <div class="hero-text">
+            <p class="kicker"><span class="ru-hand">Добро пожаловать</span> · come on in</p>
+            <h1 class="hero-title">
+              Hi, I'm <span class="hero-name">Katya</span>
+            </h1>
+            <p class="hero-sub">
+              Katya Ivshina is a mathematician, machine learning researcher, and educator. She holds a
+              B.A. in mathematics, with honors, from Princeton and an M.S. in Applied Mathematics from
+              Harvard, and is a recipient of the NSF Graduate Research Fellowship. Her work spans machine
+              learning systems and geometry, carried out at Harvard, MIT, and Apple — with an exoplanet
+              discovery under her belt.
+            </p>
+            <p class="hero-sub">
+              Alongside her research, Katya teaches machine learning for a global audience of more than
+              100,000 followers and 30+ million views, and is building a ML school grounded in rigor and
+              plain language. A filmmaker, dancer, and musician at heart, her work draws from both
+              creativity and mathematics.
+            </p>
+          </div>
+
+          <!-- Original home-page hero portrait, pinned like a taped keepsake -->
+          <figure class="hero-photo">
+            <span class="hero-photo-tape" aria-hidden="true"></span>
+            <Image
+              src={heroImg}
+              alt="Katya at home"
+              widths={[320, 480, 640]}
+              sizes="(max-width: 760px) 60vw, 16rem"
+              loading="eager"
+              fetchpriority="high"
+            />
+          </figure>
+        </div>
+      </article>
+    </section>
+
+    <!-- ─────────────────────────────────────────
+         PHOTO MONTAGE
+         A dense, overlapping collage built ONLY from Katya's real
+         photographs. Rectangular photos form the layered background;
+         transparent cut-outs sit on top. Items pop in on scroll.
+    ───────────────────────────────────────────── -->
+    <!--
+      Inline (parser-time) flag: opt the montage into its hidden→pop
+      animation ONLY when JS is available. If scripting is disabled this
+      class is never added, so every item renders fully visible (the
+      hidden state lives behind `html.collage-js` in the stylesheet).
+    -->
+    <script is:inline>document.documentElement.classList.add('collage-js');</script>
+
+    <section class="collage" aria-label="Photo collage">
+      <MontageBlock variant={montage} />
+    </section>
+
+    <!-- ─────────────────────────────────────────
+         STAY IN TOUCH (mailing list → beehiiv)
+    ───────────────────────────────────────────── -->
+    <section class="signup" aria-labelledby="signup-h">
+      <article class="card card--signup" data-rise>
+        <span class="tape tape--top" aria-hidden="true"></span>
+
+        <h2 id="signup-h" class="signup-title">
+          mailing list
+          <span class="signup-ru ru-hand">stay in touch</span>
+        </h2>
+        <p class="signup-text">
+          Every so often I send a little note — what I'm learning, making, and reading.
+          Leave your email and I'll write to you.
+        </p>
+
+        <form
+          class="signup-form"
+          action="https://katya-ivshina.beehiiv.com/subscribe"
+          method="get"
+          target="_blank"
+          rel="noopener"
+        >
+          <label class="signup-label" for="signup-email">Email address</label>
+          <div class="signup-row">
+            <input
+              class="signup-input"
+              id="signup-email"
+              type="email"
+              name="email"
+              inputmode="email"
+              autocomplete="email"
+              placeholder="you@example.com"
+              required
+            />
+            <button class="signup-btn" type="submit">
+              Subscribe
+              <span class="signup-arrow" aria-hidden="true">→</span>
+            </button>
+          </div>
+        </form>
+      </article>
+    </section>
+
+  </main>
+</BaseLayout>
+
+<style>
+  /* ─────────────────────────────────────────────
+     COZY RUSSIAN HOME — scoped palette
+     Soviet carpet backdrop, warm cream paper cards.
+  ───────────────────────────────────────────── */
+  .home {
+    --paper:      #F7F0E1;
+    --paper-2:    #FCF7EC;
+    --edge-line:  #E4D6BA;
+    --ink:        #33241A;
+    --ink-soft:   #5E4937;
+    --ink-mute:   #8A745E;
+    --rug-red:    #9E2B25;
+    --rug-red-dk: #6F1E1A;
+    --gold:       #C68A2E;
+
+    position: relative;
+    /* Opacity-only entrance so the fixed carpet stays viewport-fixed
+       (a transform on <main> would trap position:fixed children). */
+    animation: home-fade 0.7s ease both;
+  }
+
+  @keyframes home-fade {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  /* ── Carpet backdrop ─────────────────────────── */
+  .carpet {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background:
+      url('/home/carpet.jpg') center center / cover no-repeat;
+  }
+
+  /* Soft scrim: darken edges + knock back the busy pattern so cream cards pop */
+  .carpet::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(120% 90% at 50% 35%, rgba(20, 6, 5, 0) 35%, rgba(20, 6, 5, 0.5) 100%),
+      linear-gradient(180deg, rgba(20, 6, 5, 0.28), rgba(20, 6, 5, 0.12) 30%, rgba(20, 6, 5, 0.28));
+  }
+
+  /* ── Scroll reveal ───────────────────────────────
+     Animates the independent `translate` property (not `transform`)
+     so each card keeps its hand-pinned tilt. */
+  .home :global([data-rise]) {
+    opacity: 0;
+    translate: 0 2rem;
+    transition:
+      opacity 0.8s ease,
+      translate 0.8s cubic-bezier(0.16, 0.84, 0.34, 1);
+  }
+
+  .home :global([data-rise].is-in) {
+    opacity: 1;
+    translate: 0 0;
+  }
+
+  /* ── Header + footer legibility over the carpet (home only) ──
+     Astro loads this stylesheet only on the home page, so these
+     :global rules don't leak elsewhere. */
+  :global(.site-header:not(.is-scrolled) .wordmark),
+  :global(.site-header:not(.is-scrolled) .nav-trigger) {
+    color: #FBF7EC;
+    text-shadow: 0 1px 4px rgba(20, 6, 5, 0.6);
+  }
+
+  :global(.site-header:not(.is-scrolled) .nav-trigger:hover) {
+    color: #F2D7A8;
+  }
+
+  :global(.site-header:not(.is-scrolled) .bar) {
+    background: #FBF7EC;
+  }
+
+  /* Footer reads as a warm "floor" panel above the carpet */
+  :global(.site-footer) {
+    position: relative;
+    z-index: 1;
+    background: var(--paper);
+  }
+
+  /* ── Shared card ─────────────────────────────── */
+  .card {
+    position: relative;
+    background: linear-gradient(180deg, var(--paper-2), var(--paper));
+    border: 1px solid var(--edge-line);
+    border-radius: 14px;
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.7) inset,
+      0 1.5rem 3rem rgba(20, 6, 5, 0.32);
+  }
+
+  /* Washi-tape corner accents */
+  .tape {
+    position: absolute;
+    width: 4.5rem;
+    height: 1.5rem;
+    background: repeating-linear-gradient(
+      45deg,
+      rgba(158, 43, 37, 0.32) 0 6px,
+      rgba(198, 138, 46, 0.32) 6px 12px
+    );
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    opacity: 0.85;
+  }
+
+  .tape--tl { top: -0.7rem; left: 1.5rem; transform: rotate(-6deg); }
+  .tape--br { bottom: -0.7rem; right: 1.5rem; transform: rotate(-8deg); }
+  .tape--top { top: -0.7rem; left: 50%; transform: translateX(-50%) rotate(2deg); }
+
+  /* ── Layout rhythm ───────────────────────────── */
+  .hero,
+  .collage,
+  .signup {
+    position: relative;
+    z-index: 1;
+    padding-inline: var(--edge);
+    margin-inline: auto;
+    max-width: 70rem;
+  }
+
+  .hero { padding-top: clamp(7rem, 14vh, 10rem); }
+
+  .collage { padding-top: clamp(2.5rem, 6vw, 4.5rem); }
+
+  .collage {
+    padding-bottom: clamp(4rem, 10vw, 6rem);
+  }
+
+  .signup {
+    padding-top: clamp(4rem, 10vw, 7rem);
+    padding-bottom: clamp(3rem, 7vw, 5rem);
+    margin-top: clamp(2rem, 6vw, 4rem);
+  }
+
+  /* ── HERO ────────────────────────────────────── */
+  .card--hero {
+    padding: clamp(1.75rem, 4vw, 3rem);
+    transform: rotate(-0.6deg);
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: clamp(1.5rem, 4vw, 3rem);
+    align-items: center;
+  }
+
+  /* Original hero portrait, framed as a taped cream "polaroid" */
+  .hero-photo {
+    position: relative;
+    margin: 0;
+    width: clamp(11rem, 24vw, 16rem);
+    padding: 0.6rem 0.6rem 0.5rem;
+    background: linear-gradient(180deg, var(--paper-2), var(--paper));
+    border: 1px solid var(--edge-line);
+    border-radius: 6px;
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.6) inset,
+      0 1rem 2rem rgba(20, 6, 5, 0.4);
+    rotate: 2deg;
+  }
+
+  .hero-photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 3px;
+  }
+
+  .hero-photo-tape {
+    position: absolute;
+    top: -0.6rem;
+    left: 50%;
+    width: 3.75rem;
+    height: 1.3rem;
+    transform: translateX(-50%) rotate(-3deg);
+    background: repeating-linear-gradient(
+      45deg,
+      rgba(158, 43, 37, 0.32) 0 6px,
+      rgba(198, 138, 46, 0.32) 6px 12px
+    );
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    opacity: 0.85;
+    z-index: 2;
+  }
+
+  .kicker {
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: lowercase;
+    color: var(--rug-red);
+    margin-bottom: 0.75rem;
+  }
+
+  .ru-hand {
+    font-family: 'Caveat', cursive;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+  }
+
+  .kicker .ru-hand { font-size: 1.4em; }
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(2.5rem, 6.5vw, 4.5rem);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    font-optical-sizing: auto;
+  }
+
+  .hero-name {
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    color: var(--rug-red);
+    font-size: 1.15em;
+  }
+
+  .hero-sub {
+    margin-top: 1rem;
+    max-width: 38rem;
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: var(--ink-soft);
+  }
+
+  .collage { max-width: 76rem; }
+
+  /* ── STAY IN TOUCH (mailing list) ────────────── */
+  .signup { max-width: 52rem; }
+
+  .card--signup {
+    padding: clamp(1.75rem, 4vw, 3rem);
+    text-align: center;
+    rotate: -0.8deg;
+  }
+
+  .signup-title {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(1.6rem, 4vw, 2.5rem);
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+  }
+
+  .signup-ru {
+    display: block;
+    margin-top: 0.2rem;
+    font-size: 1.5rem;
+    color: var(--rug-red);
+  }
+
+  .signup-text {
+    max-width: 34rem;
+    margin: 0.75rem auto 0;
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    color: var(--ink-soft);
+  }
+
+  .signup-form { margin-top: clamp(1.25rem, 3vw, 1.75rem); }
+
+  /* Visually-hidden label keeps the field accessible without crowding the card. */
+  .signup-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .signup-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    justify-content: center;
+    max-width: 30rem;
+    margin-inline: auto;
+  }
+
+  .signup-input {
+    flex: 1 1 14rem;
+    min-width: 0;
+    padding: 0.8rem 1.1rem;
+    font: inherit;
+    font-size: 1rem;
+    color: var(--ink);
+    background: var(--paper);
+    border: 1px solid var(--edge-line);
+    border-radius: 10px;
+    transition: border-color 0.18s ease, box-shadow 0.18s ease;
+  }
+
+  .signup-input::placeholder { color: var(--ink-mute); }
+
+  .signup-input:focus-visible {
+    outline: none;
+    border-color: var(--rug-red);
+    box-shadow: 0 0 0 3px rgba(158, 43, 37, 0.18);
+  }
+
+  .signup-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.8rem 1.4rem;
+    font-family: var(--font-display);
+    font-size: 1.0625rem;
+    font-weight: 400;
+    color: var(--paper-2);
+    background: var(--rug-red);
+    border: 1px solid var(--rug-red-dk);
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 0.35rem 0 rgba(111, 30, 26, 0.55);
+    transition: transform 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+  }
+
+  .signup-btn:hover {
+    background: var(--rug-red-dk);
+    transform: translateY(-2px);
+    box-shadow: 0 0.55rem 0 rgba(111, 30, 26, 0.6);
+  }
+
+  .signup-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 0.2rem 0 rgba(111, 30, 26, 0.6);
+  }
+
+  .signup-btn:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+  }
+
+  .signup-arrow { transition: transform 0.2s ease; }
+  .signup-btn:hover .signup-arrow { transform: translateX(4px); }
+
+  /* Entrance: the card pops in with a warm, bouncy overshoot.
+     `scale`/`translate` are independent properties, so this layers cleanly
+     over the card's resting `rotate` and the shared [data-rise] reveal.
+     Motion is opt-in via the no-preference query (see reduced-motion block). */
+  @media (prefers-reduced-motion: no-preference) {
+    .card--signup {
+      scale: 0.9;
+      transition:
+        opacity 0.8s ease,
+        translate 0.8s cubic-bezier(0.16, 0.84, 0.34, 1),
+        scale 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .card--signup.is-in { scale: 1; }
+  }
+
+  /* ── RESPONSIVE ──────────────────────────────── */
+  @media (max-width: 760px) {
+    /* Stack the hero: portrait first, then the bio text. */
+    .hero-grid { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+    .hero-text { order: 1; }
+    .hero-photo { order: 0; }
+    .hero-sub { margin-inline: auto; }
+  }
+
+  /* ── REDUCED MOTION ──────────────────────────── */
+  @media (prefers-reduced-motion: reduce) {
+    .home { animation: none; }
+    .home :global([data-rise]) { opacity: 1; translate: 0 0; transition: none; }
+  }
+</style>
+
+<style is:global>
+  /* Home montage — global so MontageBlock child component receives styles */
+  .montage-stage {
+    position: relative;
+    width: 100%;
+    min-height: clamp(28rem, 65vw, 42rem);
+    margin-top: clamp(0.5rem, 2vw, 1rem);
+    --scale: 1;
+    overflow: visible;
+    margin-inline: clamp(0.25rem, 2vw, 1rem);
+    border-radius: 12px;
+  }
+
+  .montage-masonry {
+    column-count: 4;
+    column-gap: clamp(0.75rem, 2vw, 1.25rem);
+    padding: clamp(0.5rem, 1.5vw, 1rem);
+  }
+
+  .montage-masonry .m-item {
+    display: inline-block;
+    width: 100%;
+    margin: 0 0 clamp(0.75rem, 2vw, 1.25rem);
+    break-inside: avoid;
+    rotate: var(--r);
+    position: relative;
+    z-index: var(--z, 1);
+  }
+
+  .montage-masonry .m-sticker {
+    width: 55%;
+    margin-inline: auto;
+  }
+
+  .m-item img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .m-photo {
+    padding: 0.4rem 0.4rem 0.4rem;
+    background: linear-gradient(180deg, var(--paper-2), var(--paper));
+    border: 1px solid var(--edge-line);
+    border-radius: 4px;
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.6) inset,
+      0 0.8rem 1.6rem rgba(20, 6, 5, 0.4);
+  }
+
+  .m-photo img { border-radius: 2px; }
+
+  .m-cut img {
+    filter: drop-shadow(0 0.5rem 0.6rem rgba(20, 6, 5, 0.5));
+  }
+
+  .m-item {
+    transition:
+      transform 0.22s ease,
+      rotate 0.22s ease;
+  }
+
+  .m-photo { transition: transform 0.22s ease, rotate 0.22s ease, box-shadow 0.22s ease; }
+  .m-cut img { transition: filter 0.22s ease; }
+
+  .montage-masonry:has(.m-item:hover),
+  .montage-masonry:has(.m-item:focus-within) {
+    z-index: 1000;
+  }
+
+  .m-item:hover,
+  .m-item:focus-within {
+    transform: scale(1.04);
+    rotate: 0deg;
+    z-index: 9999 !important;
+  }
+
+  .m-photo:hover,
+  .m-photo:focus-within {
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.7) inset,
+      0 1.1rem 2.2rem rgba(20, 6, 5, 0.45),
+      0 0 0 0.16rem rgba(252, 247, 236, 0.95),
+      0 0 1.8rem 0.25rem rgba(242, 215, 168, 0.8);
+  }
+
+  .m-cut:hover img,
+  .m-cut:focus-within img {
+    filter:
+      drop-shadow(0 0.5rem 0.6rem rgba(20, 6, 5, 0.5))
+      drop-shadow(0 0 0.75rem rgba(242, 215, 168, 0.95));
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .m-item {
+      transition:
+        opacity 0.55s ease,
+        scale 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
+        translate 0.55s cubic-bezier(0.16, 0.84, 0.34, 1),
+        transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
+        rotate 0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
+        box-shadow 0.28s ease;
+    }
+
+    .m-cut img { transition: filter 0.28s ease; }
+
+    html.collage-js .m-item {
+      opacity: 0;
+      scale: 0.82;
+      translate: 0 1.2rem;
+    }
+
+    html.collage-js .m-item.is-popped {
+      opacity: 1;
+      scale: 1;
+      translate: 0 0;
+    }
+
+    .m-item:hover,
+    .m-item:focus-within {
+      transform: scale(1.09);
+    }
+  }
+
+  @media (max-width: 760px) {
+    .montage-masonry { column-count: 2; }
+  }
+
+  @media (max-width: 480px) {
+    .montage-masonry { column-count: 1; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .m-item { opacity: 1; scale: 1; translate: 0 0; }
+  }
+</style>
+
+<script>
+  /**
+   * Home-page scroll reveals.
+   * Uses the local [data-rise] primitive (opacity/translate in this file's
+   * scoped styles). Falls back to showing everything when IntersectionObserver
+   * is unavailable or the user prefers reduced motion.
+   */
+  function initHomeReveals(): void {
+    const main = document.querySelector<HTMLElement>('.home');
+    if (!main || main.dataset.revealBound === 'true') return;
+    main.dataset.revealBound = 'true';
+
+    const els = Array.from(document.querySelectorAll<HTMLElement>('.home [data-rise]'));
+    if (els.length === 0) return;
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced || !('IntersectionObserver' in window)) {
+      els.forEach((el) => el.classList.add('is-in'));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-in');
+          observer.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.15, rootMargin: '0px 0px -8% 0px' },
+    );
+
+    els.forEach((el) => observer.observe(el));
+  }
+
+  /**
+   * Photo-montage pop-in cascade.
+   * Items start hidden (via `html.collage-js` in CSS) and pop in with a
+   * staggered overshoot as the montage scrolls into view. If
+   * IntersectionObserver is unavailable or reduced motion is preferred, every
+   * item is revealed immediately so nothing is left stranded at opacity:0.
+   */
+  function initMontagePops(): void {
+    const stages = Array.from(document.querySelectorAll<HTMLElement>('.montage-stage'));
+    if (stages.length === 0) return;
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    stages.forEach((stage) => {
+      if (stage.dataset.popBound === 'true') return;
+      stage.dataset.popBound = 'true';
+
+      const items = Array.from(stage.querySelectorAll<HTMLElement>('.m-item'));
+      if (items.length === 0) return;
+
+      if (reduced || !('IntersectionObserver' in window)) {
+        items.forEach((el) => el.classList.add('is-popped'));
+        return;
+      }
+
+      const observer = new IntersectionObserver(
+        (entries, obs) => {
+          if (!entries.some((e) => e.isIntersecting)) return;
+          items.forEach((el, i) => {
+            const delay = `${Math.min(i, 31) * 55}ms`;
+            el.style.transitionDelay = `${delay}, ${delay}, ${delay}`;
+            el.classList.add('is-popped');
+            el.addEventListener(
+              'transitionend',
+              () => { el.style.transitionDelay = ''; },
+              { once: true },
+            );
+          });
+          obs.disconnect();
+        },
+        { threshold: 0.12, rootMargin: '0px 0px -6% 0px' },
+      );
+
+      observer.observe(stage);
+    });
+  }
+
+  function initHome(): void {
+    initHomeReveals();
+    initMontagePops();
+  }
+
+  initHome();
+  document.addEventListener('astro:page-load', initHome);
+</script>

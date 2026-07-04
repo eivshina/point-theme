@@ -43,6 +43,8 @@ export const tikTokUrl = 'https://www.tiktok.com/@katyaivshina';
 export const newsletterUrl = 'https://katya-ivshina.beehiiv.com/subscribe';
 export const linkedInUrl = 'https://www.linkedin.com/in/katya-ivshina-6b367b306/';
 export const telegramUrl = 'https://t.me/katiai';
+export const patreonUrl =
+  'https://patreon.com/katyaivshina?utm_medium=unknown&utm_source=join_link&utm_campaign=creatorshare_creator&utm_content=copyLink';
 /** Résumé PDF served from public/resume/. */
 export const resumeUrl = '/resume/resume-ekaterina-ivshina.pdf';
 
@@ -53,6 +55,7 @@ export type CreatorLinkIcon =
   | 'tiktok'
   | 'newsletter'
   | 'telegram'
+  | 'patreon'
   | 'resume';
 
 export interface CreatorLink {
@@ -74,6 +77,7 @@ export const creatorLinks: CreatorLink[] = [
   { label: 'TikTok', href: tikTokUrl, icon: 'tiktok', external: true },
   { label: 'Newsletter', href: newsletterUrl, icon: 'newsletter', external: true },
   { label: 'Telegram', href: telegramUrl, icon: 'telegram', external: true },
+  { label: 'Patreon', href: patreonUrl, icon: 'patreon', external: true },
   { label: 'Résumé', href: resumeUrl, icon: 'resume', external: true, emphasis: true },
 ];
 

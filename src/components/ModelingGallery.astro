@@ -35,7 +35,8 @@ let globalIndex = 0;
                     src={photo.src}
                     alt={photo.alt}
                     class="photo-img"
-                    loading={index < 6 ? 'eager' : 'lazy'}
+                    loading={index === 0 ? 'eager' : 'lazy'}
+                    fetchpriority={index === 0 ? 'high' : undefined}
                     decoding="async"
                   />
                 </span>
@@ -211,10 +212,8 @@ let globalIndex = 0;
 </script>
 
 <style>
-  /* ── "Which?" gallery — black/white/red Swiss skin ── */
+  /* ── "Which?" gallery — black/white Swiss skin on cream ── */
   .modeling-gallery {
-    --cherry:      #A51C30;
-    --cherry-deep: #7C0C28;
     --ink:         #111111;
     --paper:       #FFFFFF;
     --font-swiss: "Helvetica Neue", Helvetica, Arial, "Liberation Sans", sans-serif;
@@ -343,7 +342,7 @@ let globalIndex = 0;
     gap: 0.5rem 0.75rem;
     margin-top: clamp(1rem, 3vw, 2.5rem);
     padding-top: clamp(2rem, 4vw, 3rem);
-    border-top: 2px solid var(--paper);
+    border-top: 2px solid var(--ink-3);
   }
 
   .pager-edge {
@@ -355,15 +354,16 @@ let globalIndex = 0;
     font-size: 0.8rem;
     letter-spacing: 0.02em;
     text-transform: uppercase;
-    color: var(--paper);
+    color: var(--ink-2);
     text-decoration: none;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+    border-bottom: 2px solid rgba(26, 25, 22, 0.25);
     padding-bottom: 2px;
-    transition: border-color 0.2s;
+    transition: border-color 0.2s, color 0.2s;
   }
 
   .pager-edge:hover {
-    border-color: var(--paper);
+    color: var(--ink);
+    border-color: var(--ink);
   }
 
   .pager-edge:focus-visible {
@@ -376,7 +376,7 @@ let globalIndex = 0;
     position: fixed;
     inset: 0;
     z-index: 1000;
-    background: var(--cherry);
+    background: rgba(26, 25, 22, 0.96);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -428,7 +428,7 @@ let globalIndex = 0;
     position: absolute;
     top: 1.5rem;
     right: 1.75rem;
-    color: var(--paper);
+    color: rgba(245, 242, 236, 0.7);
     background: none;
     border: none;
     padding: 0.5rem;
@@ -438,7 +438,7 @@ let globalIndex = 0;
   }
 
   .lb-close:hover {
-    color: var(--ink);
+    color: #F5F2EC;
   }
 
   .lb-prev,
@@ -446,7 +446,7 @@ let globalIndex = 0;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    color: var(--paper);
+    color: rgba(245, 242, 236, 0.5);
     background: none;
     border: none;
     padding: 1rem;
@@ -458,7 +458,7 @@ let globalIndex = 0;
   .lb-prev { left: 1rem; }
   .lb-next { right: 1rem; }
   .lb-prev:hover,
-  .lb-next:hover { color: var(--ink); }
+  .lb-next:hover { color: #F5F2EC; }
 
   .lb-close:focus-visible,
   .lb-prev:focus-visible,
@@ -482,7 +482,7 @@ let globalIndex = 0;
     font-weight: 700;
     font-size: 0.8rem;
     letter-spacing: 0.1em;
-    color: var(--paper);
+    color: rgba(245, 242, 236, 0.4);
   }
 
   /* ── Reduced motion ───────────────────────────── */

@@ -93,8 +93,8 @@ export const modelingLocations: ModelingLocation[] = [
     label: 'Los Angeles',
     photos: photos('los-angeles', 'Los Angeles', [
       'dscf8625.jpg',
-      'screenshot-2026-06-26-at-11.46.58\u202fpm.png',
-      'screenshot-2026-06-26-at-11.47.04\u202fpm.png',
+      'screenshot-2026-06-26-at-11.46.58pm.jpg',
+      'screenshot-2026-06-26-at-11.47.04pm.jpg',
     ]),
   },
 ];

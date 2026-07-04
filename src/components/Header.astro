@@ -186,6 +186,11 @@ function groupIsActive(links: { href: string }[]) {
   }
 
   .wordmark {
+    display: inline-flex;
+    align-items: center;
+    /* ≥44px touch height without affecting the header row height. */
+    min-height: 44px;
+    margin-block: -0.5rem;
     font-family: var(--font-display);
     font-size: 1.0625rem;
     font-weight: 300;
@@ -312,10 +317,16 @@ function groupIsActive(links: { href: string }[]) {
   .nav-toggle {
     display: none;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
     gap: 6px;
+    /* ≥44px touch target; negative margins keep the icon edge-aligned
+       and the header row height unchanged. */
+    width: 44px;
+    height: 44px;
+    margin: -0.5rem -0.6rem -0.5rem 0;
     background: none;
     border: none;
-    padding: 4px;
     cursor: pointer;
   }
 
