@@ -957,6 +957,22 @@ const stampSrc = '/creator/reel_thumbnails/brands/IMG_9396.jpg';
     .cr-intro-wrap { height: 175vh; }
   }
 
+  @media (max-width: 820px) {
+    /* Mobile: cap the scroll-zoom film strip at three frames so the
+       right-most frame isn't clipped past the viewport edge. Desktop
+       keeps all six frames. */
+    .cr-intro-strip .film-frame--lg:nth-child(n + 4) {
+      display: none;
+    }
+
+    /* Push the intro statement clear of the strip, which scroll-zooms
+       downward (transform-origin: center top) and would otherwise
+       overlap the text. */
+    .cr-intro-statement {
+      margin-top: clamp(4.5rem, 15vw, 6.5rem);
+    }
+  }
+
   @media (max-width: 560px) {
     .cr-panel--tilt-l,
     .cr-panel--tilt-r,
