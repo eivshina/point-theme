@@ -1,4 +1,27 @@
-/** Free PhD admissions resources — sourced from Notion learning database. */
+/** PhD admissions guide + free resources — sourced from Notion learning database. */
+
+export const phdAdmissionsGuide = {
+  title: 'STEM Ph.D. Admissions Guide',
+  headline: 'Everything you need to craft a strong Ph.D. application.',
+  purchaseUrl: 'https://buy.stripe.com/28og0Q35Y2dbbtK3cy',
+  screenshot: '/phd-admissions/guide-cover.png',
+  screenshotAlt:
+    'Cover of STEM Ph.D. Admissions in the United States guide by Ekaterina Ivshina',
+  whoFor:
+    'Built for STEM applicants to U.S. doctoral programs — especially if you are first-generation, changing fields, or navigating admissions without a built-in network. If the process feels opaque and you want a clear map from program research to submit button, this is for you.',
+  whyBuy:
+    'I wrote this guide after getting into Harvard and winning an NSF Graduate Research Fellowship, with a Princeton B.A. in mathematics behind me. It is the end-to-end playbook I wish I had: what committees actually weigh, how to find funded programs and reach out to advisors, and how to polish every piece of your file. Practical, specific, and grounded in what worked.',
+  topics: [
+    { title: 'What committees look for', detail: 'How admissions decisions are really made — and what separates strong files from forgettable ones.' },
+    { title: 'Program research', detail: 'Where to apply, how funding works, and how to contact potential Ph.D. advisors.' },
+    { title: 'Application timeline', detail: 'A month-by-month plan so nothing slips through the cracks.' },
+    { title: 'Statement of purpose', detail: 'How to write a statement that tells a coherent research story.' },
+    { title: 'Recommendation letters', detail: 'Who to ask, when to ask, and how to make it easy for your recommenders.' },
+    { title: 'CV', detail: 'Structure and emphasis for a research-focused academic CV.' },
+    { title: 'GPA & test scores', detail: 'What numbers matter, when they do not, and how to contextualize yours.' },
+  ],
+  ctaLabel: 'Get the guide',
+};
 
 export const myApplicationMaterials = [
   {
