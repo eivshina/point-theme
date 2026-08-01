@@ -1,15 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const phdTestimonials = [
-  "Katya's PhD admissions mentorship program was an excellent experience that provided insider information I couldn't find anywhere else. Thanks to her guidance, I now feel I'm at a next level of preparedness for PhD applications, with a clear advantage in understanding what top programs are really looking for.",
-  'Every single thing Katya helped me with was extremely helpful! As a first generation person of color, this is the type of advice that I would otherwise spend months trying to dig for. She made me really believe in myself and my abilities!!',
-  "This has probably been the best investment that I've ever made towards my future, every dollar was worth it.",
-  'I loved how interactive this session was, you spent all your time going in depth and answering questions during your presentation and not leaving it all at the end! I enjoyed sharing our own experiences and hearing feedback',
-  'I loved how realistic it was, and how you pulled from actual experience. You mentioning speaking to members in departments and admissions, as well as others you know was very insightful. Additionally your own experience and advice in applying was very engaging!',
-  'It was a very well prepared presentation, and I liked that you spoke with honesty and shared your personal insights.',
-];
-
 const studentFeedback = [
   'Learning about your background before teaching this course made us respect and awe you even more. Keep teaching and inspiring students like us around the world.',
   "The explanations are always really clear and I really appreciate the fact that you addressed everyone's confusions as you explain. I really just enjoyed learning the basic concepts of topology in general.",
@@ -59,7 +50,6 @@ const princetonCourses = [
 ];
 
 const sectionNav = [
-  { id: 'phd-heading', label: 'PhD coaching' },
   { id: 'harvard-heading', label: 'Harvard' },
   { id: 'yygs-heading', label: 'Yale' },
   { id: 'princeton-heading', label: 'Princeton' },
@@ -89,32 +79,6 @@ const sectionNav = [
         </ul>
       </nav>
     </header>
-
-    <!-- PhD admissions workshop -->
-    <section class="section section--linen" aria-labelledby="phd-heading">
-      <div class="section-intro">
-        <h2 class="section-title" id="phd-heading">Signature PhD admissions coaching program</h2>
-        <p class="section-body text-subhead">
-          I run my signature PhD admissions coaching program, a mentorship program built on insider
-          guidance I wish I had when applying: what committees look for, how to research programs,
-          funding, statements of purpose, letters, and timelines. Free templates and my application
-          materials are on the
-          <a href="/phd-admissions" class="inline-hero-link">PhD Admissions page</a>.
-          Here is what my students say.
-        </p>
-      </div>
-
-      <h3 class="postcards-heading">What Katya's mentees say</h3>
-      <div class="postcard-grid postcard-grid--phd">
-        {phdTestimonials.map((quote, i) => (
-          <figure class={`postcard postcard--${(i % 3) + 1}`}>
-            <blockquote class="postcard-quote">
-              <p>"{quote}"</p>
-            </blockquote>
-          </figure>
-        ))}
-      </div>
-    </section>
 
     <!-- Harvard -->
     <section class="section" aria-labelledby="harvard-heading">
@@ -366,18 +330,6 @@ const sectionNav = [
   .postcard--1 { transform: rotate(-0.6deg); }
   .postcard--2 { transform: rotate(0.4deg); }
   .postcard--3 { transform: rotate(-0.3deg); }
-
-  .postcard-grid--phd {
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
-  }
-
-  .postcard-grid--phd .postcard {
-    padding-bottom: 1.35rem;
-  }
-
-  .postcard-grid--phd .postcard-quote {
-    margin-bottom: 0;
-  }
 
   .postcard--sm .postcard-quote {
     margin-bottom: 0;

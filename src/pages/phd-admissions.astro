@@ -10,6 +10,15 @@ import {
   additionalExamples,
   nsfFeedbackLink,
 } from '../data/phd-admissions';
+
+const phdTestimonials = [
+  "Katya's PhD admissions mentorship program was an excellent experience that provided insider information I couldn't find anywhere else. Thanks to her guidance, I now feel I'm at a next level of preparedness for PhD applications, with a clear advantage in understanding what top programs are really looking for.",
+  'Every single thing Katya helped me with was extremely helpful! As a first generation person of color, this is the type of advice that I would otherwise spend months trying to dig for. She made me really believe in myself and my abilities!!',
+  "This has probably been the best investment that I've ever made towards my future, every dollar was worth it.",
+  'I loved how interactive this session was, you spent all your time going in depth and answering questions during your presentation and not leaving it all at the end! I enjoyed sharing our own experiences and hearing feedback',
+  'I loved how realistic it was, and how you pulled from actual experience. You mentioning speaking to members in departments and admissions, as well as others you know was very insightful. Additionally your own experience and advice in applying was very engaging!',
+  'It was a very well prepared presentation, and I liked that you spoke with honesty and shared your personal insights.',
+];
 ---
 
 <BaseLayout
@@ -27,7 +36,8 @@ import {
       </p>
       <p class="hero-note text-subhead">
         For live mentorship, see my
-        <a href="/teaching#phd-heading" class="inline-link">PhD admissions workshop</a>.
+        <a href="#phd-heading" class="inline-link">PhD admissions coaching program</a>
+        below.
       </p>
     </header>
 
@@ -81,6 +91,30 @@ import {
             class="guide-screenshot"
           />
         </figure>
+      </div>
+    </section>
+
+    <!-- Coaching program -->
+    <section class="section coaching-section" aria-labelledby="phd-heading">
+      <div class="section-intro">
+        <h2 class="section-title" id="phd-heading">Signature PhD admissions coaching program</h2>
+        <p class="section-body text-subhead">
+          I run my signature PhD admissions coaching program, a mentorship program built on insider
+          guidance I wish I had when applying: what committees look for, how to research programs,
+          funding, statements of purpose, letters, and timelines. Free templates and my application
+          materials are below.
+        </p>
+      </div>
+
+      <h3 class="postcards-heading">What Katya's mentees say</h3>
+      <div class="postcard-grid postcard-grid--phd">
+        {phdTestimonials.map((quote, i) => (
+          <figure class={`postcard postcard--${(i % 3) + 1}`}>
+            <blockquote class="postcard-quote">
+              <p>"{quote}"</p>
+            </blockquote>
+          </figure>
+        ))}
       </div>
     </section>
 
@@ -362,6 +396,68 @@ import {
     transition: border-color 0.2s;
   }
   .inline-link:hover { border-color: #B5302A; }
+
+  /* ── Coaching testimonials (postcards) ── */
+  .coaching-section .section-intro {
+    max-width: 42rem;
+    margin-bottom: 2rem;
+  }
+
+  .postcards-heading {
+    font-family: var(--font-display);
+    font-size: clamp(1.25rem, 2vw, 1.5rem);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--ink);
+    margin-bottom: 1.75rem;
+    text-align: center;
+  }
+
+  .postcard-grid--phd {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
+    gap: 1.5rem;
+    max-width: 72rem;
+  }
+
+  .postcard {
+    position: relative;
+    margin: 0;
+    padding: 1.5rem 1.35rem 1.35rem;
+    background: #FAF8F3;
+    border: 1px solid rgba(26, 25, 22, 0.1);
+    border-radius: 10px;
+    box-shadow:
+      0 1px 2px rgba(26, 25, 22, 0.04),
+      0 8px 24px rgba(26, 25, 22, 0.06);
+    transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                box-shadow 0.35s;
+  }
+
+  .postcard:hover {
+    transform: translateY(-3px) rotate(0deg) !important;
+    box-shadow:
+      0 2px 4px rgba(26, 25, 22, 0.06),
+      0 14px 32px rgba(26, 25, 22, 0.08);
+  }
+
+  .postcard--1 { transform: rotate(-0.6deg); }
+  .postcard--2 { transform: rotate(0.4deg); }
+  .postcard--3 { transform: rotate(-0.3deg); }
+
+  .postcard-quote {
+    margin: 0;
+  }
+
+  .postcard-quote p {
+    font-family: var(--font-display);
+    font-size: 0.9375rem;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.65;
+    color: var(--ink);
+    font-optical-sizing: auto;
+  }
 
   .section { padding: var(--section) var(--edge); border-bottom: 1px solid rgba(26, 25, 22, 0.08); }
   .section--linen { background: var(--cream-2); }

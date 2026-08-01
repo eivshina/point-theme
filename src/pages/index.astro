@@ -12,8 +12,6 @@ const homeSocialLinkOrder = [
   'Newsletter',
   'YouTube',
   'YouTube (Russian)',
-  'TikTok',
-  'Telegram',
   'Résumé',
 ] as const;
 
@@ -25,11 +23,11 @@ const homeSocialLinks = homeSocialLinkOrder
 // large source into a light, responsive asset.
 import heroImg from '../../img/DSCF0626.jpg';
 
-/** Home bio — kept verbatim from the original home page. */
-const bio: string[] = [
-  'Katya Ivshina is a mathematician, machine learning researcher, and educator. She holds a B.A. in mathematics, with honors, from Princeton and an M.S. in Applied Mathematics from Harvard, and is a recipient of the NSF Graduate Research Fellowship. Her work spans machine learning systems and geometry, carried out at Harvard, MIT, and Apple — with an exoplanet discovery under her belt.',
-  'Alongside her research, Katya teaches machine learning for a global audience of more than 100,000 followers and 30+ million views, and is building a ML school grounded in rigor and plain language. A visual storyteller, dancer, and musician, she builds at the intersection of mathematics and creativity.',
-];
+/** Home bio — first paragraph plain text; second has an inline link. */
+const bioLead =
+  'Katya Ivshina is a mathematician, machine learning researcher, and educator. She holds a B.A. in mathematics, with honors, from Princeton and an M.S. in Applied Mathematics from Harvard, and is a recipient of the NSF Graduate Research Fellowship. Her work spans machine learning systems and geometry, carried out at Harvard, MIT, and Apple — with an exoplanet discovery under her belt.';
+
+const manifoldLearningUrl = 'https://www.instagram.com/manifold.learning/';
 ---
 
 <BaseLayout
@@ -44,9 +42,11 @@ const bio: string[] = [
         <h1 class="hero-title">Katya Ivshina</h1>
 
         <div class="hero-bio">
-          {bio.map((para) => (
-            <p class="text-subhead">{para}</p>
-          ))}
+          <p class="text-subhead">{bioLead}</p>
+          <p class="text-subhead">
+            Alongside her research, Katya teaches machine learning for a global audience of more than 100,000 followers and 30+ million views, and is building a ML school called{' '}
+            <a href={manifoldLearningUrl} target="_blank" rel="noopener noreferrer">Manifold Learning</a>, grounded in rigor and plain language. A visual storyteller, dancer, and musician, she builds at the intersection of mathematics and creativity.
+          </p>
         </div>
 
         <div class="hero-actions">
@@ -134,6 +134,19 @@ const bio: string[] = [
     display: flex;
     flex-direction: column;
     gap: 1rem;
+  }
+
+  .hero-bio a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+    text-decoration-color: rgba(26, 25, 22, 0.35);
+    transition: color 0.2s ease, text-decoration-color 0.2s ease;
+  }
+
+  .hero-bio a:hover {
+    color: #B5302A;
+    text-decoration-color: #B5302A;
   }
 
   .hero-actions {

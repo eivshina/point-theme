@@ -74,9 +74,7 @@ export const creatorLinks: CreatorLink[] = [
   { label: 'YouTube', href: youTubeUrl, icon: 'youtube', external: true },
   { label: 'YouTube (Russian)', href: russianYouTubeUrl, icon: 'youtube', external: true },
   { label: 'LinkedIn', href: linkedInUrl, icon: 'linkedin', external: true },
-  { label: 'TikTok', href: tikTokUrl, icon: 'tiktok', external: true },
   { label: 'Newsletter', href: newsletterUrl, icon: 'newsletter', external: true },
-  { label: 'Telegram', href: telegramUrl, icon: 'telegram', external: true },
   { label: 'Patreon', href: patreonUrl, icon: 'patreon', external: true },
   { label: 'Résumé', href: resumeUrl, icon: 'resume', external: true, emphasis: true },
 ];
