@@ -1,0 +1,858 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import {
+  phdWorkshop,
+  workshopHighlights,
+  workshopIncludes,
+  workshopResults,
+  workshopModuleDetails,
+  workshopLeaderBio,
+  workshopAudience,
+  workshopPainPoints,
+  workshopReviews,
+} from '../../data/phd-workshop';
+
+const modulesSubheadline =
+  'Seven modules to take you from "I have no idea what I\'m doing" to a strategic, ready-to-submit application.';
+---
+
+<BaseLayout
+  title="PhD Admissions Workshop — Katya Ivshina"
+  description="Live 2-hour PhD admissions workshop with Katya Ivshina — August 12, 2026 at 12 PM ET. Your complete guide to getting into your dream PhD program."
+>
+  <main class="workshop-page">
+    <header class="workshop-hero">
+      <div class="workshop-hero-text">
+        <h1 class="hero-title">{phdWorkshop.title}</h1>
+        <p class="hero-tagline text-subhead">{phdWorkshop.tagline}</p>
+
+        <ul class="highlight-cards" role="list">
+          {workshopHighlights.map((item) => (
+            <li class="highlight-card">
+              <span class="highlight-label">{item.label}</span>
+              <span class="highlight-detail">{item.detail}</span>
+            </li>
+          ))}
+        </ul>
+
+        <div class="event-details">
+          <p class="event-detail">
+            <strong>When:</strong> {phdWorkshop.dayOfWeek}, {phdWorkshop.date} · {phdWorkshop.time}
+          </p>
+          <p class="event-detail">
+            <strong>Format:</strong> {phdWorkshop.format} · {phdWorkshop.duration}
+          </p>
+          <p class="event-detail">
+            The Zoom link will be sent to your email before the event. A recording will be provided afterwards.
+          </p>
+        </div>
+      </div>
+
+      <figure class="workshop-hero-visual">
+        <img
+          src={phdWorkshop.images.hero}
+          alt="PhD admissions workshop"
+          width="800"
+          height="800"
+          loading="eager"
+          fetchpriority="high"
+          class="hero-image"
+        />
+      </figure>
+    </header>
+
+    <!-- What's included -->
+    <section class="section section--linen includes-section" aria-labelledby="includes-heading">
+      <div class="includes-layout">
+        <div class="includes-copy">
+          <h2 class="section-title" id="includes-heading">What&apos;s included</h2>
+          <ul class="includes-list" role="list">
+            {workshopIncludes.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+          <p class="section-note text-subhead">
+            The workshop is divided into modules that cover every aspect of the PhD application.
+          </p>
+        </div>
+        <figure class="includes-visual">
+          <img
+            src={phdWorkshop.images.includesPhoto}
+            alt="Katya celebrating Harvard graduation with diplomas"
+            width="727"
+            height="1024"
+            loading="lazy"
+            class="includes-photo"
+          />
+        </figure>
+      </div>
+    </section>
+
+    <!-- Results -->
+    <section class="section" aria-labelledby="results-heading">
+      <div class="section-inner-wide">
+        <h2 class="section-title" id="results-heading">What results will you get?</h2>
+        <ul class="results-grid" role="list">
+          {workshopResults.map((result) => (
+            <li class="result-item">{result}</li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- Modules -->
+    <section class="section section--linen program-section" aria-labelledby="program-heading">
+      <div class="program-layout">
+        <div class="program-copy">
+          <h2 class="section-title" id="program-heading">Here is what we will <em>cover</em></h2>
+          <p class="modules-subhead text-subhead">{modulesSubheadline}</p>
+          <ul class="module-list" role="list">
+            {workshopModuleDetails.map((module, index) => (
+              <li class="module-item">
+                <details class="module-details">
+                  <summary class="module-summary">
+                    <span class="module-number" aria-hidden="true">
+                      {String(index + 1).padStart(2, '0')}
+                    </span>
+                    <span class="module-title">{module.title}</span>
+                    <span class="module-toggle" aria-hidden="true">
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="module-toggle-v" d="M8 3v10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                        <path d="M3 8h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                      </svg>
+                    </span>
+                  </summary>
+                  <div class="module-body">
+                    {module.body && <p class="module-text">{module.body}</p>}
+                    {module.bullets && (
+                      <ul class="module-bullets" role="list">
+                        {module.bullets.map((item) => (
+                          <li>{item}</li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                </details>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Reviews -->
+    <section class="section reviews-section" aria-labelledby="reviews-heading">
+      <div class="section-inner-wide">
+        <h2 class="section-title" id="reviews-heading">Reviews</h2>
+        <div class="reviews-gallery">
+          {workshopReviews.map((review, i) => (
+            <figure class={`review-card review-card--${(i % 3) + 1}`}>
+              <img
+                src={review.src}
+                alt={review.alt}
+                width="400"
+                height="600"
+                loading="lazy"
+                class="review-image"
+              />
+              {'caption' in review && review.caption && (
+                <figcaption class="review-caption">{review.caption}</figcaption>
+              )}
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Leader -->
+    <section class="section leader-section" aria-labelledby="leader-heading">
+      <div class="leader-grid">
+        <figure class="leader-photo">
+          <img
+            src={phdWorkshop.images.leaderPhoto}
+            alt="Katya Ivshina"
+            width="500"
+            height="700"
+            loading="lazy"
+            class="leader-portrait"
+          />
+        </figure>
+        <div class="leader-copy">
+          <h2 class="section-title" id="leader-heading">Workshop leader: Katya Ivshina</h2>
+          {workshopLeaderBio.split('\n\n').map((para) => (
+            <p class="section-body text-subhead">{para}</p>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Audience -->
+    <section class="section section--linen" aria-labelledby="audience-heading">
+      <div class="section-inner-wide">
+        <h2 class="section-title" id="audience-heading">Who will benefit from this workshop</h2>
+        <ul class="audience-list" role="list">
+          {workshopAudience.map((item) => (
+            <li class="audience-item">
+              <h3 class="audience-title">{item.title}</h3>
+              <p class="audience-body">{item.body}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- Pain points -->
+    <section class="section pain-section" aria-labelledby="pain-heading">
+      <div class="section-inner-wide">
+        <h2 class="section-title" id="pain-heading">If right now&hellip;</h2>
+        <ul class="pain-list" role="list">
+          {workshopPainPoints.map((point) => (
+            <li>{point}</li>
+          ))}
+        </ul>
+        <p class="pain-closer text-subhead">
+          But you understand that a PhD degree is a step towards building your dream life and pursue
+          your dream career. <strong>This is for you.</strong>
+        </p>
+      </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="section section--linen pricing-section" id="signup" aria-labelledby="pricing-heading">
+      <div class="pricing-inner">
+        <p class="pricing-lead" id="pricing-heading">${phdWorkshop.price} · Sign up today</p>
+
+        <div class="pricing-grid">
+          <div class="pricing-option">
+            <h3 class="pricing-option-title">Book your spot today</h3>
+            <p class="pricing-option-meta">
+              Use PHD25 for 25% off early bird discount. Expires on Friday, August 7
+            </p>
+            <a
+              href={phdWorkshop.paymentUrl}
+              class="pricing-cta"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Sign up →
+            </a>
+          </div>
+        </div>
+
+        <p class="pricing-footnote">
+          Have any questions? Send an email to{' '}
+          <a href={`mailto:${phdWorkshop.contactEmail}`} class="inline-link">{phdWorkshop.contactEmail}</a>
+        </p>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .workshop-page {
+    /* More horizontal inset than site default (global.css: clamp(1.5rem, 5vw, 5rem)) */
+    --edge: clamp(1.75rem, 6.5vw, 6rem);
+    padding-top: 5.5rem;
+  }
+
+  .workshop-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(16rem, 28rem);
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: center;
+    max-width: 72rem;
+    margin-inline: auto;
+    padding: clamp(2.5rem, 5vw, 4rem) var(--edge) clamp(3rem, 6vw, 5rem);
+    border-bottom: 1px solid rgba(26, 25, 22, 0.08);
+  }
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 0.75rem;
+    font-optical-sizing: auto;
+  }
+
+  .hero-tagline {
+    max-width: 40ch;
+    margin-bottom: 1.75rem;
+    font-size: 1.0625rem;
+  }
+
+  .highlight-cards {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .highlight-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    padding: 0.85rem 1.1rem;
+    background: var(--cream-2);
+    border: 1px solid rgba(26, 25, 22, 0.08);
+    border-radius: 8px;
+    min-width: 6.5rem;
+  }
+
+  .highlight-label {
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    font-weight: 400;
+    color: var(--ink);
+  }
+
+  .highlight-detail {
+    font-size: 0.6875rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  .event-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-width: 48ch;
+  }
+
+  .event-detail {
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+  }
+
+  .event-detail strong {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  .workshop-hero-visual {
+    margin: 0;
+  }
+
+  .hero-image {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 0 1rem 2.5rem rgba(26, 25, 22, 0.12);
+  }
+
+  .section {
+    padding: var(--section) var(--edge);
+    border-bottom: 1px solid rgba(26, 25, 22, 0.08);
+  }
+
+  .section--linen {
+    background: var(--cream-2);
+  }
+
+  .section-inner-wide {
+    max-width: 52rem;
+    margin-inline: auto;
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    margin-bottom: 1.25rem;
+    font-optical-sizing: auto;
+  }
+
+  .section-title em {
+    font-style: italic;
+  }
+
+  .section-body {
+    max-width: 52ch;
+    margin-bottom: 1rem;
+  }
+
+  .section-note {
+    margin-top: 1.25rem;
+    max-width: 48ch;
+    color: var(--ink-2);
+  }
+
+  .includes-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(14rem, 22rem);
+    gap: clamp(2rem, 4vw, 3rem);
+    align-items: start;
+    max-width: 68rem;
+    margin-inline: auto;
+  }
+
+  .includes-visual {
+    margin: 0;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 1rem 2.5rem rgba(26, 25, 22, 0.12);
+  }
+
+  .includes-photo {
+    display: block;
+    width: 100%;
+    aspect-ratio: 727 / 1024;
+    object-fit: cover;
+    object-position: center 20%;
+  }
+
+  .includes-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  .includes-list li {
+    padding-left: 1.25rem;
+    position: relative;
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+  }
+
+  .includes-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 6px;
+    height: 6px;
+    background: #B5302A;
+    border-radius: 50%;
+  }
+
+  .results-grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
+    gap: 1rem;
+  }
+
+  .result-item {
+    padding: 1rem 1.1rem;
+    background: var(--cream-2);
+    border: 1px solid rgba(26, 25, 22, 0.08);
+    border-radius: 8px;
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    color: var(--ink-2);
+  }
+
+  .program-layout {
+    max-width: 52rem;
+    margin-inline: auto;
+  }
+
+  .program-copy {
+    padding-inline: clamp(1.25rem, 5vw, 2.5rem);
+  }
+
+  .modules-subhead {
+    max-width: 48ch;
+    margin-bottom: 0.25rem;
+    color: var(--ink-2);
+  }
+
+  .module-list {
+    list-style: none;
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .module-item {
+    border-bottom: 1px solid rgba(26, 25, 22, 0.1);
+  }
+
+  .module-item:first-child {
+    border-top: 1px solid rgba(26, 25, 22, 0.1);
+  }
+
+  .module-details {
+    background: var(--cream);
+    border-radius: 0;
+  }
+
+  .module-summary {
+    display: grid;
+    grid-template-columns: 2.75rem minmax(0, 1fr) 1.75rem;
+    gap: 1rem;
+    align-items: center;
+    padding: 1.125rem clamp(0.75rem, 3vw, 1.5rem);
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .module-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .module-summary::marker {
+    content: '';
+  }
+
+  .module-summary:hover .module-title {
+    color: var(--ink);
+  }
+
+  .module-number {
+    font-family: var(--font-display);
+    font-size: 0.875rem;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.04em;
+    color: var(--ink-3);
+  }
+
+  .module-title {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.45;
+    color: var(--ink-2);
+    transition: color 0.2s;
+  }
+
+  .module-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    color: var(--ink-3);
+    border: 1px solid rgba(26, 25, 22, 0.12);
+    border-radius: 50%;
+    background: var(--cream-2);
+    transition: color 0.2s, border-color 0.2s, background 0.2s;
+  }
+
+  .module-details[open] .module-toggle {
+    color: #B5302A;
+    border-color: rgba(181, 48, 42, 0.25);
+    background: rgba(181, 48, 42, 0.06);
+  }
+
+  .module-details[open] .module-toggle-v {
+    opacity: 0;
+  }
+
+  .module-toggle-v {
+    transition: opacity 0.2s;
+  }
+
+  .module-body {
+    padding: 0 clamp(0.75rem, 3vw, 1.5rem) 1.25rem
+      calc(clamp(0.75rem, 3vw, 1.5rem) + 2.75rem + 1rem);
+  }
+
+  .module-text {
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    color: var(--ink-2);
+    max-width: 48ch;
+    margin-bottom: 0.75rem;
+  }
+
+  .module-text:last-child {
+    margin-bottom: 0;
+  }
+
+  .module-bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    max-width: 48ch;
+  }
+
+  .module-bullets li {
+    position: relative;
+    padding-left: 1.1rem;
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+  }
+
+  .module-bullets li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 5px;
+    height: 5px;
+    background: #B5302A;
+    border-radius: 50%;
+  }
+
+  @media (max-width: 820px) {
+    .program-copy {
+      padding-inline: clamp(1rem, 4vw, 1.75rem);
+    }
+
+    .module-summary {
+      padding-inline: clamp(0.5rem, 2.5vw, 1rem);
+    }
+
+    .module-body {
+      padding: 0 clamp(0.5rem, 2.5vw, 1rem) 1.25rem
+        calc(clamp(0.5rem, 2.5vw, 1rem) + 2.75rem + 1rem);
+    }
+  }
+
+  .reviews-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
+    gap: 1.25rem;
+    max-width: 72rem;
+  }
+
+  .review-card {
+    position: relative;
+    margin: 0;
+    padding: 0.85rem;
+    background: #FAF8F3;
+    border: 1px solid rgba(26, 25, 22, 0.1);
+    border-radius: 10px;
+    box-shadow:
+      0 1px 2px rgba(26, 25, 22, 0.04),
+      0 8px 24px rgba(26, 25, 22, 0.06);
+    transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                box-shadow 0.35s;
+  }
+
+  .review-card:hover {
+    transform: translateY(-3px) rotate(0deg) !important;
+    box-shadow:
+      0 2px 4px rgba(26, 25, 22, 0.06),
+      0 14px 32px rgba(26, 25, 22, 0.08);
+  }
+
+  .review-card--1 { transform: rotate(-0.4deg); }
+  .review-card--2 { transform: rotate(0.3deg); }
+  .review-card--3 { transform: rotate(-0.2deg); }
+
+  .review-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+  }
+
+  .review-caption {
+    margin-top: 0.65rem;
+    font-family: var(--font-display);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    font-style: italic;
+    text-align: center;
+    color: var(--ink);
+  }
+
+  .leader-grid {
+    display: grid;
+    grid-template-columns: minmax(14rem, 20rem) minmax(0, 1fr);
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: start;
+    max-width: 68rem;
+    margin-inline: auto;
+  }
+
+  .leader-photo {
+    margin: 0;
+    position: relative;
+  }
+
+  .leader-portrait {
+    display: block;
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    object-position: center top;
+    border-radius: 8px;
+    box-shadow: 0 1rem 2.5rem rgba(26, 25, 22, 0.12);
+  }
+
+  .audience-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .audience-title {
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 0.35rem;
+  }
+
+  .audience-body {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--ink-2);
+    max-width: 52ch;
+  }
+
+  .pain-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .pain-list li {
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    color: var(--ink-2);
+    padding-left: 1.1rem;
+    position: relative;
+  }
+
+  .pain-list li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--ink-3);
+  }
+
+  .pain-closer {
+    max-width: 48ch;
+    font-size: 1rem;
+  }
+
+  .pain-closer strong {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  .pricing-inner {
+    max-width: 40rem;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .pricing-lead {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 2rem;
+  }
+
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+    text-align: left;
+  }
+
+  .pricing-option {
+    padding: 1.5rem;
+    background: var(--cream);
+    border: 1px solid rgba(26, 25, 22, 0.08);
+    border-radius: 10px;
+  }
+
+  .pricing-option-title {
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    font-weight: 400;
+    margin-bottom: 0.35rem;
+  }
+
+  .pricing-option-meta {
+    font-size: 0.8125rem;
+    color: var(--ink);
+    margin-bottom: 1.25rem;
+  }
+
+  .pricing-cta {
+    display: inline-block;
+    padding: 0.85rem 1.35rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--cream);
+    background: #B5302A;
+    border-radius: 999px;
+    transition: background 0.2s, transform 0.2s;
+  }
+
+  .pricing-cta:hover {
+    background: #952822;
+    transform: translateY(-1px);
+  }
+
+  .pricing-footnote {
+    font-size: 0.875rem;
+    color: var(--ink-2);
+    line-height: 1.55;
+  }
+
+  .inline-link {
+    color: #B5302A;
+    border-bottom: 1px solid rgba(181, 48, 42, 0.3);
+    transition: border-color 0.2s;
+  }
+
+  .inline-link:hover {
+    border-color: #B5302A;
+  }
+
+  @media (max-width: 820px) {
+    .workshop-hero {
+      grid-template-columns: 1fr;
+    }
+
+    .workshop-hero-visual {
+      order: -1;
+      max-width: 20rem;
+      margin-inline: auto;
+    }
+
+    .includes-layout,
+    .leader-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .includes-visual {
+      display: none;
+    }
+
+    .reviews-gallery {
+      display: flex;
+      gap: 1rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 0.5rem;
+      margin-inline: calc(-1 * var(--edge));
+      padding-inline: var(--edge);
+    }
+
+    .review-card {
+      flex: 0 0 min(78vw, 16rem);
+      scroll-snap-align: start;
+    }
+  }
+</style>
