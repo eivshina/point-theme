@@ -156,9 +156,9 @@ const modulesSubheadline =
                   <img
                     src={review.src}
                     alt={pass === 1 ? '' : review.alt}
-                    width="400"
-                    height="600"
-                    loading="lazy"
+                    width={review.width}
+                    height={review.height}
+                    decoding="async"
                     class="review-image"
                   />
                   {'caption' in review && review.caption && (
@@ -623,26 +623,37 @@ const modulesSubheadline =
     }
   }
 
-  /* Full-bleed marquee: drifts left → right, pauses on hover/focus. */
+  /* Full-bleed marquee: drifts left → right, pauses on hover/focus.
+     Edge fades use overlays rather than mask-image — masking this very wide
+     animated track blanks the whole strip on some mobile GPUs. */
   .reviews-marquee {
     --review-gap: 1.25rem;
+    --review-fade: clamp(1.25rem, 6vw, 5rem);
+    position: relative;
     margin-top: 1.75rem;
     margin-inline: calc(-1 * var(--edge));
     overflow: hidden;
-    mask-image: linear-gradient(
-      to right,
-      transparent,
-      #000 clamp(1.5rem, 6vw, 5rem),
-      #000 calc(100% - clamp(1.5rem, 6vw, 5rem)),
-      transparent
-    );
-    -webkit-mask-image: linear-gradient(
-      to right,
-      transparent,
-      #000 clamp(1.5rem, 6vw, 5rem),
-      #000 calc(100% - clamp(1.5rem, 6vw, 5rem)),
-      transparent
-    );
+  }
+
+  .reviews-marquee::before,
+  .reviews-marquee::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: var(--review-fade);
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .reviews-marquee::before {
+    left: 0;
+    background: linear-gradient(to right, var(--cream), rgba(245, 242, 236, 0));
+  }
+
+  .reviews-marquee::after {
+    right: 0;
+    background: linear-gradient(to left, var(--cream), rgba(245, 242, 236, 0));
   }
 
   .reviews-track {

@@ -18,26 +18,32 @@ export const phdWorkshop = {
   },
 } as const;
 
+const REVIEW_ALT = 'Workshop participant review';
+
+/** Intrinsic pixel sizes — each screenshot has a different aspect ratio, so the
+ *  card must reserve the right height to avoid layout shift in the marquee. */
 export const workshopReviews = [
   {
     src: '/phd-admissions/workshop/reviews/review-01.png',
-    alt: 'Workshop participant review',
+    alt: REVIEW_ALT,
+    width: 830,
+    height: 519,
     caption: 'Stanford CS PhD admit',
   },
-  { src: '/phd-admissions/workshop/reviews/review-13.png', alt: 'Workshop participant review' },
-  { src: '/phd-admissions/workshop/reviews/review-02.png', alt: 'Workshop participant review' },
-  { src: '/phd-admissions/workshop/reviews/review-03.png', alt: 'Workshop participant review' },
-  { src: '/phd-admissions/workshop/reviews/review-04.png', alt: 'Workshop participant review' },
-  { src: '/phd-admissions/workshop/reviews/review-05.png', alt: 'Workshop participant review' },
-  { src: '/phd-admissions/workshop/reviews/review-06.png', alt: 'Workshop participant review' },
-  { src: '/phd-admissions/workshop/reviews/review-07.png', alt: 'Workshop participant review' },
-  { src: '/phd-admissions/workshop/reviews/review-08.png', alt: 'Workshop participant review' },
-  { src: '/phd-admissions/workshop/reviews/review-09.png', alt: 'Workshop participant review' },
-  { src: '/phd-admissions/workshop/reviews/review-10.png', alt: 'Workshop participant review' },
-  { src: '/phd-admissions/workshop/reviews/review-12.png', alt: 'Workshop participant review' },
-  { src: '/phd-admissions/workshop/reviews/review-14.png', alt: 'Workshop participant review' },
-  { src: '/phd-admissions/workshop/reviews/review-15.png', alt: 'Workshop participant review' },
-  { src: '/phd-admissions/workshop/reviews/review-16.png', alt: 'Workshop participant review' },
+  { src: '/phd-admissions/workshop/reviews/review-13.png', alt: REVIEW_ALT, width: 1024, height: 345 },
+  { src: '/phd-admissions/workshop/reviews/review-02.png', alt: REVIEW_ALT, width: 1024, height: 544 },
+  { src: '/phd-admissions/workshop/reviews/review-03.png', alt: REVIEW_ALT, width: 1024, height: 709 },
+  { src: '/phd-admissions/workshop/reviews/review-04.png', alt: REVIEW_ALT, width: 1024, height: 324 },
+  { src: '/phd-admissions/workshop/reviews/review-05.png', alt: REVIEW_ALT, width: 1024, height: 546 },
+  { src: '/phd-admissions/workshop/reviews/review-06.png', alt: REVIEW_ALT, width: 1024, height: 268 },
+  { src: '/phd-admissions/workshop/reviews/review-07.png', alt: REVIEW_ALT, width: 1024, height: 509 },
+  { src: '/phd-admissions/workshop/reviews/review-08.png', alt: REVIEW_ALT, width: 1024, height: 508 },
+  { src: '/phd-admissions/workshop/reviews/review-09.png', alt: REVIEW_ALT, width: 1020, height: 421 },
+  { src: '/phd-admissions/workshop/reviews/review-10.png', alt: REVIEW_ALT, width: 1024, height: 344 },
+  { src: '/phd-admissions/workshop/reviews/review-12.png', alt: REVIEW_ALT, width: 1024, height: 1002 },
+  { src: '/phd-admissions/workshop/reviews/review-14.png', alt: REVIEW_ALT, width: 1024, height: 214 },
+  { src: '/phd-admissions/workshop/reviews/review-15.png', alt: REVIEW_ALT, width: 1024, height: 644 },
+  { src: '/phd-admissions/workshop/reviews/review-16.png', alt: REVIEW_ALT, width: 955, height: 1024 },
 ] as const;
 
 export const workshopHighlights = [
