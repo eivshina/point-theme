@@ -29,6 +29,10 @@ const navSoloLinks = [
 
 const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 
+const hidePrimaryNav =
+  currentPath === '/phd-admissions/workshop' ||
+  currentPath.startsWith('/phd-admissions/workshop/');
+
 function soloIsActive(href: string) {
   return currentPath === href || currentPath.startsWith(`${href}/`);
 }
@@ -46,7 +50,8 @@ function groupIsActive(links: { href: string }[]) {
     </a>
 
     <!-- Desktop nav -->
-    <nav class="desktop-nav" aria-label="Primary navigation">
+    {!hidePrimaryNav && (
+      <nav class="desktop-nav" aria-label="Primary navigation">
       <ul class="nav-root" role="list">
         {navGroups.map((group) => (
           <li
@@ -97,9 +102,11 @@ function groupIsActive(links: { href: string }[]) {
         )}
       </ul>
     </nav>
+    )}
 
     <!-- Mobile toggle -->
-    <button
+    {!hidePrimaryNav && (
+      <button
       class="nav-toggle"
       id="nav-toggle"
       aria-label="Open navigation"
@@ -109,11 +116,13 @@ function groupIsActive(links: { href: string }[]) {
       <span class="bar"></span>
       <span class="bar"></span>
     </button>
+    )}
 
   </div>
 </header>
 
 <!-- Mobile nav overlay -->
+{!hidePrimaryNav && (
 <nav
   class="mobile-nav"
   id="mobile-nav"
@@ -160,6 +169,7 @@ function groupIsActive(links: { href: string }[]) {
     </ul>
   </div>
 </nav>
+)}
 
 <style>
   .site-header {
@@ -409,8 +419,8 @@ function groupIsActive(links: { href: string }[]) {
 
 <script>
   const header    = document.getElementById('site-header')!;
-  const toggle    = document.getElementById('nav-toggle') as HTMLButtonElement;
-  const mobileNav = document.getElementById('mobile-nav') as HTMLElement;
+  const toggle    = document.getElementById('nav-toggle') as HTMLButtonElement | null;
+  const mobileNav = document.getElementById('mobile-nav') as HTMLElement | null;
 
   const onScroll = () => {
     header.classList.toggle('is-scrolled', window.scrollY > 60);
@@ -418,23 +428,25 @@ function groupIsActive(links: { href: string }[]) {
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
-  toggle.addEventListener('click', () => {
-    const isOpen = toggle.getAttribute('aria-expanded') === 'true';
-    const next   = !isOpen;
-    toggle.setAttribute('aria-expanded', String(next));
-    toggle.setAttribute('aria-label', next ? 'Close navigation' : 'Open navigation');
-    mobileNav.hidden = !next;
-    document.body.style.overflow = next ? 'hidden' : '';
-  });
-
-  mobileNav.querySelectorAll('a').forEach((a) => {
-    a.addEventListener('click', () => {
-      toggle.setAttribute('aria-expanded', 'false');
-      toggle.setAttribute('aria-label', 'Open navigation');
-      mobileNav.hidden = true;
-      document.body.style.overflow = '';
+  if (toggle && mobileNav) {
+    toggle.addEventListener('click', () => {
+      const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+      const next   = !isOpen;
+      toggle.setAttribute('aria-expanded', String(next));
+      toggle.setAttribute('aria-label', next ? 'Close navigation' : 'Open navigation');
+      mobileNav.hidden = !next;
+      document.body.style.overflow = next ? 'hidden' : '';
     });
-  });
+
+    mobileNav.querySelectorAll('a').forEach((a) => {
+      a.addEventListener('click', () => {
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-label', 'Open navigation');
+        mobileNav.hidden = true;
+        document.body.style.overflow = '';
+      });
+    });
+  }
 
   // Sync aria-expanded on desktop dropdown triggers (keyboard)
   document.querySelectorAll<HTMLButtonElement>('.nav-trigger').forEach((btn) => {
