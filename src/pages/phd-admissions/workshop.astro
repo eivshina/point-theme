@@ -147,27 +147,31 @@ const modulesSubheadline =
       </div>
 
       <div class="reviews-marquee">
-        {/* Two identical sets: the track loops seamlessly at -50%. */}
-        <div class="reviews-track">
-          {[0, 1].map((pass) => (
-            <div class="reviews-set" aria-hidden={pass === 1 ? 'true' : undefined}>
-              {workshopReviews.map((review, i) => (
-                <figure class={`review-card review-card--${(i % 3) + 1}`}>
-                  <img
-                    src={review.src}
-                    alt={pass === 1 ? '' : review.alt}
-                    width={review.width}
-                    height={review.height}
-                    decoding="async"
-                    class="review-image"
-                  />
-                  {'caption' in review && review.caption && (
-                    <figcaption class="review-caption">{review.caption}</figcaption>
-                  )}
-                </figure>
-              ))}
-            </div>
-          ))}
+        {/* Scrolled by script rather than a CSS transform: the full track is
+            ~10,000px wide, which exceeds the max composited layer size on iOS
+            and leaves the strip blank. Scrolling paints only visible tiles. */}
+        <div class="reviews-viewport">
+          <div class="reviews-track">
+            {[0, 1].map((pass) => (
+              <div class="reviews-set" aria-hidden={pass === 1 ? 'true' : undefined}>
+                {workshopReviews.map((review, i) => (
+                  <figure class={`review-card review-card--${(i % 3) + 1}`}>
+                    <img
+                      src={review.src}
+                      alt={pass === 1 ? '' : review.alt}
+                      width={review.width}
+                      height={review.height}
+                      decoding="async"
+                      class="review-image"
+                    />
+                    {'caption' in review && review.caption && (
+                      <figcaption class="review-caption">{review.caption}</figcaption>
+                    )}
+                  </figure>
+                ))}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
@@ -656,15 +660,23 @@ const modulesSubheadline =
     background: linear-gradient(to left, var(--cream), rgba(245, 242, 236, 0));
   }
 
+  /* The scrolling element — fades live on the static parent so they stay put. */
+  .reviews-viewport {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .reviews-viewport::-webkit-scrollbar {
+    display: none;
+  }
+
   .reviews-track {
     display: flex;
     width: max-content;
-    animation: reviews-drift 80s linear infinite;
-  }
-
-  .reviews-marquee:hover .reviews-track,
-  .reviews-marquee:focus-within .reviews-track {
-    animation-play-state: paused;
   }
 
   .reviews-set {
@@ -674,11 +686,6 @@ const modulesSubheadline =
     /* Half-gap on each side keeps spacing even across the loop seam. */
     padding-inline: calc(var(--review-gap) / 2);
     padding-block: 0.5rem;
-  }
-
-  @keyframes reviews-drift {
-    from { transform: translateX(-50%); }
-    to   { transform: translateX(0); }
   }
 
   .review-card {
@@ -910,11 +917,6 @@ const modulesSubheadline =
       display: none;
     }
 
-    .reviews-track {
-      /* Shorter loop on narrow screens keeps the pace readable. */
-      animation-duration: 55s;
-    }
-
     .review-card {
       /* Wider cards so the screenshot text stays legible on phones. */
       flex: 0 0 min(84vw, 22rem);
@@ -923,19 +925,88 @@ const modulesSubheadline =
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .reviews-marquee {
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    .reviews-track {
-      animation: none;
-      transform: none;
-    }
-
-    /* The duplicate set only exists to make the loop seamless. */
+    /* Script skips auto-scroll; the strip stays swipeable, so the duplicate
+       set is redundant. */
     .reviews-set[aria-hidden='true'] {
       display: none;
     }
   }
 </style>
+
+<script>
+  const viewport = document.querySelector<HTMLElement>('.reviews-viewport');
+  const firstSet = document.querySelector<HTMLElement>('.reviews-set');
+
+  if (viewport && firstSet) {
+    const PIXELS_PER_SECOND = 32;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    let setWidth = 0;
+    let paused = false;
+    let frameId = 0;
+    let lastFrame = 0;
+
+    const measure = () => {
+      setWidth = firstSet.getBoundingClientRect().width;
+    };
+
+    /** Drifts the strip left-to-right, wrapping on the duplicated set. */
+    const step = (now: number) => {
+      const elapsed = lastFrame ? (now - lastFrame) / 1000 : 0;
+      lastFrame = now;
+
+      // Guard against a large jump after the tab has been backgrounded.
+      if (!paused && setWidth > 0 && elapsed > 0 && elapsed < 0.5) {
+        let next = viewport.scrollLeft - PIXELS_PER_SECOND * elapsed;
+        if (next <= 0) next += setWidth;
+        viewport.scrollLeft = next;
+      }
+
+      frameId = requestAnimationFrame(step);
+    };
+
+    const start = () => {
+      if (frameId || reducedMotion.matches) return;
+      measure();
+      if (setWidth <= 0) return;
+      if (viewport.scrollLeft <= 0) viewport.scrollLeft = setWidth;
+      lastFrame = 0;
+      frameId = requestAnimationFrame(step);
+    };
+
+    const stop = () => {
+      if (!frameId) return;
+      cancelAnimationFrame(frameId);
+      frameId = 0;
+    };
+
+    const setPaused = (value: boolean) => () => {
+      paused = value;
+    };
+
+    for (const event of ['pointerenter', 'focusin', 'touchstart'] as const) {
+      viewport.addEventListener(event, setPaused(true), { passive: true });
+    }
+    for (const event of ['pointerleave', 'focusout', 'touchend', 'touchcancel'] as const) {
+      viewport.addEventListener(event, setPaused(false), { passive: true });
+    }
+
+    window.addEventListener('resize', measure, { passive: true });
+    reducedMotion.addEventListener('change', () => {
+      if (reducedMotion.matches) stop();
+      else start();
+    });
+
+    // Only burn frames while the strip is actually on screen.
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) start();
+          else stop();
+        }
+      },
+      { rootMargin: '200px' },
+    );
+    observer.observe(viewport);
+  }
+</script>
