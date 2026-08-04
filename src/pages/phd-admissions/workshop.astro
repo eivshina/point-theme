@@ -633,6 +633,15 @@ const modulesSubheadline =
   .reviews-marquee {
     --review-gap: 1.25rem;
     --review-fade: clamp(1.25rem, 6vw, 5rem);
+    /* Screenshots range from 4.8:1 to 0.9:1. Cards share one height and take
+       their width from the image, so the strip reads as an even filled band
+       instead of a ragged row with gaps. */
+    --review-card-height: clamp(14rem, 25vw, 18rem);
+    --review-card-padding: 0.85rem;
+    --review-caption-space: 1.65rem;
+    --review-image-height: calc(
+      var(--review-card-height) - 2 * var(--review-card-padding)
+    );
     position: relative;
     margin-top: 1.75rem;
     margin-inline: calc(-1 * var(--edge));
@@ -681,7 +690,7 @@ const modulesSubheadline =
 
   .reviews-set {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: var(--review-gap);
     /* Half-gap on each side keeps spacing even across the loop seam. */
     padding-inline: calc(var(--review-gap) / 2);
@@ -690,9 +699,14 @@ const modulesSubheadline =
 
   .review-card {
     position: relative;
-    flex: 0 0 clamp(15rem, 74vw, 21rem);
+    flex: 0 0 auto;
+    height: var(--review-card-height);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     margin: 0;
-    padding: 0.85rem;
+    padding: var(--review-card-padding);
     background: #FAF8F3;
     border: 1px solid rgba(26, 25, 22, 0.1);
     border-radius: 10px;
@@ -714,11 +728,17 @@ const modulesSubheadline =
   .review-card--2 { transform: rotate(0.3deg); }
   .review-card--3 { transform: rotate(-0.2deg); }
 
+  /* A definite height is what makes the card shrink to the rendered width
+     rather than the screenshot's much larger intrinsic width. */
   .review-image {
     display: block;
-    width: 100%;
-    height: auto;
+    height: var(--review-image-height);
+    width: auto;
     border-radius: 6px;
+  }
+
+  .review-card:has(.review-caption) .review-image {
+    height: calc(var(--review-image-height) - var(--review-caption-space));
   }
 
   .review-caption {
@@ -917,10 +937,12 @@ const modulesSubheadline =
       display: none;
     }
 
+    .reviews-marquee {
+      --review-card-height: 14rem;
+    }
+
     .review-card {
-      /* Wider cards so the screenshot text stays legible on phones. */
-      flex: 0 0 min(84vw, 22rem);
-      padding: 1.1rem;
+      padding: 0.75rem;
     }
   }
 
@@ -945,6 +967,9 @@ const modulesSubheadline =
     let paused = false;
     let frameId = 0;
     let lastFrame = 0;
+    // Tracked as a float: reading scrollLeft back each frame lets sub-pixel
+    // snapping quantise the step, which makes the pace framerate-dependent.
+    let offset = 0;
 
     const measure = () => {
       setWidth = firstSet.getBoundingClientRect().width;
@@ -952,14 +977,18 @@ const modulesSubheadline =
 
     /** Drifts the strip left-to-right, wrapping on the duplicated set. */
     const step = (now: number) => {
-      const elapsed = lastFrame ? (now - lastFrame) / 1000 : 0;
+      // Clamped rather than skipped: a slow frame should scroll less, not
+      // stall the strip, and a backgrounded tab should not jump on return.
+      const elapsed = lastFrame ? Math.min((now - lastFrame) / 1000, 0.1) : 0;
       lastFrame = now;
 
-      // Guard against a large jump after the tab has been backgrounded.
-      if (!paused && setWidth > 0 && elapsed > 0 && elapsed < 0.5) {
-        let next = viewport.scrollLeft - PIXELS_PER_SECOND * elapsed;
-        if (next <= 0) next += setWidth;
-        viewport.scrollLeft = next;
+      if (!paused && setWidth > 0 && elapsed > 0) {
+        // Adopt the visitor's position if they scrolled the strip themselves.
+        if (Math.abs(viewport.scrollLeft - offset) > 2) offset = viewport.scrollLeft;
+
+        offset -= PIXELS_PER_SECOND * elapsed;
+        if (offset <= 0) offset += setWidth;
+        viewport.scrollLeft = offset;
       }
 
       frameId = requestAnimationFrame(step);
@@ -969,7 +998,9 @@ const modulesSubheadline =
       if (frameId || reducedMotion.matches) return;
       measure();
       if (setWidth <= 0) return;
+      // Start on the second copy so there is room to drift rightwards.
       if (viewport.scrollLeft <= 0) viewport.scrollLeft = setWidth;
+      offset = viewport.scrollLeft;
       lastFrame = 0;
       frameId = requestAnimationFrame(step);
     };
@@ -984,10 +1015,18 @@ const modulesSubheadline =
       paused = value;
     };
 
-    for (const event of ['pointerenter', 'focusin', 'touchstart'] as const) {
+    // Hover pausing is bound only on hover-capable devices: on touch screens a
+    // tap fires pointerenter with no matching pointerleave, which would latch
+    // the strip paused for good.
+    if (window.matchMedia('(hover: hover)').matches) {
+      viewport.addEventListener('pointerenter', setPaused(true), { passive: true });
+      viewport.addEventListener('pointerleave', setPaused(false), { passive: true });
+    }
+
+    for (const event of ['focusin', 'touchstart'] as const) {
       viewport.addEventListener(event, setPaused(true), { passive: true });
     }
-    for (const event of ['pointerleave', 'focusout', 'touchend', 'touchcancel'] as const) {
+    for (const event of ['focusout', 'touchend', 'touchcancel', 'pointercancel'] as const) {
       viewport.addEventListener(event, setPaused(false), { passive: true });
     }
 
