@@ -46,6 +46,15 @@ const modulesSubheadline =
             The Zoom link will be sent to your email before the event. A recording will be provided afterwards.
           </p>
         </div>
+
+        <a
+          href={phdWorkshop.paymentUrl}
+          class="workshop-cta hero-cta"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Sign up →
+        </a>
       </div>
 
       <figure class="workshop-hero-visual">
@@ -242,7 +251,7 @@ const modulesSubheadline =
             </p>
             <a
               href={phdWorkshop.paymentUrl}
-              class="pricing-cta"
+              class="workshop-cta"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -333,6 +342,10 @@ const modulesSubheadline =
     flex-direction: column;
     gap: 0.5rem;
     max-width: 48ch;
+  }
+
+  .hero-cta {
+    margin-top: 1.75rem;
   }
 
   .event-detail {
@@ -883,7 +896,8 @@ const modulesSubheadline =
     text-align: center;
   }
 
-  .pricing-cta {
+  /* Shared by the hero and pricing sign-up buttons. */
+  .workshop-cta {
     display: inline-block;
     padding: 0.85rem 1.35rem;
     font-size: 0.8125rem;
@@ -896,7 +910,7 @@ const modulesSubheadline =
     transition: background 0.2s, transform 0.2s;
   }
 
-  .pricing-cta:hover {
+  .workshop-cta:hover {
     background: #952822;
     transform: translateY(-1px);
   }
